@@ -22,97 +22,116 @@ namespace Triggleh
             // new Config();
         }
 
-        public void register(FormPresenter FP)
+        public void Register(FormPresenter FP)
         {
             presenter = FP;
         }
 
-        public string triggerName
+        public string TriggerName
         {
             set { txt_TriggerName.Text = value; }
             get { return txt_TriggerName.Text; }
         }
 
-        public bool bitsEnabled
+        public bool BitsEnabled
         {
             set { chk_Bits.Checked = value; }
             get { return chk_Bits.Checked; }
         }
 
-        public int bitsCondition
+        public int BitsCondition
         {
             set { cmb_Bits.SelectedIndex = value; }
             get { return cmb_Bits.SelectedIndex; }
         }
 
-        public bool bitsConditionEnabled
+        public bool BitsConditionEnabled
         {
             set { cmb_Bits.Enabled = value; }
             get { return cmb_Bits.Enabled; }
         }
 
-        public int bitsAmount1
+        public int BitsAmount1
         {
             set { nud_Bits1.Value = value; }
             get { return (int) nud_Bits1.Value; }
         }
 
-        public bool bitsAmount1Enabled
+        public bool BitsAmount1Enabled
         {
             set { nud_Bits1.Enabled = value; }
             get { return nud_Bits1.Enabled; }
         }
 
-        public int bitsAmount2
+        public int BitsAmount2
         {
             set { nud_Bits2.Value = value; }
             get { return (int) nud_Bits2.Value; }
         }
 
-        public bool bitsAmount2Visible
+        public bool BitsAmount2Visible
         {
             set { nud_Bits2.Visible = value; }
             get { return nud_Bits2.Visible; }
         }
 
-        public string bitsInfo1
+        public string BitsInfo1
         {
             set { lbl_BitsInfo1.Text = value; }
             get { return lbl_BitsInfo1.Text; }
         }
 
-        public bool bitsInfo2
+        public bool BitsInfo2
         {
             set { lbl_BitsInfo2.Visible = value; }
             get { return lbl_BitsInfo2.Visible; }
         }
 
-        public bool userlevelEveryone
+        public bool UserLevelEveryone
         {
             set { chk_ULEveryone.Checked = value; }
             get { return chk_ULEveryone.Checked; }
         }
 
-        public bool userlevelSubs
+        public bool UserLevelSubs
         {
             set { chk_ULSubs.Checked = value; }
             get { return chk_ULSubs.Checked; }
         }
+        public bool UserLevelSubsEnabled
+        {
+            set { chk_ULSubs.Enabled = value; }
+            get { return chk_ULSubs.Enabled; }
+        }
 
-        public bool userlevelMods
+        public bool UserLevelMods
         {
             set { chk_ULMods.Checked = value; }
             get { return chk_ULMods.Checked; }
         }
 
+        public bool UserLevelModsEnabled
+        {
+            set { chk_ULMods.Enabled = value; }
+            get { return chk_ULMods.Enabled; }
+        }
+
+        public string Keyword
+        {
+            set { txt_Keywords.Text = value; }
+            get { return txt_Keywords.Text; }
+        }
+
         public int AddKeyword(string keyword)
         {
+            txt_Keywords.Clear();
             return lst_Keywords.Items.Add(keyword);
         }
 
         public void RemoveKeyword(int index)
         {
             lst_Keywords.Items.RemoveAt(index);
+            lst_Keywords.SelectedIndex = lst_Keywords.Items.Count - 1;
         }
 
         public void ClearKeywords()
@@ -121,7 +140,13 @@ namespace Triggleh
             lst_Keywords.Items.Clear();
         }
 
-        public string charanimTriggerKey
+        public int KeywordsIndex
+        {
+            set { lst_Keywords.SelectedIndex = value; }
+            get { return lst_Keywords.SelectedIndex; }
+        }
+
+        public string CharAnimTriggerKey
         {
             set { lbl_CHTriggerKey.Text = value; }
             get { return lbl_CHTriggerKey.Text; }
@@ -129,26 +154,86 @@ namespace Triggleh
 
         public void ResetDetails()
         {
-            triggerName = "";
-            bitsEnabled = false;
-            bitsCondition = -1;
-            bitsConditionEnabled = false;
-            bitsAmount1 = 0;
-            bitsAmount1Enabled = false;
-            bitsInfo1 = "bits";
-            bitsAmount2 = 0;
-            bitsAmount2Visible = false;
-            bitsInfo2 = false;
-            userlevelEveryone = true;
-            userlevelSubs = false;
-            userlevelMods = false;
+            TriggerName = "";
+            BitsEnabled = false;
+            EnableBits(false);
+            UserLevelEveryone = true;
+            AllowSubsMods(false);
             ClearKeywords();
-            charanimTriggerKey = "None";
+            CharAnimTriggerKey = "None";
         }
 
-        private void btn_SaveTrigger_Click(object sender, EventArgs e)
+        public void EnableBits(bool enabled)
+        {
+            BitsCondition = (enabled) ? 0 : -1;
+            BitsConditionEnabled = enabled;
+            BitsAmount1 = 0;
+            BitsAmount1Enabled = enabled;
+            BitsInfo1 = "bits";
+            BitsAmount2 = 0;
+            BitsAmount2Visible = false;
+            BitsInfo2 = false;
+        }
+
+        public void EnableBitsBetween(bool enabled)
+        {
+            BitsInfo1 = (enabled) ? "and" : "bits";
+            BitsAmount2 = 0;
+            BitsAmount2Visible = enabled;
+            BitsInfo2 = enabled;
+        }
+
+        public void AllowSubsMods(bool allowed)
+        {
+            UserLevelSubs = false;
+            UserLevelSubsEnabled = allowed;
+            UserLevelMods = false;
+            UserLevelModsEnabled = allowed;
+        }
+
+        public void SetKeywordIndex(int index)
+        {
+            lst_Keywords.SelectedIndex = index;
+        }
+
+        public void SetAddKeywordAccept()
+        {
+            ActiveForm.AcceptButton = btn_AddKeyword;
+        }
+
+        private void Btn_SaveTrigger_Click(object sender, EventArgs e)
         {
             // save trigger
+        }
+
+        private void Chk_Bits_CheckedChanged(object sender, EventArgs e)
+        {
+            presenter.Chk_Bits_CheckedChanged();
+        }
+
+        private void Cmb_Bits_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            presenter.Cmb_Bits_SelectedIndexChanged();
+        }
+
+        private void Chk_ULEveryone_CheckedChanged(object sender, EventArgs e)
+        {
+            presenter.Chk_ULEveryone_CheckedChanged();
+        }
+
+        private void Txt_Keywords_Enter(object sender, EventArgs e)
+        {
+            presenter.Txt_Keywords_Enter();
+        }
+
+        private void Btn_AddKeyword_Click(object sender, EventArgs e)
+        {
+            presenter.Btn_AddKeyword_Click();
+        }
+
+        private void Btn_RemoveKeyword_Click(object sender, EventArgs e)
+        {
+            presenter.Btn_RemoveKeyword_Click();
         }
     }
 }

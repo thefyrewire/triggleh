@@ -147,7 +147,7 @@
             this.btn_SaveTrigger.TabIndex = 3;
             this.btn_SaveTrigger.Text = "Save";
             this.btn_SaveTrigger.UseVisualStyleBackColor = true;
-            this.btn_SaveTrigger.Click += new System.EventHandler(this.btn_SaveTrigger_Click);
+            this.btn_SaveTrigger.Click += new System.EventHandler(this.Btn_SaveTrigger_Click);
             // 
             // btn_RecordTrigger
             // 
@@ -239,6 +239,7 @@
             this.txt_Keywords.Name = "txt_Keywords";
             this.txt_Keywords.Size = new System.Drawing.Size(207, 30);
             this.txt_Keywords.TabIndex = 13;
+            this.txt_Keywords.Enter += new System.EventHandler(this.Txt_Keywords_Enter);
             // 
             // btn_RemoveKeyword
             // 
@@ -249,6 +250,7 @@
             this.btn_RemoveKeyword.TabIndex = 12;
             this.btn_RemoveKeyword.Text = "Remove";
             this.btn_RemoveKeyword.UseVisualStyleBackColor = true;
+            this.btn_RemoveKeyword.Click += new System.EventHandler(this.Btn_RemoveKeyword_Click);
             // 
             // btn_AddKeyword
             // 
@@ -259,6 +261,7 @@
             this.btn_AddKeyword.TabIndex = 11;
             this.btn_AddKeyword.Text = "Add";
             this.btn_AddKeyword.UseVisualStyleBackColor = true;
+            this.btn_AddKeyword.Click += new System.EventHandler(this.Btn_AddKeyword_Click);
             // 
             // chk_Bits
             // 
@@ -269,6 +272,7 @@
             this.chk_Bits.Size = new System.Drawing.Size(18, 17);
             this.chk_Bits.TabIndex = 10;
             this.chk_Bits.UseVisualStyleBackColor = true;
+            this.chk_Bits.CheckedChanged += new System.EventHandler(this.Chk_Bits_CheckedChanged);
             // 
             // cmb_Bits
             // 
@@ -284,6 +288,7 @@
             this.cmb_Bits.Name = "cmb_Bits";
             this.cmb_Bits.Size = new System.Drawing.Size(77, 31);
             this.cmb_Bits.TabIndex = 9;
+            this.cmb_Bits.SelectedIndexChanged += new System.EventHandler(this.Cmb_Bits_SelectedIndexChanged);
             // 
             // chk_ULMods
             // 
@@ -317,6 +322,7 @@
             this.chk_ULEveryone.TabIndex = 6;
             this.chk_ULEveryone.Text = "Everyone";
             this.chk_ULEveryone.UseVisualStyleBackColor = true;
+            this.chk_ULEveryone.CheckedChanged += new System.EventHandler(this.Chk_ULEveryone_CheckedChanged);
             // 
             // txt_TriggerName
             // 
