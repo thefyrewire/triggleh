@@ -18,7 +18,9 @@ namespace Triggleh
         {
             InitializeComponent();
 
-            new Bot();
+            // new Bot();
+            new Config();
+
         }
 
         public void register(FormPresenter FP)

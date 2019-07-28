@@ -32,7 +32,7 @@
             // 
             // Form1
             // 
-            this.ClientSize = new System.Drawing.Size(458, 284);
+            this.ClientSize = new System.Drawing.Size(933, 528);
             this.Name = "Form1";
             this.ResumeLayout(false);
 

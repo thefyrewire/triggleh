@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 using TwitchLib.Client;
 using TwitchLib.Client.Enums;
@@ -78,7 +80,13 @@ namespace Triggleh
                 client.TimeoutUser(e.ChatMessage.Channel, e.ChatMessage.Username, TimeSpan.FromMinutes(30), "Bad word! 30 minute timeout!");*/
 
             // Console.WriteLine(e.ChatMessage.DisplayName + " said: " + e.ChatMessage.Message);
-            SendKeystroke.Send($"{e.ChatMessage.Message}\n");
+
+            Regex regex = new Regex(@"\bscribs\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            MatchCollection matches = regex.Matches(e.ChatMessage.Message);
+            if (matches.Count > 0)
+            {
+                SendKeystroke.Send(Keys.NumPad9);
+            }
         }
 
         private void Client_OnWhisperReceived(object sender, OnWhisperReceivedArgs e)
