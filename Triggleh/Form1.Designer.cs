@@ -158,6 +158,7 @@
             this.btn_RecordTrigger.TabIndex = 21;
             this.btn_RecordTrigger.Text = "Record";
             this.btn_RecordTrigger.UseVisualStyleBackColor = true;
+            this.btn_RecordTrigger.Click += new System.EventHandler(this.Btn_RecordTrigger_Click);
             // 
             // lbl_CHTriggerKey
             // 
@@ -280,9 +281,9 @@
             this.cmb_Bits.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.cmb_Bits.FormattingEnabled = true;
             this.cmb_Bits.Items.AddRange(new object[] {
-            "Exactly",
             "At least",
             "At most",
+            "Exactly",
             "Between"});
             this.cmb_Bits.Location = new System.Drawing.Point(167, 73);
             this.cmb_Bits.Name = "cmb_Bits";

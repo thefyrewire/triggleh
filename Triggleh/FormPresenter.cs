@@ -62,5 +62,18 @@ namespace Triggleh
 
             screen.RemoveKeyword(screen.KeywordsIndex);
         }
+
+        public void Btn_RecordTrigger_Click()
+        {
+            screen.StartRecordingTrigger();
+        }
+
+        public void Btn_RecordTrigger_KeyDown(string keychar, int keyvalue)
+        {
+            screen.CharAnimTriggerKey = keychar;
+            Console.WriteLine($"Pressed {keychar} - Key value: {keyvalue}!");
+            SendKeystroke.Send(keyvalue);
+            screen.StopRecordingTrigger();
+        }
     }
 }

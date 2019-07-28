@@ -85,7 +85,7 @@ namespace Triggleh
             MatchCollection matches = regex.Matches(e.ChatMessage.Message);
             if (matches.Count > 0)
             {
-                SendKeystroke.Send(Keys.NumPad9);
+                // SendKeystroke.Send(Keys.NumPad9);
             }
         }
 

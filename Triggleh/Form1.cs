@@ -201,6 +201,28 @@ namespace Triggleh
             ActiveForm.AcceptButton = btn_AddKeyword;
         }
 
+        public bool RecordingTrigger { get; set; }
+
+        public void StartRecordingTrigger()
+        {
+            if (RecordingTrigger)
+            {
+                StopRecordingTrigger();
+                return;
+            };
+
+            RecordingTrigger = true;
+            btn_RecordTrigger.Text = "Waiting...";
+            btn_RecordTrigger.KeyDown += Btn_RecordTrigger_KeyDown;
+        }
+
+        public void StopRecordingTrigger()
+        {
+            btn_RecordTrigger.KeyDown -= Btn_RecordTrigger_KeyDown;
+            btn_RecordTrigger.Text = "Record";
+            RecordingTrigger = false;
+        }
+
         private void Btn_SaveTrigger_Click(object sender, EventArgs e)
         {
             // save trigger
@@ -234,6 +256,16 @@ namespace Triggleh
         private void Btn_RemoveKeyword_Click(object sender, EventArgs e)
         {
             presenter.Btn_RemoveKeyword_Click();
+        }
+
+        private void Btn_RecordTrigger_Click(object sender, EventArgs e)
+        {
+            presenter.Btn_RecordTrigger_Click();
+        }
+
+        private void Btn_RecordTrigger_KeyDown(object sender, KeyEventArgs e)
+        {
+            presenter.Btn_RecordTrigger_KeyDown(e.KeyCode.ToString(), e.KeyValue);
         }
     }
 }

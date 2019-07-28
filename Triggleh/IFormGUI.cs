@@ -36,5 +36,8 @@ namespace Triggleh
         void AllowSubsMods(bool allowed);
         void SetAddKeywordAccept();
 
+        bool RecordingTrigger { get; set; }
+        void StartRecordingTrigger();
+        void StopRecordingTrigger();
     }
 }

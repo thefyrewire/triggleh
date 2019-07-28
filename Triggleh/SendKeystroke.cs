@@ -10,7 +10,7 @@ namespace Triggleh
         [DllImport("User32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int uMsg, int wParam, string lParam);
 
-        public static void Send(Keys key)
+        public static void Send(int key) // Keys key
         {
             Process[] charAnimProcesses = Process.GetProcessesByName("Character Animator");
             if (charAnimProcesses.Length == 0)
@@ -20,7 +20,7 @@ namespace Triggleh
             else
             {
                 Console.WriteLine($"{charAnimProcesses[0].ProcessName} - {charAnimProcesses[0].MainWindowTitle}");
-                SendMessage(charAnimProcesses[0].MainWindowHandle, 0x0104, (int)key, null);
+                SendMessage(charAnimProcesses[0].MainWindowHandle, 0x0104, key, null);
             }
         }
     }
