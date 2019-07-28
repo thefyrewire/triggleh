@@ -20,13 +20,13 @@ namespace Triggleh
         private void initialiseForm()
         {
             // updateView();
+            screen.ResetDetails();
         }
 
         public void updateView()
         {
 
         }
-
 
     }
 }
