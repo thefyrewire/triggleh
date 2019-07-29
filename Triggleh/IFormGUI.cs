@@ -28,7 +28,9 @@ namespace Triggleh
         bool UserLevelModsEnabled { get; set; }
         int AddKeyword(string keyword);
         void RemoveKeyword(int index);
-        string CharAnimTriggerKey { get; set; }
+        string GetKeywords();
+        string CharAnimTriggerKeyChar { get; set; }
+        int CharAnimTriggerKeyValue { get; set; }
 
         void ResetDetails();
         void EnableBits(bool enabled);
@@ -39,5 +41,13 @@ namespace Triggleh
         bool RecordingTrigger { get; set; }
         void StartRecordingTrigger();
         void StopRecordingTrigger();
+
+        void ClearTriggers();
+        void PopulateTrigger(Trigger trigger);
+        void PopulateTriggerDetails(Trigger trigger);
+        void SetSelectedTrigger(int index);
+        int GetNumberRows();
+
+        int Dgv_CurrentRow { get; set; }
     }
 }

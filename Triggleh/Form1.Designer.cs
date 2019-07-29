@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.dgv_Triggers = new System.Windows.Forms.DataGridView();
-            this.dgv_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btn_AddTrigger = new System.Windows.Forms.Button();
             this.tab_TriggerDetails = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -55,6 +54,8 @@
             this.lbl_UserLevel = new System.Windows.Forms.Label();
             this.lbl_Bits = new System.Windows.Forms.Label();
             this.lbl_TriggerName = new System.Windows.Forms.Label();
+            this.dgv_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btn_RemoveTrigger = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Triggers)).BeginInit();
             this.tab_TriggerDetails.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -66,26 +67,22 @@
             // 
             this.dgv_Triggers.AllowUserToAddRows = false;
             this.dgv_Triggers.AllowUserToDeleteRows = false;
+            this.dgv_Triggers.AllowUserToResizeColumns = false;
+            this.dgv_Triggers.AllowUserToResizeRows = false;
             this.dgv_Triggers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_Triggers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dgv_Name});
             this.dgv_Triggers.Location = new System.Drawing.Point(12, 12);
+            this.dgv_Triggers.MultiSelect = false;
             this.dgv_Triggers.Name = "dgv_Triggers";
             this.dgv_Triggers.ReadOnly = true;
-            this.dgv_Triggers.RowHeadersWidth = 51;
+            this.dgv_Triggers.RowHeadersVisible = false;
+            this.dgv_Triggers.RowHeadersWidth = 60;
+            this.dgv_Triggers.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgv_Triggers.RowTemplate.Height = 24;
             this.dgv_Triggers.Size = new System.Drawing.Size(220, 447);
-            this.dgv_Triggers.TabIndex = 0;
-            // 
-            // dgv_Name
-            // 
-            this.dgv_Name.HeaderText = "Name";
-            this.dgv_Name.MinimumWidth = 6;
-            this.dgv_Name.Name = "dgv_Name";
-            this.dgv_Name.ReadOnly = true;
-            this.dgv_Name.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv_Name.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dgv_Name.Width = 165;
+            this.dgv_Triggers.TabIndex = 1;
+            this.dgv_Triggers.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Dgv_Triggers_CellClick);
             // 
             // btn_AddTrigger
             // 
@@ -93,10 +90,11 @@
             this.btn_AddTrigger.Location = new System.Drawing.Point(151, 465);
             this.btn_AddTrigger.Name = "btn_AddTrigger";
             this.btn_AddTrigger.Size = new System.Drawing.Size(81, 43);
-            this.btn_AddTrigger.TabIndex = 1;
+            this.btn_AddTrigger.TabIndex = 0;
             this.btn_AddTrigger.Text = "+";
             this.btn_AddTrigger.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btn_AddTrigger.UseVisualStyleBackColor = true;
+            this.btn_AddTrigger.Click += new System.EventHandler(this.Btn_AddTrigger_Click);
             // 
             // tab_TriggerDetails
             // 
@@ -378,13 +376,37 @@
             this.lbl_TriggerName.TabIndex = 0;
             this.lbl_TriggerName.Text = "Name";
             // 
+            // dgv_Name
+            // 
+            this.dgv_Name.HeaderText = "Name";
+            this.dgv_Name.MinimumWidth = 6;
+            this.dgv_Name.Name = "dgv_Name";
+            this.dgv_Name.ReadOnly = true;
+            this.dgv_Name.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv_Name.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dgv_Name.Width = 217;
+            // 
+            // btn_RemoveTrigger
+            // 
+            this.btn_RemoveTrigger.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_RemoveTrigger.Location = new System.Drawing.Point(12, 465);
+            this.btn_RemoveTrigger.Name = "btn_RemoveTrigger";
+            this.btn_RemoveTrigger.Size = new System.Drawing.Size(81, 43);
+            this.btn_RemoveTrigger.TabIndex = 3;
+            this.btn_RemoveTrigger.Text = "-";
+            this.btn_RemoveTrigger.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btn_RemoveTrigger.UseVisualStyleBackColor = true;
+            this.btn_RemoveTrigger.Click += new System.EventHandler(this.Btn_RemoveTrigger_Click);
+            // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(933, 515);
+            this.Controls.Add(this.btn_RemoveTrigger);
             this.Controls.Add(this.tab_TriggerDetails);
             this.Controls.Add(this.btn_AddTrigger);
             this.Controls.Add(this.dgv_Triggers);
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Triggleh v.0.1";
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Triggers)).EndInit();
@@ -422,10 +444,11 @@
         private System.Windows.Forms.NumericUpDown nud_Bits1;
         private System.Windows.Forms.NumericUpDown nud_Bits2;
         private System.Windows.Forms.Label lbl_CHTrigger;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgv_Name;
         private System.Windows.Forms.Button btn_SaveTrigger;
         private System.Windows.Forms.Button btn_RecordTrigger;
         private System.Windows.Forms.Label lbl_CHTriggerKey;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgv_Name;
+        private System.Windows.Forms.Button btn_RemoveTrigger;
     }
 }
 

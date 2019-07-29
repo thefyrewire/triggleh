@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Form1
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,12 +9,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace Triggleh
 {
     public partial class Form1 : Form, IFormGUI
     {
         private FormPresenter presenter;
+        readonly ModelRepository repository = new ModelRepository();
 
         public Form1()
         {
@@ -20,6 +24,8 @@ namespace Triggleh
 
             // new Bot();
             // new Config();
+
+            // repository.ResetDatabase();
         }
 
         public void Register(FormPresenter FP)
@@ -54,7 +60,7 @@ namespace Triggleh
         public int BitsAmount1
         {
             set { nud_Bits1.Value = value; }
-            get { return (int) nud_Bits1.Value; }
+            get { return (int)nud_Bits1.Value; }
         }
 
         public bool BitsAmount1Enabled
@@ -66,7 +72,7 @@ namespace Triggleh
         public int BitsAmount2
         {
             set { nud_Bits2.Value = value; }
-            get { return (int) nud_Bits2.Value; }
+            get { return (int)nud_Bits2.Value; }
         }
 
         public bool BitsAmount2Visible
@@ -134,6 +140,12 @@ namespace Triggleh
             lst_Keywords.SelectedIndex = lst_Keywords.Items.Count - 1;
         }
 
+        public string GetKeywords()
+        {
+            List<string> keywords = lst_Keywords.Items.Cast<string>().ToList();
+            return JsonConvert.SerializeObject(keywords);
+        }
+
         public void ClearKeywords()
         {
             txt_Keywords.Clear();
@@ -146,11 +158,13 @@ namespace Triggleh
             get { return lst_Keywords.SelectedIndex; }
         }
 
-        public string CharAnimTriggerKey
+        public string CharAnimTriggerKeyChar
         {
             set { lbl_CHTriggerKey.Text = value; }
             get { return lbl_CHTriggerKey.Text; }
         }
+
+        public int CharAnimTriggerKeyValue { get; set; }
 
         public void ResetDetails()
         {
@@ -160,7 +174,8 @@ namespace Triggleh
             UserLevelEveryone = true;
             AllowSubsMods(false);
             ClearKeywords();
-            CharAnimTriggerKey = "None";
+            CharAnimTriggerKeyChar = "None";
+            CharAnimTriggerKeyValue = -1;
         }
 
         public void EnableBits(bool enabled)
@@ -223,9 +238,49 @@ namespace Triggleh
             RecordingTrigger = false;
         }
 
-        private void Btn_SaveTrigger_Click(object sender, EventArgs e)
+        public void ClearTriggers()
         {
-            // save trigger
+            dgv_Triggers.Rows.Clear();
+        }
+
+        public void PopulateTrigger(Trigger trigger)
+        {
+            dgv_Triggers.Rows.Add(trigger.Name);
+        }
+
+        public void PopulateTriggerDetails(Trigger trigger)
+        {
+            TriggerName = trigger.Name;
+            BitsEnabled = trigger.BitsEnabled;
+            EnableBits(trigger.BitsEnabled);
+            BitsCondition = trigger.BitsCondition;
+            BitsAmount1 = trigger.BitsAmount;
+            BitsAmount2 = trigger.BitsAmount2;
+            UserLevelEveryone = trigger.UserLevelEveryone;
+            AllowSubsMods(!trigger.UserLevelEveryone);
+            UserLevelSubs = trigger.UserLevelSubs;
+            UserLevelMods = trigger.UserLevelMods;
+
+            ClearKeywords();
+            List<string> keywords = JsonConvert.DeserializeObject<List<string>>(trigger.Keywords);
+            foreach (string keyword in keywords)
+                AddKeyword(keyword);
+
+            CharAnimTriggerKeyChar = trigger.CharAnimTriggerKeyChar;
+            CharAnimTriggerKeyValue = trigger.CharAnimTriggerKeyValue;
+        }
+
+        public void SetSelectedTrigger(int index)
+        {
+            dgv_Triggers.ClearSelection();
+            if (index == -1) return;
+            dgv_Triggers.Rows[index].Selected = true;
+            Dgv_CurrentRow = index;
+        }
+
+        public int GetNumberRows()
+        {
+            return dgv_Triggers.Rows.Count;
         }
 
         private void Chk_Bits_CheckedChanged(object sender, EventArgs e)
@@ -266,6 +321,37 @@ namespace Triggleh
         private void Btn_RecordTrigger_KeyDown(object sender, KeyEventArgs e)
         {
             presenter.Btn_RecordTrigger_KeyDown(e.KeyCode.ToString(), e.KeyValue);
+        }
+
+        private void Btn_SaveTrigger_Click(object sender, EventArgs e)
+        {
+            presenter.Btn_SaveTrigger_Click();
+        }
+
+        public int Dgv_CurrentRow { get; set; }
+
+        private void Dgv_Triggers_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1) return;
+            Dgv_CurrentRow = e.RowIndex;
+            presenter.Dgv_Triggers_CellClick(dgv_Triggers.Rows[e.RowIndex].Cells["dgv_Name"].Value.ToString());
+        }
+
+        private void Btn_AddTrigger_Click(object sender, EventArgs e)
+        {
+            presenter.Btn_AddTrigger_Click();
+        }
+
+        private void Btn_RemoveTrigger_Click(object sender, EventArgs e)
+        {
+            if (dgv_Triggers.SelectedCells.Count <= 0)
+            {
+                Dgv_CurrentRow = 0;
+                return;
+            }
+
+            Dgv_CurrentRow = dgv_Triggers.SelectedCells[0].RowIndex - 1;
+            presenter.Btn_RemoveTrigger_Click(dgv_Triggers.SelectedCells[0].Value.ToString());
         }
     }
 }
