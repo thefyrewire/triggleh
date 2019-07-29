@@ -1,6 +1,4 @@
-﻿// Form1
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -22,10 +20,11 @@ namespace Triggleh
         {
             InitializeComponent();
 
-            // new Bot();
+            new Bot();
             // new Config();
 
             // repository.ResetDatabase();
+            RefreshCharAnimStatus();
         }
 
         public void Register(FormPresenter FP)
@@ -132,6 +131,17 @@ namespace Triggleh
         {
             txt_Keywords.Clear();
             return lst_Keywords.Items.Add(keyword);
+        }
+
+        public bool HasKeyword(string keyword)
+        {
+            foreach (string item in lst_Keywords.Items)
+            {
+                if (item.ToLower() == keyword.ToLower()) return true;
+                else continue;
+            }
+
+            return false;
         }
 
         public void RemoveKeyword(int index)
@@ -291,6 +301,9 @@ namespace Triggleh
                 case "name":
                     lbl = lbl_TriggerName;
                     break;
+                case "bits":
+                    lbl = lbl_Bits;
+                    break;
                 case "userlevel":
                     lbl = lbl_UserLevel;
                     break;
@@ -310,6 +323,22 @@ namespace Triggleh
             {
                 lbl.ForeColor = SystemColors.ControlText;
             }
+        }
+
+        public void RefreshCharAnimStatus()
+        {
+            if (SendKeystroke.CharAnimRunning)
+            {
+                lbl_Refresh.ForeColor = Color.ForestGreen;
+                lbl_Refresh.Text = "Character Animator found!";
+            }
+
+            else
+            {
+                lbl_Refresh.ForeColor = Color.Red;
+                lbl_Refresh.Text = "Character Animator missing :(";
+            }
+
         }
 
         private void Chk_Bits_CheckedChanged(object sender, EventArgs e)
@@ -379,8 +408,13 @@ namespace Triggleh
                 return;
             }
 
-            Dgv_CurrentRow = dgv_Triggers.SelectedCells[0].RowIndex - 1;
+            Dgv_CurrentRow = dgv_Triggers.SelectedCells[0].RowIndex - 1 < 0 ? 0 : dgv_Triggers.SelectedCells[0].RowIndex - 1;
             presenter.Btn_RemoveTrigger_Click(dgv_Triggers.SelectedCells[0].Value.ToString());
+        }
+
+        private void Btn_Refresh_Click(object sender, EventArgs e)
+        {
+            presenter.Btn_Refresh_Click();
         }
     }
 }

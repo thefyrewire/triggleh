@@ -56,6 +56,8 @@
             this.lbl_TriggerName = new System.Windows.Forms.Label();
             this.dgv_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btn_RemoveTrigger = new System.Windows.Forms.Button();
+            this.lbl_Refresh = new System.Windows.Forms.Label();
+            this.btn_Refresh = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Triggers)).BeginInit();
             this.tab_TriggerDetails.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -398,9 +400,30 @@
             this.btn_RemoveTrigger.UseVisualStyleBackColor = true;
             this.btn_RemoveTrigger.Click += new System.EventHandler(this.Btn_RemoveTrigger_Click);
             // 
+            // lbl_Refresh
+            // 
+            this.lbl_Refresh.AutoSize = true;
+            this.lbl_Refresh.Location = new System.Drawing.Point(326, 475);
+            this.lbl_Refresh.Name = "lbl_Refresh";
+            this.lbl_Refresh.Size = new System.Drawing.Size(215, 23);
+            this.lbl_Refresh.TabIndex = 4;
+            this.lbl_Refresh.Text = "Character Animator found!";
+            // 
+            // btn_Refresh
+            // 
+            this.btn_Refresh.Location = new System.Drawing.Point(238, 465);
+            this.btn_Refresh.Name = "btn_Refresh";
+            this.btn_Refresh.Size = new System.Drawing.Size(82, 43);
+            this.btn_Refresh.TabIndex = 5;
+            this.btn_Refresh.Text = "Refresh";
+            this.btn_Refresh.UseVisualStyleBackColor = true;
+            this.btn_Refresh.Click += new System.EventHandler(this.Btn_Refresh_Click);
+            // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(933, 515);
+            this.Controls.Add(this.btn_Refresh);
+            this.Controls.Add(this.lbl_Refresh);
             this.Controls.Add(this.btn_RemoveTrigger);
             this.Controls.Add(this.tab_TriggerDetails);
             this.Controls.Add(this.btn_AddTrigger);
@@ -416,6 +439,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nud_Bits2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Bits1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -449,6 +473,8 @@
         private System.Windows.Forms.Label lbl_CHTriggerKey;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgv_Name;
         private System.Windows.Forms.Button btn_RemoveTrigger;
+        private System.Windows.Forms.Label lbl_Refresh;
+        private System.Windows.Forms.Button btn_Refresh;
     }
 }
 

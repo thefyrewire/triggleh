@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 
+using Newtonsoft.Json;
+
 using TwitchLib.Client;
 using TwitchLib.Client.Enums;
 using TwitchLib.Client.Events;
@@ -21,12 +23,14 @@ namespace Triggleh
         private readonly TwitchClient client;
         private TwitchPubSub pubsub;
 
+        readonly ModelRepository repository = new ModelRepository();
+
         public Bot()
         {
             ConnectionCredentials credentials = new ConnectionCredentials("justinfan42069", "password");
 
             client = new TwitchClient();
-            client.Initialize(credentials, "thefyrewire");
+            client.Initialize(credentials, "cazzler");
 
             client.OnLog += Client_OnLog;
             client.OnJoinedChannel += Client_OnJoinedChannel;
@@ -81,11 +85,29 @@ namespace Triggleh
 
             // Console.WriteLine(e.ChatMessage.DisplayName + " said: " + e.ChatMessage.Message);
 
-            Regex regex = new Regex(@"\bscribs\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            /*Regex regex = new Regex(@"\bscribs\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
             MatchCollection matches = regex.Matches(e.ChatMessage.Message);
             if (matches.Count > 0)
             {
                 // SendKeystroke.Send(Keys.NumPad9);
+            }*/
+
+            ChatMessage message = e.ChatMessage;
+            Console.WriteLine("bits seen: " + e.ChatMessage.Bits); // <---- 
+            Console.WriteLine("msg received: " + e.ChatMessage.Bits);
+
+            List<Trigger> chatTriggers = repository.GetChatTriggers();
+            foreach (Trigger trigger in chatTriggers)
+            {
+                List<string> keywords = JsonConvert.DeserializeObject<List<string>>(trigger.Keywords);
+                string keyworded = string.Join("|", keywords);
+                Regex regex = new Regex(@"\b(" + keyworded + @")\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                MatchCollection matches = regex.Matches(message.Message);
+                if (matches.Count > 0 && (trigger.UserLevelEveryone || (trigger.UserLevelSubs && message.IsSubscriber) || (trigger.UserLevelMods && message.IsModerator)))
+                {
+                    Console.WriteLine("matched!!");
+                    SendKeystroke.Send(trigger.CharAnimTriggerKeyValue);
+                }
             }
         }
 
@@ -123,8 +145,12 @@ namespace Triggleh
         private void Pubsub_OnBitsReceived(object sender, TwitchLib.PubSub.Events.OnBitsReceivedArgs e)
         {
             // Console.WriteLine($"Just received {e.BitsUsed} bits from {e.Username}. That brings their total to {e.TotalBitsUsed} bits!");
-            Console.WriteLine("Just received " + e.BitsUsed + " bits from " + e.Username + ". That brings their total to " + e.TotalBitsUsed + " bits!");
-            client.SendMessage(e.ChannelName, $"Detected a cheer of {e.BitsUsed} bits from {e.Username}, who have cheered {e.TotalBitsUsed} total bits so far. Message: {e.ChatMessage}");
+            // Console.WriteLine("Just received " + e.BitsUsed + " bits from " + e.Username + ". That brings their total to " + e.TotalBitsUsed + " bits!");
+            // client.SendMessage(e.ChannelName, $"Detected a cheer of {e.BitsUsed} bits from {e.Username}, who have cheered {e.TotalBitsUsed} total bits so far. Message: {e.ChatMessage}");
+
+            string message = e.ChatMessage;
+
+            Console.WriteLine("pubsub bits: " + e.BitsUsed);
         }
 
         private void Pubsub_OnListenResponse(object sender, TwitchLib.PubSub.Events.OnListenResponseArgs e)

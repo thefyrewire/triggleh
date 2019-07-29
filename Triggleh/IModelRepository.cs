@@ -14,6 +14,8 @@ namespace Triggleh
         List<Trigger> GetTriggers();
         Trigger GetTriggerByName(string triggerName);
         void UpdateTrigger(string triggerName, Trigger triggerData);
-        void DeleteTrigger(string triggerName);
+        void RemoveTrigger(string triggerName);
+        List<Trigger> GetChatTriggers();
+        List<Trigger> GetBitTriggers();
     }
 }

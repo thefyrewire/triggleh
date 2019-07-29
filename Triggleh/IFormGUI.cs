@@ -27,6 +27,7 @@ namespace Triggleh
         bool UserLevelMods { get; set; }
         bool UserLevelModsEnabled { get; set; }
         int AddKeyword(string keyword);
+        bool HasKeyword(string keyword);
         void RemoveKeyword(int index);
         string GetKeywords();
         string CharAnimTriggerKeyChar { get; set; }
@@ -51,5 +52,6 @@ namespace Triggleh
         int Dgv_CurrentRow { get; set; }
 
         void ShowError(string label, bool showing);
+        void RefreshCharAnimStatus();
     }
 }

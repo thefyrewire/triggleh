@@ -57,7 +57,7 @@ namespace Triggleh
         {
             using (Model context = new Model())
             {
-                Trigger triggerToGet = context.Triggers.Where(trigger => trigger.Name == triggerName).FirstOrDefault<Trigger>();
+                Trigger triggerToGet = context.Triggers.Where(trigger => trigger.Name.ToLower() == triggerName.ToLower()).FirstOrDefault<Trigger>();
                 return triggerToGet;
             }
         }
@@ -66,7 +66,7 @@ namespace Triggleh
         {
             using (Model context = new Model())
             {
-                Trigger triggerToUpdate = context.Triggers.Where(trigger => trigger.Name == triggerName).FirstOrDefault<Trigger>();
+                Trigger triggerToUpdate = context.Triggers.Where(trigger => trigger.Name.ToLower() == triggerName.ToLower()).FirstOrDefault<Trigger>();
                 // triggerToUpdate = triggerData;
                 triggerToUpdate.Name = triggerData.Name;
                 triggerToUpdate.BitsEnabled = triggerData.BitsEnabled;
@@ -89,10 +89,28 @@ namespace Triggleh
         {
             using (Model context = new Model())
             {
-                Trigger triggerToGet = context.Triggers.Where(trigger => trigger.Name == triggerName).FirstOrDefault<Trigger>();
+                Trigger triggerToGet = context.Triggers.Where(trigger => trigger.Name.ToLower() == triggerName.ToLower()).FirstOrDefault<Trigger>();
                 context.Triggers.Remove(triggerToGet);
 
                 context.SaveChanges();
+            }
+        }
+
+        public List<Trigger> GetChatTriggers()
+        {
+            using (Model context = new Model())
+            {
+                List<Trigger> chatTriggers = context.Triggers.Where(trigger => ((trigger.BitsEnabled == false) || (trigger.BitsCondition != 3 && trigger.BitsAmount == 0)) && trigger.Keywords != "[]").ToList<Trigger>();
+                return chatTriggers;
+            }
+        }
+
+        public List<Trigger> GetBitTriggers()
+        {
+            using (Model context = new Model())
+            {
+                List<Trigger> bitTriggers = context.Triggers.Where(trigger => trigger.BitsEnabled == true).ToList<Trigger>();
+                return bitTriggers;
             }
         }
     }
