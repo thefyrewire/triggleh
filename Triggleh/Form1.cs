@@ -283,6 +283,35 @@ namespace Triggleh
             return dgv_Triggers.Rows.Count;
         }
 
+        public void ShowError(string label, bool showing)
+        {
+            Label lbl = new Label();
+            switch (label)
+            {
+                case "name":
+                    lbl = lbl_TriggerName;
+                    break;
+                case "userlevel":
+                    lbl = lbl_UserLevel;
+                    break;
+                case "keywords":
+                    lbl = lbl_Keywords;
+                    break;
+                case "chtrigger":
+                    lbl = lbl_CHTrigger;
+                    break;
+            }
+
+            if (showing)
+            {
+                lbl.ForeColor = Color.Red;
+            }
+            else
+            {
+                lbl.ForeColor = SystemColors.ControlText;
+            }
+        }
+
         private void Chk_Bits_CheckedChanged(object sender, EventArgs e)
         {
             presenter.Chk_Bits_CheckedChanged();

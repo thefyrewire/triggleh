@@ -49,5 +49,7 @@ namespace Triggleh
         int GetNumberRows();
 
         int Dgv_CurrentRow { get; set; }
+
+        void ShowError(string label, bool showing);
     }
 }

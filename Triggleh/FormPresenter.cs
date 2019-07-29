@@ -94,6 +94,67 @@ namespace Triggleh
 
         public void Btn_SaveTrigger_Click()
         {
+            bool valid = ValidateTrigger();
+            if (!valid) return;
+
+            SaveTrigger();
+        }
+
+        public void Dgv_Triggers_CellClick(string name)
+        {
+            Trigger trigger = repository.GetTriggerByName(name);
+            screen.PopulateTriggerDetails(trigger);
+        }
+
+        public void Btn_AddTrigger_Click()
+        {
+            screen.SetSelectedTrigger(-1);
+            screen.ResetDetails();
+        }
+
+        public void Btn_RemoveTrigger_Click(string name)
+        {
+            repository.RemoveTrigger(name);
+            UpdateView();
+        }
+
+        public bool ValidateTrigger()
+        {
+            bool valid = true;
+
+            if (string.IsNullOrEmpty(screen.TriggerName.Trim()))
+            {
+                screen.ShowError("name", true);
+                valid = false;
+            }
+            else screen.ShowError("name", false);
+
+            if (!screen.UserLevelEveryone && !screen.UserLevelSubs && !screen.UserLevelMods)
+            {
+                screen.ShowError("userlevel", true);
+                valid = false;
+            }
+            else screen.ShowError("userlevel", false);
+
+            /*if (screen.GetKeywords().Length <= 2)
+            {
+                screen.ShowError("keywords", true);
+                valid = false;
+            }
+            else screen.ShowError("keywords", false);*/
+
+            if (screen.CharAnimTriggerKeyChar == "None" || screen.CharAnimTriggerKeyValue == -1)
+            {
+                screen.ShowError("chtrigger", true);
+                valid = false;
+            }
+            else screen.ShowError("chtrigger", false);
+
+            return valid;
+        }
+
+        public void SaveTrigger()
+        {
             Trigger triggerToSave = new Trigger();
             triggerToSave.Name = screen.TriggerName.Trim();
             triggerToSave.BitsEnabled = screen.BitsEnabled;
@@ -120,36 +181,8 @@ namespace Triggleh
                 Console.WriteLine("Trigger doesn't exist... adding");
                 repository.AddTrigger(triggerToSave);
                 UpdateView();
-                screen.SetSelectedTrigger(screen.GetNumberRows()-1);
+                screen.SetSelectedTrigger(screen.GetNumberRows() - 1);
             }
-
-            /*repository.AddTrigger(
-                screen.TriggerName,
-                screen.BitsEnabled, screen.BitsCondition, screen.BitsAmount1, screen.BitsAmount2,
-                screen.UserLevelEveryone, screen.UserLevelSubs, screen.UserLevelMods,
-                screen.GetKeywords(),
-                screen.CharAnimTriggerKeyChar, screen.CharAnimTriggerKeyValue
-            );*/
-
-            // UpdateView();
-        }
-
-        public void Dgv_Triggers_CellClick(string name)
-        {
-            Trigger trigger = repository.GetTriggerByName(name);
-            screen.PopulateTriggerDetails(trigger);
-        }
-
-        public void Btn_AddTrigger_Click()
-        {
-            screen.SetSelectedTrigger(-1);
-            screen.ResetDetails();
-        }
-
-        public void Btn_RemoveTrigger_Click(string name)
-        {
-            repository.RemoveTrigger(name);
-            UpdateView();
         }
     }
 }
