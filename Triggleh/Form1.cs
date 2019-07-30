@@ -21,6 +21,7 @@ namespace Triggleh
             InitializeComponent();
 
             new Bot();
+            Logger logger = new Logger();
             // new Config();
 
             // repository.ResetDatabase();

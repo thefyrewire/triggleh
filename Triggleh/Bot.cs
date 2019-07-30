@@ -177,6 +177,7 @@ namespace Triggleh
 
                 Console.WriteLine("matched!!");
                 SendKeystroke.Send(trigger.CharAnimTriggerKeyValue);
+                Logger.Write(trigger.Name, message.DisplayName, message.Bits, message.Message);
             }
         }
 

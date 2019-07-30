@@ -178,6 +178,7 @@
     <Compile Include="FormPresenter.cs" />
     <Compile Include="IFormGUI.cs" />
     <Compile Include="IModelRepository.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="ModelRepository.cs" />
     <Compile Include="Program.cs" />
