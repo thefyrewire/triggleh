@@ -96,21 +96,40 @@ namespace Triggleh
             }
         }
 
-        public List<Trigger> GetChatTriggers()
+
+
+        /*public void SetUsername(string username)
         {
             using (Model context = new Model())
             {
-                List<Trigger> chatTriggers = context.Triggers.Where(trigger => ((trigger.BitsEnabled == false) || (trigger.BitsCondition != 3 && trigger.BitsAmount == 0)) && trigger.Keywords != "[]").ToList<Trigger>();
-                return chatTriggers;
+                context.Settings.First().Username = username;
+                context.SaveChanges();
+            }
+        }*/
+
+        public string Username
+        {
+            get { using (Model context = new Model()) return context.Settings.First().Username; }
+            set
+            {
+                using (Model context = new Model())
+                {
+                    context.Settings.First().Username = value;
+                    context.SaveChanges();
+                }
             }
         }
 
-        public List<Trigger> GetBitTriggers()
+        public bool LoggingEnabled
         {
-            using (Model context = new Model())
+            get { using (Model context = new Model()) return context.Settings.First().LoggingEnabled; }
+            set
             {
-                List<Trigger> bitTriggers = context.Triggers.Where(trigger => trigger.BitsEnabled == true).ToList<Trigger>();
-                return bitTriggers;
+                using (Model context = new Model())
+                {
+                    context.Settings.First().LoggingEnabled = value;
+                    context.SaveChanges();
+                }
             }
         }
     }

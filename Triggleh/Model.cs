@@ -23,6 +23,7 @@ namespace Triggleh
         // public virtual DbSet<MyEntity> MyEntities { get; set; }
 
         public virtual DbSet<Trigger> Triggers { get; set; }
+        public virtual DbSet<Setting> Settings { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

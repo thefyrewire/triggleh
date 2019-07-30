@@ -339,7 +339,15 @@ namespace Triggleh
                 lbl_Refresh.ForeColor = Color.Red;
                 lbl_Refresh.Text = "Character Animator missing :(";
             }
+        }
 
+        public void ShowSettingsForm()
+        {
+            Hide();
+            SettingsForm f1 = new SettingsForm();
+            SettingsPresenter SP = new SettingsPresenter(f1);
+            f1.ShowDialog();
+            Show();
         }
 
         private void Chk_Bits_CheckedChanged(object sender, EventArgs e)
@@ -416,6 +424,11 @@ namespace Triggleh
         private void Btn_Refresh_Click(object sender, EventArgs e)
         {
             presenter.Btn_Refresh_Click();
+        }
+
+        private void Btn_Settings_Click(object sender, EventArgs e)
+        {
+            presenter.Btn_Settings_Click();
         }
     }
 }

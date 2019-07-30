@@ -23,7 +23,7 @@ namespace Triggleh
             UpdateView();
         }
 
-        public void UpdateView()
+        private void UpdateView()
         {
             screen.ClearTriggers();
 
@@ -42,7 +42,7 @@ namespace Triggleh
             }
         }
 
-        public bool ValidateTrigger()
+        private bool ValidateTrigger()
         {
             bool valid = true;
 
@@ -86,7 +86,7 @@ namespace Triggleh
             return valid;
         }
 
-        public void SaveTrigger()
+        private void SaveTrigger()
         {
             Trigger triggerToSave = new Trigger();
             triggerToSave.Name = screen.TriggerName.Trim();
@@ -202,6 +202,11 @@ namespace Triggleh
         public void Btn_Refresh_Click()
         {
             screen.RefreshCharAnimStatus();
+        }
+
+        public void Btn_Settings_Click()
+        {
+            screen.ShowSettingsForm();
         }
     }
 }

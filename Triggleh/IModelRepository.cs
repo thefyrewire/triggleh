@@ -15,7 +15,10 @@ namespace Triggleh
         Trigger GetTriggerByName(string triggerName);
         void UpdateTrigger(string triggerName, Trigger triggerData);
         void RemoveTrigger(string triggerName);
-        List<Trigger> GetChatTriggers();
-        List<Trigger> GetBitTriggers();
+
+        /*void SetUsername(string username);
+        void GetUsername();*/
+        string Username { get; set; }
+        bool LoggingEnabled { get; set; }
     }
 }

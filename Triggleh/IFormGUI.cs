@@ -53,5 +53,7 @@ namespace Triggleh
 
         void ShowError(string label, bool showing);
         void RefreshCharAnimStatus();
+
+        void ShowSettingsForm();
     }
 }
