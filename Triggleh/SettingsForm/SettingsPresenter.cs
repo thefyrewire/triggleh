@@ -46,6 +46,8 @@ namespace Triggleh
 
         private JObject ValidateSettings()
         {
+            if (screen.Username.Trim().Length == 0) return null;
+
             HttpClient client = new HttpClient();
             HttpRequestMessage request = new HttpRequestMessage()
             {
@@ -64,14 +66,14 @@ namespace Triggleh
         {
             JObject validate = ValidateSettings();
             // validate.Wait();
-            if (validate != null)
+            if (validate != null || screen.Username.Trim().Length == 0)
             {
                 screen.ShowError(false);
-                screen.Username = validate["display_name"].ToString();
+                screen.Username = (validate != null) ? validate["display_name"].ToString() : "";
 
                 Setting settings = new Setting();
                 settings.Username = screen.Username;
-                settings.ProfilePicture = validate["profile_image_url"].ToString();
+                settings.ProfilePicture = (validate != null) ? validate["profile_image_url"].ToString() : "https://static-cdn.jtvnw.net/jtv_user_pictures/twitch-profile_image-8a8c5be2e3b64a9a-300x300.png";
                 settings.LoggingEnabled = screen.LoggingEnabled;
 
                 repository.SaveSettings(settings);

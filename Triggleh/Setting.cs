@@ -12,10 +12,10 @@ namespace Triggleh
         [Key, Required]
         public int ID { get; set; }
 
-        [MaxLength(25), Required]
+        [MaxLength(25)]
         public string Username { get; set; }
 
-        [MaxLength, Required]
+        [MaxLength]
         public string ProfilePicture { get; set; }
 
         [Required]

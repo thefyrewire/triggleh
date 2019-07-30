@@ -50,8 +50,14 @@ namespace Triggleh
         public void LoadFromSettings()
         {
             Setting settings = repository.LoadSettings();
-            screen.SetProfilePicture(settings.ProfilePicture);
+            if (settings == null || settings.Username.Length == 0)
+            {
+                screen.SetProfilePicture("https://static-cdn.jtvnw.net/jtv_user_pictures/twitch-profile_image-8a8c5be2e3b64a9a-300x300.png");
+                screen.UpdateChatStatus(0);
+                return;
+            }
 
+            screen.SetProfilePicture(settings.ProfilePicture);
             if (!bot.JoinedChannel(settings.Username))
             {
                 bot.LeaveAllChannels();
