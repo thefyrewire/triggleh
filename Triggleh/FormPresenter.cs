@@ -9,7 +9,8 @@ namespace Triggleh
     public class FormPresenter
     {
         private readonly IFormGUI screen;
-        readonly ModelRepository repository = new ModelRepository();
+        private readonly ModelRepository repository = new ModelRepository();
+        private readonly Bot bot = new Bot();
 
         public FormPresenter(IFormGUI screen)
         {
@@ -20,7 +21,11 @@ namespace Triggleh
 
         private void InitialiseForm()
         {
+            screen.UpdateChatStatus(0);
             UpdateView();
+            LoadFromSettings();
+            bot.BotDisconnected += BotDisconnected;
+            bot.BotConnected += BotConnected;
         }
 
         private void UpdateView()
@@ -40,6 +45,31 @@ namespace Triggleh
             {
                 screen.ResetDetails();
             }
+        }
+
+        public void LoadFromSettings()
+        {
+            Setting settings = repository.LoadSettings();
+            screen.SetProfilePicture(settings.ProfilePicture);
+
+            if (!bot.JoinedChannel(settings.Username))
+            {
+                bot.LeaveAllChannels();
+                bot.JoinChannel(settings.Username);
+            }
+        }
+
+        public void BotDisconnected(object sender, BotDisconnectedArgs e)
+        {
+            Console.WriteLine($"disconnected from {e.Channel}!");
+            Setting settings = repository.LoadSettings();
+            if (e.Channel.ToLower() == settings.Username.ToLower()) screen.UpdateChatStatus(0);
+        }
+
+        public void BotConnected(object sender, EventArgs e)
+        {
+            Console.WriteLine("connected!");
+            screen.UpdateChatStatus(1);
         }
 
         private bool ValidateTrigger()
@@ -88,41 +118,35 @@ namespace Triggleh
 
         private void SaveTrigger()
         {
-            Trigger triggerToSave = new Trigger();
-            triggerToSave.Name = screen.TriggerName.Trim();
-            triggerToSave.BitsEnabled = screen.BitsEnabled;
-            triggerToSave.BitsCondition = screen.BitsCondition;
-            triggerToSave.BitsAmount = screen.BitsAmount1;
-            triggerToSave.BitsAmount2 = screen.BitsAmount2;
-            triggerToSave.UserLevelEveryone = screen.UserLevelEveryone;
-            triggerToSave.UserLevelSubs = screen.UserLevelSubs;
-            triggerToSave.UserLevelMods = screen.UserLevelMods;
-            triggerToSave.Keywords = screen.GetKeywords();
-            triggerToSave.CharAnimTriggerKeyChar = screen.CharAnimTriggerKeyChar;
-            triggerToSave.CharAnimTriggerKeyValue = screen.CharAnimTriggerKeyValue;
+            Trigger triggerToSave = new Trigger
+            {
+                Name = screen.TriggerName.Trim(),
+                BitsEnabled = screen.BitsEnabled,
+                BitsCondition = screen.BitsCondition,
+                BitsAmount = screen.BitsAmount1,
+                BitsAmount2 = screen.BitsAmount2,
+                UserLevelEveryone = screen.UserLevelEveryone,
+                UserLevelSubs = screen.UserLevelSubs,
+                UserLevelMods = screen.UserLevelMods,
+                Keywords = screen.GetKeywords(),
+                CharAnimTriggerKeyChar = screen.CharAnimTriggerKeyChar,
+                CharAnimTriggerKeyValue = screen.CharAnimTriggerKeyValue
+            };
 
             Trigger triggerExists = repository.GetTriggerByName(screen.TriggerName.Trim());
             if (triggerExists != null)
             {
                 Console.WriteLine("Trigger already exists... updating");
                 repository.UpdateTrigger(screen.TriggerName.Trim(), triggerToSave);
-                /*UpdateView();
-                screen.SetSelectedTrigger(screen.Dgv_CurrentRow);*/
             }
             else
             {
                 Console.WriteLine("Trigger doesn't exist... adding");
                 repository.AddTrigger(triggerToSave);
                 screen.Dgv_CurrentRow = screen.GetNumberRows();
-                /*UpdateView();
-                screen.Dgv_CurrentRow = screen.GetNumberRows();
-                screen.SetSelectedTrigger(screen.GetNumberRows() - 1);*/
             }
 
             UpdateView();
-            /*screen.SetSelectedTrigger(screen.Dgv_CurrentRow);
-            List<Trigger> triggers = repository.GetTriggers();
-            screen.PopulateTriggerDetails(triggers[screen.Dgv_CurrentRow]);*/
         }
 
         public void Chk_Bits_CheckedChanged()

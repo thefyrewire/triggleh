@@ -55,5 +55,8 @@ namespace Triggleh
         void RefreshCharAnimStatus();
 
         void ShowSettingsForm();
+
+        void SetProfilePicture(string url);
+        void UpdateChatStatus(int status);
     }
 }

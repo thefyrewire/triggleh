@@ -59,14 +59,14 @@
             this.lbl_CharAnimStatus = new System.Windows.Forms.Label();
             this.btn_Refresh = new System.Windows.Forms.Button();
             this.btn_Settings = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pic_ProfilePicture = new System.Windows.Forms.PictureBox();
             this.lbl_ChatStatus = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Triggers)).BeginInit();
             this.tab_TriggerDetails.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Bits2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Bits1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pic_ProfilePicture)).BeginInit();
             this.SuspendLayout();
             // 
             // dgv_Triggers
@@ -433,13 +433,15 @@
             this.btn_Settings.UseVisualStyleBackColor = true;
             this.btn_Settings.Click += new System.EventHandler(this.Btn_Settings_Click);
             // 
-            // pictureBox1
+            // pic_ProfilePicture
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(598, 395);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(43, 43);
-            this.pictureBox1.TabIndex = 7;
-            this.pictureBox1.TabStop = false;
+            this.pic_ProfilePicture.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pic_ProfilePicture.Location = new System.Drawing.Point(598, 395);
+            this.pic_ProfilePicture.Name = "pic_ProfilePicture";
+            this.pic_ProfilePicture.Size = new System.Drawing.Size(43, 43);
+            this.pic_ProfilePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pic_ProfilePicture.TabIndex = 7;
+            this.pic_ProfilePicture.TabStop = false;
             // 
             // lbl_ChatStatus
             // 
@@ -454,7 +456,7 @@
             // 
             this.ClientSize = new System.Drawing.Size(933, 444);
             this.Controls.Add(this.lbl_ChatStatus);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pic_ProfilePicture);
             this.Controls.Add(this.btn_Settings);
             this.Controls.Add(this.btn_Refresh);
             this.Controls.Add(this.lbl_CharAnimStatus);
@@ -474,7 +476,7 @@
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Bits2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Bits1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pic_ProfilePicture)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -513,7 +515,7 @@
         private System.Windows.Forms.Label lbl_CharAnimStatus;
         private System.Windows.Forms.Button btn_Refresh;
         private System.Windows.Forms.Button btn_Settings;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pic_ProfilePicture;
         private System.Windows.Forms.Label lbl_ChatStatus;
     }
 }

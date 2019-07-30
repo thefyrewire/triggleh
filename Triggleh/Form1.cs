@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
@@ -13,18 +14,14 @@ namespace Triggleh
 {
     public partial class Form1 : Form, IFormGUI
     {
+        private delegate void SafeCallDelegate(string text);
         private FormPresenter presenter;
-        readonly ModelRepository repository = new ModelRepository();
 
         public Form1()
         {
             InitializeComponent();
+            new Logger();
 
-            new Bot();
-            Logger logger = new Logger();
-            // new Config();
-
-            // repository.ResetDatabase();
             RefreshCharAnimStatus();
         }
 
@@ -347,9 +344,42 @@ namespace Triggleh
         public void ShowSettingsForm()
         {
             SettingsForm f1 = new SettingsForm();
-            SettingsPresenter SP = new SettingsPresenter(f1);
+            new SettingsPresenter(f1);
             f1.ShowDialog();
-            Show();
+            presenter.LoadFromSettings();
+        }
+
+        public void SetProfilePicture(string url)
+        {
+            pic_ProfilePicture.ImageLocation = url;
+        }
+
+        public void UpdateChatStatus(int status)
+        {
+            switch (status)
+            {
+                case 0:
+                    lbl_ChatStatus.ForeColor = Color.Red;
+                    WriteChatStatus("Chat disconnected");
+                    break;
+                case 1:
+                    lbl_ChatStatus.ForeColor = Color.ForestGreen;
+                    WriteChatStatus("Chat connected!");
+                    break;
+            }
+        }
+
+        private void WriteChatStatus(string status)
+        {
+            if (lbl_ChatStatus.InvokeRequired)
+            {
+                var d = new SafeCallDelegate(WriteChatStatus);
+                Invoke(d, new object[] { status });
+            }
+            else
+            {
+                lbl_ChatStatus.Text = status;
+            }
         }
 
         private void Chk_Bits_CheckedChanged(object sender, EventArgs e)

@@ -19,7 +19,7 @@ namespace Triggleh
             }
         }
 
-        // public void AddTrigger(string Name, bool BitsEnabled, int BitsCondition, int BitsAmount, int BitsAmount2, bool UserLevelEveryone, bool UserLevelSubs, bool UserLevelMods, string Keywords, string CharAnimTriggerKeyChar, int CharAnimTriggerKeyValue)
+        // TRIGGERS
         public void AddTrigger(Trigger trigger)
         {
             using (var context = new Model())
@@ -97,35 +97,7 @@ namespace Triggleh
         }
 
 
-
-        /*public void SetUsername(string username)
-        {
-            using (Model context = new Model())
-            {
-                context.Settings.First().Username = username;
-                context.SaveChanges();
-            }
-        }*/
-
-        /*public string Username
-        {
-            get
-            {
-                using (Model context = new Model())
-                {
-                    string username = context.Settings.First().Username;
-                    return username == null ? null : username;
-                }
-            }
-            set
-            {
-                using (Model context = new Model())
-                {
-                    context.Settings.First().Username = value;
-                    context.SaveChanges();
-                }
-            }
-        }*/
+        // SETTINGS
 
         public Setting LoadSettings()
         {
@@ -162,31 +134,5 @@ namespace Triggleh
                 context.SaveChanges();
             }
         }
-
-        /*public string ProfilePicture
-        {
-            get { using (Model context = new Model()) return context.Settings.First().ProfilePicture; }
-            set
-            {
-                using (Model context = new Model())
-                {
-                    context.Settings.First().ProfilePicture = value;
-                    context.SaveChanges();
-                }
-            }
-        }
-
-        public bool LoggingEnabled
-        {
-            get { using (Model context = new Model()) return context.Settings.First().LoggingEnabled; }
-            set
-            {
-                using (Model context = new Model())
-                {
-                    context.Settings.First().LoggingEnabled = value;
-                    context.SaveChanges();
-                }
-            }
-        }*/
     }
 }

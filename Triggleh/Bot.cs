@@ -14,50 +14,35 @@ using TwitchLib.Client.Events;
 using TwitchLib.Client.Extensions;
 using TwitchLib.Client.Models;
 
-using TwitchLib.PubSub;
-
 namespace Triggleh
 {
     class Bot
     {
         private readonly TwitchClient client;
-        private TwitchPubSub pubsub;
 
         readonly ModelRepository repository = new ModelRepository();
+
+        public event EventHandler BotConnected;
+        public event EventHandler<BotDisconnectedArgs> BotDisconnected;
 
         public Bot()
         {
             ConnectionCredentials credentials = new ConnectionCredentials("justinfan42069", "password");
 
             client = new TwitchClient();
-            client.Initialize(credentials, "thefyrewire");
+            client.Initialize(credentials); // username
 
             client.OnLog += Client_OnLog;
             client.OnJoinedChannel += Client_OnJoinedChannel;
+            client.OnLeftChannel += Client_OnLeftChannel;
             client.OnMessageReceived += Client_OnMessageReceived;
             client.OnWhisperReceived += Client_OnWhisperReceived;
             client.OnNewSubscriber += Client_OnNewSubscriber;
             client.OnConnected += Client_OnConnected;
+            client.OnDisconnected += Client_OnDisconnected;
             client.OnReSubscriber += Client_OnReSubscriber;
 
             client.Connect();
-
-            pubsub = new TwitchPubSub();
-            pubsub.OnPubSubServiceConnected += Pubsub_OnPubSubServiceConnected;
-            pubsub.OnListenResponse += Pubsub_OnListenResponse;
-            pubsub.OnBitsReceived += Pubsub_OnBitsReceived;
-
-            StartPubsub();
-        }
-
-        public void StartPubsub()
-        {
-            pubsub = new TwitchPubSub();
-            pubsub.OnPubSubServiceConnected += Pubsub_OnPubSubServiceConnected;
-            pubsub.OnListenResponse += Pubsub_OnListenResponse;
-            pubsub.OnBitsReceived += Pubsub_OnBitsReceived;
-
-            pubsub.Connect();
         }
 
         // TWITCHLIB - for chat
@@ -68,14 +53,31 @@ namespace Triggleh
 
         private void Client_OnConnected(object sender, OnConnectedArgs e)
         {
-            Console.WriteLine($"Connected to {e.AutoJoinChannel}");
+            // Console.WriteLine($"Connected to {e.AutoJoinChannel}");
             // client.SendMessage(e.AutoJoinChannel, "-- Triggleh Bot v0.12a running! --");
+        }
+
+        private void Client_OnDisconnected(object sender, EventArgs e)
+        {
+            /*EventHandler handler = BotDisconnected;
+            if (handler != null) handler(this, e);*/
         }
 
         private void Client_OnJoinedChannel(object sender, OnJoinedChannelArgs e)
         {
-            Console.WriteLine("Hey guys! I am a bot connected via TwitchLib!");
+            // Console.WriteLine("Hey guys! I am a bot connected via TwitchLib!");
             // client.SendMessage(e.Channel, "Hey guys! I am a bot connected via TwitchLib!");
+            Console.WriteLine("Just connected to " + e.Channel);
+            BotConnected?.Invoke(this, e);
+        }
+
+        private void Client_OnLeftChannel(object sender, OnLeftChannelArgs e)
+        {
+            BotDisconnectedArgs args = new BotDisconnectedArgs();
+            args.Channel = e.Channel;
+
+            Console.WriteLine("Just left " + e.Channel);
+            BotDisconnected?.Invoke(this, args);
         }
 
         private void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
@@ -99,6 +101,8 @@ namespace Triggleh
             {
                 Console.WriteLine($"I see bits! {message.Bits} specifically");
             }
+
+            Setting settings = repository.LoadSettings();
 
             // List<Trigger> chatTriggers = repository.GetChatTriggers();
             List<Trigger> triggers = repository.GetTriggers();
@@ -177,7 +181,8 @@ namespace Triggleh
 
                 Console.WriteLine("matched!!");
                 SendKeystroke.Send(trigger.CharAnimTriggerKeyValue);
-                Logger.Write(trigger.Name, message.DisplayName, message.Bits, message.Message);
+
+                if (settings.LoggingEnabled) Logger.Write(trigger.Name, message.DisplayName, message.Bits, message.Message);
             }
         }
 
@@ -202,33 +207,25 @@ namespace Triggleh
             // Console.WriteLine($"Welcome back to {e.ReSubscriber.DisplayName} and thank you for the resubscription! {e.ReSubscriber.Months} months! Full message: {e.ReSubscriber.SystemMessageParsed}");
         }
 
-        // PUBSUB - for bits
-        private void Pubsub_OnPubSubServiceConnected(object sender, System.EventArgs e)
+        public void JoinChannel(string channel)
         {
-            // pubsub.ListenToWhispers("111984289");
-
-            /*pubsub.ListenToBitsEvents("111984289"); // 111984289 = cazzler
-            pubsub.SendTopics("");
-            Console.WriteLine("Started listening to pubsub...");*/
+            client.JoinChannel(channel);
         }
 
-        private void Pubsub_OnBitsReceived(object sender, TwitchLib.PubSub.Events.OnBitsReceivedArgs e)
+        public void LeaveAllChannels()
         {
-            // Console.WriteLine($"Just received {e.BitsUsed} bits from {e.Username}. That brings their total to {e.TotalBitsUsed} bits!");
-            // Console.WriteLine("Just received " + e.BitsUsed + " bits from " + e.Username + ". That brings their total to " + e.TotalBitsUsed + " bits!");
-            // client.SendMessage(e.ChannelName, $"Detected a cheer of {e.BitsUsed} bits from {e.Username}, who have cheered {e.TotalBitsUsed} total bits so far. Message: {e.ChatMessage}");
-
-            string message = e.ChatMessage;
-
-            Console.WriteLine("pubsub bits: " + e.BitsUsed);
+            List<JoinedChannel> channels = client.JoinedChannels.ToList();
+            foreach (JoinedChannel c in channels) client.LeaveChannel(c);
         }
 
-        private void Pubsub_OnListenResponse(object sender, TwitchLib.PubSub.Events.OnListenResponseArgs e)
+        public bool JoinedChannel(string channel)
         {
-            if (e.Successful)
-                Console.WriteLine($"Successfully verified listening to topic: {e.Topic}");
-            else
-                Console.WriteLine($"Failed to listen! Error: {e.Response.Error} {e.Topic}");
+            return client.JoinedChannels.Where(c => c.Channel == channel).ToList().Count > 0;
         }
+    }
+
+    public class BotDisconnectedArgs : EventArgs
+    {
+        public string Channel { get; set; }
     }
 }
