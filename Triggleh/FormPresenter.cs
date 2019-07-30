@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Triggleh
@@ -33,10 +33,6 @@ namespace Triggleh
                 foreach (Trigger trigger in triggers)
                     screen.PopulateTrigger(trigger);
 
-                Console.WriteLine(screen.GetNumberRows());
-
-                // screen.PopulateTriggerDetails(triggers[screen.Dgv_CurrentRow]);
-
                 screen.SetSelectedTrigger(screen.Dgv_CurrentRow);
                 screen.PopulateTriggerDetails(triggers[screen.Dgv_CurrentRow]);
             }
@@ -56,6 +52,8 @@ namespace Triggleh
                 valid = false;
             }
             else screen.ShowError("name", false);
+            Regex regex = new Regex(@"\s{2,}");
+            screen.TriggerName = regex.Replace(screen.TriggerName.Trim(), " ");
 
             if (screen.BitsCondition == 3 && screen.BitsAmount1 >= screen.BitsAmount2)
             {
@@ -103,11 +101,11 @@ namespace Triggleh
             triggerToSave.CharAnimTriggerKeyChar = screen.CharAnimTriggerKeyChar;
             triggerToSave.CharAnimTriggerKeyValue = screen.CharAnimTriggerKeyValue;
 
-            Trigger triggerExists = repository.GetTriggerByName(screen.TriggerName);
+            Trigger triggerExists = repository.GetTriggerByName(screen.TriggerName.Trim());
             if (triggerExists != null)
             {
                 Console.WriteLine("Trigger already exists... updating");
-                repository.UpdateTrigger(screen.TriggerName, triggerToSave);
+                repository.UpdateTrigger(screen.TriggerName.Trim(), triggerToSave);
                 /*UpdateView();
                 screen.SetSelectedTrigger(screen.Dgv_CurrentRow);*/
             }
@@ -149,9 +147,9 @@ namespace Triggleh
 
         public void Btn_AddKeyword_Click()
         {
-            if (screen.Keyword.Length == 0 || screen.HasKeyword(screen.Keyword)) return;
+            if (screen.Keyword.Trim().Length == 0 || screen.HasKeyword(screen.Keyword.Trim()) || screen.Keyword.Trim() == "!") return;
 
-            int index = screen.AddKeyword(screen.Keyword);
+            int index = screen.AddKeyword(screen.Keyword.Trim());
             screen.KeywordsIndex = index;
         }
 

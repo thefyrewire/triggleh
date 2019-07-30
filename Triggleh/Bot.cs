@@ -30,7 +30,7 @@ namespace Triggleh
             ConnectionCredentials credentials = new ConnectionCredentials("justinfan42069", "password");
 
             client = new TwitchClient();
-            client.Initialize(credentials, "cazzler");
+            client.Initialize(credentials, "thefyrewire");
 
             client.OnLog += Client_OnLog;
             client.OnJoinedChannel += Client_OnJoinedChannel;
@@ -93,21 +93,90 @@ namespace Triggleh
             }*/
 
             ChatMessage message = e.ChatMessage;
-            Console.WriteLine("bits seen: " + e.ChatMessage.Bits); // <---- 
-            Console.WriteLine("msg received: " + e.ChatMessage.Bits);
-
-            List<Trigger> chatTriggers = repository.GetChatTriggers();
-            foreach (Trigger trigger in chatTriggers)
+            // Console.WriteLine("bits seen: " + e.ChatMessage.Bits); // <---- 
+            // Console.WriteLine("msg received: " + e.ChatMessage.Bits);
+            if (message.Bits > 0)
             {
-                List<string> keywords = JsonConvert.DeserializeObject<List<string>>(trigger.Keywords);
-                string keyworded = string.Join("|", keywords);
-                Regex regex = new Regex(@"\b(" + keyworded + @")\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-                MatchCollection matches = regex.Matches(message.Message);
-                if (matches.Count > 0 && (trigger.UserLevelEveryone || (trigger.UserLevelSubs && message.IsSubscriber) || (trigger.UserLevelMods && message.IsModerator)))
+                Console.WriteLine($"I see bits! {message.Bits} specifically");
+            }
+
+            // List<Trigger> chatTriggers = repository.GetChatTriggers();
+            List<Trigger> triggers = repository.GetTriggers();
+            foreach (Trigger trigger in triggers)
+            {
+                bool bitsRequired = (trigger.BitsEnabled && trigger.BitsAmount > 0);
+                if (!bitsRequired && trigger.Keywords == "[]")
                 {
-                    Console.WriteLine("matched!!");
-                    SendKeystroke.Send(trigger.CharAnimTriggerKeyValue);
+                    Console.WriteLine("either bits or keywords needed");
+                    continue;
                 }
+
+                if (bitsRequired && message.Bits == 0)
+                {
+                    Console.WriteLine("bits expected and none given");
+                    continue;
+                }
+
+                bool validBits = false;
+                switch (trigger.BitsCondition)
+                {
+                    case 0:
+                        validBits = message.Bits >= trigger.BitsAmount;
+                        break;
+                    case 1:
+                        validBits = message.Bits <= trigger.BitsAmount;
+                        break;
+                    case 2:
+                        validBits = message.Bits == trigger.BitsAmount;
+                        break;
+                    case 3:
+                        validBits = message.Bits >= trigger.BitsAmount && message.Bits <= trigger.BitsAmount2;
+                        break;
+                }
+
+                if (!bitsRequired && trigger.Keywords != "[]")
+                {
+                    validBits = true;
+                }
+
+                if (!validBits)
+                {
+                    Console.WriteLine("not enough bits given");
+                    continue;
+                };
+
+                if ((trigger.UserLevelEveryone || (trigger.UserLevelSubs && message.IsSubscriber) || (trigger.UserLevelMods && message.IsModerator)) == false)
+                {
+                    Console.WriteLine("wrong userlevel");
+                    continue;
+                };
+
+                List<string> rawkeywords = JsonConvert.DeserializeObject<List<string>>(trigger.Keywords);
+                MatchCollection matches = null;
+
+                if (message.Message.StartsWith("!"))
+                {
+                    List<string> commands = rawkeywords.Where(k => k.StartsWith("!")).Select(k => Regex.Escape(k.Substring(1))).ToList();
+                    if (commands.Count == 0) continue; // no commands to look for
+                    string commanded = string.Join("|", commands);
+                    Regex regexCommands = new Regex(@"^!(" + commanded + @")$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                    matches = regexCommands.Matches(message.Message);
+                    Console.WriteLine("commands:" + commanded);
+                }
+                else
+                {
+                    List<string> keywords = rawkeywords.Where(k => !k.StartsWith("!")).Select(k => Regex.Escape(k)).ToList();
+                    if (keywords.Count == 0) continue; // no keywords to look for
+                    string keyworded = string.Join("|", keywords);
+                    Regex regexKeywords = new Regex(@"\b(" + keyworded + @")\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                    matches = regexKeywords.Matches(message.Message);
+                    Console.WriteLine("keywords:" + keyworded);
+                }
+
+                if (matches.Count == 0) continue; // no keyword/command match
+
+                Console.WriteLine("matched!!");
+                SendKeystroke.Send(trigger.CharAnimTriggerKeyValue);
             }
         }
 
