@@ -56,14 +56,17 @@
             this.lbl_Bits = new System.Windows.Forms.Label();
             this.lbl_TriggerName = new System.Windows.Forms.Label();
             this.btn_RemoveTrigger = new System.Windows.Forms.Button();
-            this.lbl_Refresh = new System.Windows.Forms.Label();
+            this.lbl_CharAnimStatus = new System.Windows.Forms.Label();
             this.btn_Refresh = new System.Windows.Forms.Button();
             this.btn_Settings = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.lbl_ChatStatus = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Triggers)).BeginInit();
             this.tab_TriggerDetails.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Bits2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Bits1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // dgv_Triggers
@@ -401,14 +404,14 @@
             this.btn_RemoveTrigger.UseVisualStyleBackColor = true;
             this.btn_RemoveTrigger.Click += new System.EventHandler(this.Btn_RemoveTrigger_Click);
             // 
-            // lbl_Refresh
+            // lbl_CharAnimStatus
             // 
-            this.lbl_Refresh.AutoSize = true;
-            this.lbl_Refresh.Location = new System.Drawing.Point(326, 408);
-            this.lbl_Refresh.Name = "lbl_Refresh";
-            this.lbl_Refresh.Size = new System.Drawing.Size(215, 23);
-            this.lbl_Refresh.TabIndex = 4;
-            this.lbl_Refresh.Text = "Character Animator found!";
+            this.lbl_CharAnimStatus.AutoSize = true;
+            this.lbl_CharAnimStatus.Location = new System.Drawing.Point(326, 405);
+            this.lbl_CharAnimStatus.Name = "lbl_CharAnimStatus";
+            this.lbl_CharAnimStatus.Size = new System.Drawing.Size(215, 23);
+            this.lbl_CharAnimStatus.TabIndex = 4;
+            this.lbl_CharAnimStatus.Text = "Character Animator found!";
             // 
             // btn_Refresh
             // 
@@ -430,19 +433,40 @@
             this.btn_Settings.UseVisualStyleBackColor = true;
             this.btn_Settings.Click += new System.EventHandler(this.Btn_Settings_Click);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(598, 395);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(43, 43);
+            this.pictureBox1.TabIndex = 7;
+            this.pictureBox1.TabStop = false;
+            // 
+            // lbl_ChatStatus
+            // 
+            this.lbl_ChatStatus.AutoSize = true;
+            this.lbl_ChatStatus.Location = new System.Drawing.Point(647, 405);
+            this.lbl_ChatStatus.Name = "lbl_ChatStatus";
+            this.lbl_ChatStatus.Size = new System.Drawing.Size(131, 23);
+            this.lbl_ChatStatus.TabIndex = 8;
+            this.lbl_ChatStatus.Text = "Chat connected";
+            // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(933, 444);
+            this.Controls.Add(this.lbl_ChatStatus);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btn_Settings);
             this.Controls.Add(this.btn_Refresh);
-            this.Controls.Add(this.lbl_Refresh);
+            this.Controls.Add(this.lbl_CharAnimStatus);
             this.Controls.Add(this.btn_RemoveTrigger);
             this.Controls.Add(this.tab_TriggerDetails);
             this.Controls.Add(this.btn_AddTrigger);
             this.Controls.Add(this.dgv_Triggers);
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Triggleh v.0.1";
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Triggers)).EndInit();
             this.tab_TriggerDetails.ResumeLayout(false);
@@ -450,6 +474,7 @@
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Bits2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Bits1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -485,9 +510,11 @@
         private System.Windows.Forms.Label lbl_CHTriggerKey;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgv_Name;
         private System.Windows.Forms.Button btn_RemoveTrigger;
-        private System.Windows.Forms.Label lbl_Refresh;
+        private System.Windows.Forms.Label lbl_CharAnimStatus;
         private System.Windows.Forms.Button btn_Refresh;
         private System.Windows.Forms.Button btn_Settings;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label lbl_ChatStatus;
     }
 }
 

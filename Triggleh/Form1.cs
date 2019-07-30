@@ -312,7 +312,10 @@ namespace Triggleh
                     lbl = lbl_Keywords;
                     break;
                 case "chtrigger":
-                    lbl = lbl_CHTrigger;
+                    lbl = lbl_CharAnimStatus;
+                    break;
+                case "chat":
+                    lbl = lbl_ChatStatus;
                     break;
             }
 
@@ -330,20 +333,19 @@ namespace Triggleh
         {
             if (SendKeystroke.CharAnimRunning)
             {
-                lbl_Refresh.ForeColor = Color.ForestGreen;
-                lbl_Refresh.Text = "Character Animator found!";
+                lbl_CharAnimStatus.ForeColor = Color.ForestGreen;
+                lbl_CharAnimStatus.Text = "Character Animator found!";
             }
 
             else
             {
-                lbl_Refresh.ForeColor = Color.Red;
-                lbl_Refresh.Text = "Character Animator missing :(";
+                lbl_CharAnimStatus.ForeColor = Color.Red;
+                lbl_CharAnimStatus.Text = "Character Animator missing :(";
             }
         }
 
         public void ShowSettingsForm()
         {
-            Hide();
             SettingsForm f1 = new SettingsForm();
             SettingsPresenter SP = new SettingsPresenter(f1);
             f1.ShowDialog();

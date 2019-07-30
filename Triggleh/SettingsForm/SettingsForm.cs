@@ -29,10 +29,27 @@ namespace Triggleh
             set { txt_Username.Text = value; }
         }
 
+        public string ProfilePicture
+        {
+            get { return txt_Username.Text; }
+            set { txt_Username.Text = value; }
+        }
+
         public bool LoggingEnabled
         {
             get { return chk_LoggingEnabled.Checked; }
             set { chk_LoggingEnabled.Checked = value; }
+        }
+
+        public void ShowError(bool showing)
+        {
+            if (showing) lbl_Username.ForeColor = Color.Red;
+            else lbl_Username.ForeColor = SystemColors.ControlText;
+        }
+
+        public void CloseForm()
+        {
+            Close();
         }
 
         private void Btn_SaveSettings_Click(object sender, EventArgs e)

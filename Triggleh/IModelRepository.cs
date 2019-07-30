@@ -16,9 +16,7 @@ namespace Triggleh
         void UpdateTrigger(string triggerName, Trigger triggerData);
         void RemoveTrigger(string triggerName);
 
-        /*void SetUsername(string username);
-        void GetUsername();*/
-        string Username { get; set; }
-        bool LoggingEnabled { get; set; }
+        void SaveSettings(Setting settings);
+        void LoadSettings();
     }
 }

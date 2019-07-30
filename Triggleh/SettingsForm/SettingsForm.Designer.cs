@@ -65,9 +65,9 @@
             // 
             // btn_SaveSettings
             // 
-            this.btn_SaveSettings.Location = new System.Drawing.Point(307, 131);
+            this.btn_SaveSettings.Location = new System.Drawing.Point(357, 109);
             this.btn_SaveSettings.Name = "btn_SaveSettings";
-            this.btn_SaveSettings.Size = new System.Drawing.Size(148, 45);
+            this.btn_SaveSettings.Size = new System.Drawing.Size(98, 43);
             this.btn_SaveSettings.TabIndex = 3;
             this.btn_SaveSettings.Text = "Save";
             this.btn_SaveSettings.UseVisualStyleBackColor = true;
@@ -75,16 +75,20 @@
             // 
             // SettingsForm
             // 
+            this.AcceptButton = this.btn_SaveSettings;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(487, 197);
+            this.ClientSize = new System.Drawing.Size(487, 173);
             this.Controls.Add(this.btn_SaveSettings);
             this.Controls.Add(this.chk_LoggingEnabled);
             this.Controls.Add(this.txt_Username);
             this.Controls.Add(this.lbl_Username);
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.MaximizeBox = false;
             this.Name = "SettingsForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Triggleh Settings";
             this.ResumeLayout(false);
             this.PerformLayout();

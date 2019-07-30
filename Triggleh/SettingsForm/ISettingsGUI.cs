@@ -12,5 +12,8 @@ namespace Triggleh
 
         string Username { get; set; }
         bool LoggingEnabled { get; set; }
+
+        void ShowError(bool showing);
+        void CloseForm();
     }
 }

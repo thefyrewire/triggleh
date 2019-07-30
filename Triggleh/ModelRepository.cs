@@ -107,14 +107,70 @@ namespace Triggleh
             }
         }*/
 
-        public string Username
+        /*public string Username
         {
-            get { using (Model context = new Model()) return context.Settings.First().Username; }
+            get
+            {
+                using (Model context = new Model())
+                {
+                    string username = context.Settings.First().Username;
+                    return username == null ? null : username;
+                }
+            }
             set
             {
                 using (Model context = new Model())
                 {
                     context.Settings.First().Username = value;
+                    context.SaveChanges();
+                }
+            }
+        }*/
+
+        public Setting LoadSettings()
+        {
+            using (Model context = new Model())
+            {
+                List<Setting> settings = context.Settings.ToList<Setting>();
+                if (settings.Count == 0) return null;
+                return settings.First<Setting>();
+            }
+        }
+
+        public void SaveSettings(Setting settingToSet)
+        {
+            using (Model context = new Model())
+            {
+                List<Setting> settings = context.Settings.ToList<Setting>();
+                if (settings.Count == 0)
+                {
+                    context.Settings.Add(new Setting()
+                    {
+                        Username = settingToSet.Username,
+                        ProfilePicture = settingToSet.ProfilePicture,
+                        LoggingEnabled = settingToSet.LoggingEnabled
+                    });
+                }
+                else
+                {
+                    Setting mainSettings = settings.First<Setting>();
+                    mainSettings.Username = settingToSet.Username;
+                    mainSettings.ProfilePicture = settingToSet.ProfilePicture;
+                    mainSettings.LoggingEnabled = settingToSet.LoggingEnabled;
+                }
+
+                context.SaveChanges();
+            }
+        }
+
+        /*public string ProfilePicture
+        {
+            get { using (Model context = new Model()) return context.Settings.First().ProfilePicture; }
+            set
+            {
+                using (Model context = new Model())
+                {
+                    context.Settings.First().ProfilePicture = value;
                     context.SaveChanges();
                 }
             }
@@ -131,6 +187,6 @@ namespace Triggleh
                     context.SaveChanges();
                 }
             }
-        }
+        }*/
     }
 }

@@ -27,10 +27,24 @@ namespace Triggleh
 
         private void UpdateView()
         {
+            /*string username = repository.Username;
+            screen.Username = (username != null) ? username : "";
+            screen.LoggingEnabled = repository.LoggingEnabled;*/
+            Setting settings = repository.LoadSettings();
+            if (settings != null)
+            {
+                screen.Username = settings.Username;
+                screen.LoggingEnabled = settings.LoggingEnabled;
+            }
+            else
+            {
+                screen.Username = "";
+                screen.LoggingEnabled = true;
+            }
 
         }
 
-        async private Task<JObject> ValidateSettings()
+        private JObject ValidateSettings()
         {
             HttpClient client = new HttpClient();
             HttpRequestMessage request = new HttpRequestMessage()
@@ -48,16 +62,23 @@ namespace Triggleh
 
         public void Btn_SaveSettings_Click()
         {
-            Task<JObject> validate = ValidateSettings();
+            JObject validate = ValidateSettings();
             // validate.Wait();
-            if (validate.Result != null)
+            if (validate != null)
             {
-                Console.WriteLine(validate.Result["display_name"]);
+                screen.ShowError(false);
+                screen.Username = validate["display_name"].ToString();
+
+                Setting settings = new Setting();
+                settings.Username = screen.Username;
+                settings.ProfilePicture = validate["profile_image_url"].ToString();
+                settings.LoggingEnabled = screen.LoggingEnabled;
+
+                repository.SaveSettings(settings);
+
+                screen.CloseForm();
             }
-            else
-            {
-                Console.WriteLine("reeeeeeeee user doesn't exist");
-            }
+            else screen.ShowError(true);
         }
     }
 }
