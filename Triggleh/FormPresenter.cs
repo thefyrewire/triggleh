@@ -101,12 +101,12 @@ namespace Triggleh
             }
             else screen.ShowError("userlevel", false);
 
-            /*if (screen.GetKeywords().Length <= 2)
+            if (screen.GetKeywords().Length <= 2 && screen.BitsAmount1 == 0) // []
             {
-                screen.ShowError("keywords", true);
+                screen.ShowValidationError(true);
                 valid = false;
             }
-            else screen.ShowError("keywords", false);*/
+            else screen.ShowValidationError(false);
 
             if (screen.CharAnimTriggerKeyChar == "None" || screen.CharAnimTriggerKeyValue == -1)
             {

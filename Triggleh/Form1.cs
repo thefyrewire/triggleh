@@ -322,6 +322,16 @@ namespace Triggleh
             }
         }
 
+        public void ShowValidationError(bool showing)
+        {
+            if (showing)
+            {
+                lbl_ValidationError.ForeColor = Color.Red;
+                lbl_ValidationError.Visible = true;
+            }
+            else lbl_ValidationError.Visible = false;
+        }
+
         public void RefreshCharAnimStatus()
         {
             if (SendKeystroke.CharAnimRunning)

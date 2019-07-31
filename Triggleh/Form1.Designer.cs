@@ -62,6 +62,7 @@
             this.btn_Settings = new System.Windows.Forms.Button();
             this.pic_ProfilePicture = new System.Windows.Forms.PictureBox();
             this.lbl_ChatStatus = new System.Windows.Forms.Label();
+            this.lbl_ValidationError = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Triggers)).BeginInit();
             this.tab_TriggerDetails.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -124,6 +125,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.lbl_ValidationError);
             this.tabPage1.Controls.Add(this.btn_SaveTrigger);
             this.tabPage1.Controls.Add(this.btn_RecordTrigger);
             this.tabPage1.Controls.Add(this.lbl_CHTriggerKey);
@@ -453,6 +455,16 @@
             this.lbl_ChatStatus.TabIndex = 8;
             this.lbl_ChatStatus.Text = "Chat connected";
             // 
+            // lbl_ValidationError
+            // 
+            this.lbl_ValidationError.AutoSize = true;
+            this.lbl_ValidationError.Location = new System.Drawing.Point(26, 315);
+            this.lbl_ValidationError.Name = "lbl_ValidationError";
+            this.lbl_ValidationError.Size = new System.Drawing.Size(356, 23);
+            this.lbl_ValidationError.TabIndex = 22;
+            this.lbl_ValidationError.Text = "Need at least either a single bit or a keyword!";
+            this.lbl_ValidationError.Visible = false;
+            // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(933, 444);
@@ -519,6 +531,7 @@
         private System.Windows.Forms.Button btn_Settings;
         private System.Windows.Forms.PictureBox pic_ProfilePicture;
         private System.Windows.Forms.Label lbl_ChatStatus;
+        private System.Windows.Forms.Label lbl_ValidationError;
     }
 }
 

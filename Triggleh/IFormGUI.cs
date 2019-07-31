@@ -52,6 +52,7 @@ namespace Triggleh
         int Dgv_CurrentRow { get; set; }
 
         void ShowError(string label, bool showing);
+        void ShowValidationError(bool showing);
         void RefreshCharAnimStatus();
 
         void ShowSettingsForm();

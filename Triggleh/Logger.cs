@@ -19,7 +19,7 @@ namespace Triggleh
 
         public static void Write(string trigger, string user, int amount, string rawMessage)
         {
-            string logMessage = $"[{DateTime.Now}] - {user} -> {trigger}{(amount > 0 ? $" ({amount})" : "")} - {rawMessage}\n";
+            string logMessage = $"[{DateTime.Now}] - {user} -> {trigger}{(amount > 0 ? $" ({amount})" : "")} - \"{rawMessage}\"\n";
             File.AppendAllText(path, logMessage);
         }
     }
