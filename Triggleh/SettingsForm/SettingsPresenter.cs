@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
 
@@ -27,9 +25,6 @@ namespace Triggleh
 
         private void UpdateView()
         {
-            /*string username = repository.Username;
-            screen.Username = (username != null) ? username : "";
-            screen.LoggingEnabled = repository.LoggingEnabled;*/
             Setting settings = repository.LoadSettings();
             if (settings != null)
             {
@@ -47,6 +42,10 @@ namespace Triggleh
         private JObject ValidateSettings()
         {
             if (screen.Username.Trim().Length == 0) return null;
+
+            Regex regex = new Regex(@"\W+");
+            MatchCollection matches = regex.Matches(screen.Username.Trim());
+            if (matches.Count > 0) return null;
 
             HttpClient client = new HttpClient();
             HttpRequestMessage request = new HttpRequestMessage()

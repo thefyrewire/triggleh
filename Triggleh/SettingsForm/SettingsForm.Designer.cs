@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.lbl_Username = new System.Windows.Forms.Label();
             this.txt_Username = new System.Windows.Forms.TextBox();
             this.chk_LoggingEnabled = new System.Windows.Forms.CheckBox();
@@ -85,6 +86,7 @@
             this.Controls.Add(this.lbl_Username);
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.Name = "SettingsForm";

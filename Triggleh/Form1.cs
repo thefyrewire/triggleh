@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 
@@ -309,7 +305,7 @@ namespace Triggleh
                     lbl = lbl_Keywords;
                     break;
                 case "chtrigger":
-                    lbl = lbl_CharAnimStatus;
+                    lbl = lbl_CHTrigger;
                     break;
                 case "chat":
                     lbl = lbl_ChatStatus;

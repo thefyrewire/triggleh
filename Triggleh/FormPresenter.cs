@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Triggleh
 {
@@ -23,9 +21,9 @@ namespace Triggleh
         {
             screen.UpdateChatStatus(0);
             UpdateView();
-            LoadFromSettings();
             bot.BotDisconnected += BotDisconnected;
             bot.BotConnected += BotConnected;
+            LoadFromSettings();
         }
 
         private void UpdateView()
@@ -52,17 +50,15 @@ namespace Triggleh
             Setting settings = repository.LoadSettings();
             if (settings == null || settings.Username.Length == 0)
             {
+                bot.LeaveAllChannels();
                 screen.SetProfilePicture("https://static-cdn.jtvnw.net/jtv_user_pictures/twitch-profile_image-8a8c5be2e3b64a9a-300x300.png");
                 screen.UpdateChatStatus(0);
                 return;
             }
 
             screen.SetProfilePicture(settings.ProfilePicture);
-            if (!bot.JoinedChannel(settings.Username))
-            {
-                bot.LeaveAllChannels();
-                bot.JoinChannel(settings.Username);
-            }
+            bot.LeaveAllChannels();
+            bot.JoinChannel(settings.Username);
         }
 
         public void BotDisconnected(object sender, BotDisconnectedArgs e)

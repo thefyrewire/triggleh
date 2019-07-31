@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.dgv_Triggers = new System.Windows.Forms.DataGridView();
             this.dgv_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btn_AddTrigger = new System.Windows.Forms.Button();
@@ -466,10 +467,11 @@
             this.Controls.Add(this.dgv_Triggers);
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Triggleh v.0.1";
+            this.Text = "Triggleh v0.1 by thefyrewire (@MikeyHay)";
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Triggers)).EndInit();
             this.tab_TriggerDetails.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
