@@ -59,6 +59,8 @@ namespace Triggleh
             List<Trigger> triggers = repository.GetTriggers();
             foreach (Trigger trigger in triggers)
             {
+                // check cooldown here
+
                 bool bitsRequired = (trigger.BitsEnabled && trigger.BitsAmount > 0);
                 if (!bitsRequired && trigger.Keywords == "[]")
                 {
@@ -132,6 +134,7 @@ namespace Triggleh
 
                 Console.WriteLine("matched!!");
                 SendKeystroke.Send(trigger.CharAnimTriggerKeyValue);
+
 
                 if (settings.LoggingEnabled) Logger.Write(trigger.Name, message.DisplayName, message.Bits, message.Message);
             }

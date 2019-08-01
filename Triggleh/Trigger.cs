@@ -48,6 +48,18 @@ namespace Triggleh
 
         [Required]
         public string CharAnimTriggerKeyChar { get; set; }
+
+        [Required]
         public int CharAnimTriggerKeyValue { get; set; }
+
+
+
+        [Required]
+        public int Cooldown { get; set; }
+
+        [Required]
+        public int CooldownUnit { get; set; }
+
+        public DateTime LastTriggered { get; set; }
     }
 }

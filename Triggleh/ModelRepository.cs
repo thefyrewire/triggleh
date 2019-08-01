@@ -3,8 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Triggleh
 {
@@ -27,7 +25,7 @@ namespace Triggleh
                 context.Triggers.Add(new Trigger()
                 {
                     Name = trigger.Name,
-                    CreatedAt = DateTime.Now,
+                    CreatedAt = DateTime.UtcNow,
                     BitsEnabled = trigger.BitsEnabled,
                     BitsCondition = trigger.BitsCondition,
                     BitsAmount = trigger.BitsAmount,
@@ -37,8 +35,10 @@ namespace Triggleh
                     UserLevelMods = trigger.UserLevelMods,
                     Keywords = trigger.Keywords,
                     CharAnimTriggerKeyChar = trigger.CharAnimTriggerKeyChar,
-                    CharAnimTriggerKeyValue = trigger.CharAnimTriggerKeyValue
-                });
+                    CharAnimTriggerKeyValue = trigger.CharAnimTriggerKeyValue,
+                    Cooldown = trigger.Cooldown,
+                    CooldownUnit = trigger.CooldownUnit
+            });
 
                 context.SaveChanges();
             }
@@ -79,6 +79,8 @@ namespace Triggleh
                 triggerToUpdate.Keywords = triggerData.Keywords;
                 triggerToUpdate.CharAnimTriggerKeyChar = triggerData.CharAnimTriggerKeyChar;
                 triggerToUpdate.CharAnimTriggerKeyValue = triggerData.CharAnimTriggerKeyValue;
+                triggerToUpdate.Cooldown = triggerData.Cooldown;
+                triggerToUpdate.CooldownUnit = triggerData.CooldownUnit;
 
                 // need to ensure trigger is updated
                 context.SaveChanges();
@@ -91,6 +93,17 @@ namespace Triggleh
             {
                 Trigger triggerToGet = context.Triggers.Where(trigger => trigger.Name.ToLower() == triggerName.ToLower()).FirstOrDefault<Trigger>();
                 context.Triggers.Remove(triggerToGet);
+
+                context.SaveChanges();
+            }
+        }
+
+        public void UpdateTriggerUsage(string triggerName)
+        {
+            using (Model context = new Model())
+            {
+                Trigger triggerToUpdate = context.Triggers.Where(trigger => trigger.Name.ToLower() == triggerName.ToLower()).FirstOrDefault<Trigger>();
+                triggerToUpdate.LastTriggered = DateTime.UtcNow;
 
                 context.SaveChanges();
             }

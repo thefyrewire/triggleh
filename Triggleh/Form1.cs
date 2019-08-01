@@ -53,7 +53,7 @@ namespace Triggleh
         public int BitsAmount1
         {
             set { nud_Bits1.Value = value; }
-            get { return (int)nud_Bits1.Value; }
+            get { return (int) nud_Bits1.Value; }
         }
 
         public bool BitsAmount1Enabled
@@ -65,7 +65,7 @@ namespace Triggleh
         public int BitsAmount2
         {
             set { nud_Bits2.Value = value; }
-            get { return (int)nud_Bits2.Value; }
+            get { return (int) nud_Bits2.Value; }
         }
 
         public bool BitsAmount2Visible
@@ -170,6 +170,18 @@ namespace Triggleh
 
         public int CharAnimTriggerKeyValue { get; set; }
 
+        public int Cooldown
+        {
+            set { nud_Cooldown.Value = value; }
+            get { return (int)nud_Cooldown.Value; }
+        }
+
+        public int CooldownUnit
+        {
+            set { cmb_CooldownUnit.SelectedIndex = value; }
+            get { return cmb_CooldownUnit.SelectedIndex; }
+        }
+
         public void ResetDetails()
         {
             TriggerName = "";
@@ -180,6 +192,8 @@ namespace Triggleh
             ClearKeywords();
             CharAnimTriggerKeyChar = "None";
             CharAnimTriggerKeyValue = -1;
+            Cooldown = 30;
+            CooldownUnit = 0;
         }
 
         public void EnableBits(bool enabled)
@@ -272,6 +286,8 @@ namespace Triggleh
 
             CharAnimTriggerKeyChar = trigger.CharAnimTriggerKeyChar;
             CharAnimTriggerKeyValue = trigger.CharAnimTriggerKeyValue;
+            Cooldown = trigger.Cooldown;
+            CooldownUnit = trigger.CooldownUnit;
         }
 
         public void SetSelectedTrigger(int index)
