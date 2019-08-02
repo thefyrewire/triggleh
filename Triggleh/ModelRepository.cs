@@ -25,7 +25,7 @@ namespace Triggleh
                 context.Triggers.Add(new Trigger()
                 {
                     Name = trigger.Name,
-                    CreatedAt = DateTime.UtcNow,
+                    CreatedAt = DateTime.Now,
                     BitsEnabled = trigger.BitsEnabled,
                     BitsCondition = trigger.BitsCondition,
                     BitsAmount = trigger.BitsAmount,
@@ -67,7 +67,6 @@ namespace Triggleh
             using (Model context = new Model())
             {
                 Trigger triggerToUpdate = context.Triggers.Where(trigger => trigger.Name.ToLower() == triggerName.ToLower()).FirstOrDefault<Trigger>();
-                // triggerToUpdate = triggerData;
                 triggerToUpdate.Name = triggerData.Name;
                 triggerToUpdate.BitsEnabled = triggerData.BitsEnabled;
                 triggerToUpdate.BitsCondition = triggerData.BitsCondition;
@@ -98,12 +97,13 @@ namespace Triggleh
             }
         }
 
-        public void UpdateTriggerUsage(string triggerName)
+        public void UpdateTriggerUsage(string triggerName, DateTime time)
         {
             using (Model context = new Model())
             {
                 Trigger triggerToUpdate = context.Triggers.Where(trigger => trigger.Name.ToLower() == triggerName.ToLower()).FirstOrDefault<Trigger>();
-                triggerToUpdate.LastTriggered = DateTime.UtcNow;
+                triggerToUpdate.LastTriggered = time;
+                Console.WriteLine($"updating last trigger usage... {time}");
 
                 context.SaveChanges();
             }

@@ -23,6 +23,7 @@ namespace Triggleh
             UpdateView();
             bot.BotDisconnected += BotDisconnected;
             bot.BotConnected += BotConnected;
+            bot.BotTriggered += BotTriggered;
             LoadFromSettings();
         }
 
@@ -72,6 +73,11 @@ namespace Triggleh
         {
             Console.WriteLine("connected!");
             screen.UpdateChatStatus(1);
+        }
+
+        public void BotTriggered(object sender, BotTriggeredArgs e)
+        {
+            screen.SetLastTriggered(e.TriggeredAt.ToString());
         }
 
         private bool ValidateTrigger()
@@ -132,7 +138,9 @@ namespace Triggleh
                 UserLevelMods = screen.UserLevelMods,
                 Keywords = screen.GetKeywords(),
                 CharAnimTriggerKeyChar = screen.CharAnimTriggerKeyChar,
-                CharAnimTriggerKeyValue = screen.CharAnimTriggerKeyValue
+                CharAnimTriggerKeyValue = screen.CharAnimTriggerKeyValue,
+                Cooldown = screen.Cooldown,
+                CooldownUnit = screen.CooldownUnit
             };
 
             Trigger triggerExists = repository.GetTriggerByName(screen.TriggerName.Trim());
@@ -233,6 +241,13 @@ namespace Triggleh
         public void Btn_Settings_Click()
         {
             screen.ShowSettingsForm();
+        }
+
+        public void Btn_ResetLastTriggered_Click()
+        {
+            if (screen.GetSelectedTrigger() == null) return;
+            repository.UpdateTriggerUsage(screen.GetSelectedTrigger(), DateTime.MinValue);
+            UpdateView();
         }
     }
 }

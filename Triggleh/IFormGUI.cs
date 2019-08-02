@@ -32,6 +32,9 @@ namespace Triggleh
         string GetKeywords();
         string CharAnimTriggerKeyChar { get; set; }
         int CharAnimTriggerKeyValue { get; set; }
+        int Cooldown { get; set; }
+        int CooldownUnit { get; set; }
+        string LastTriggered { get; set; }
 
         void ResetDetails();
         void EnableBits(bool enabled);
@@ -47,6 +50,7 @@ namespace Triggleh
         void PopulateTrigger(Trigger trigger);
         void PopulateTriggerDetails(Trigger trigger);
         void SetSelectedTrigger(int index);
+        string GetSelectedTrigger();
         int GetNumberRows();
 
         int Dgv_CurrentRow { get; set; }
@@ -59,5 +63,6 @@ namespace Triggleh
 
         void SetProfilePicture(string url);
         void UpdateChatStatus(int status);
+        void SetLastTriggered(string time);
     }
 }

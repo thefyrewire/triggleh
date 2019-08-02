@@ -19,6 +19,7 @@ namespace Triggleh
 
         public event EventHandler BotConnected;
         public event EventHandler<BotDisconnectedArgs> BotDisconnected;
+        public event EventHandler<BotTriggeredArgs> BotTriggered;
 
         public Bot()
         {
@@ -59,7 +60,22 @@ namespace Triggleh
             List<Trigger> triggers = repository.GetTriggers();
             foreach (Trigger trigger in triggers)
             {
-                // check cooldown here
+                TimeSpan difference = DateTime.Now - trigger.LastTriggered;
+                int cooldown = trigger.Cooldown;
+                switch (trigger.CooldownUnit)
+                {
+                    case 1:
+                        cooldown *= 60;
+                        break;
+                    case 2:
+                        cooldown *= 3600;
+                        break;
+                }
+                if ((int) difference.TotalSeconds < cooldown && trigger.LastTriggered != DateTime.MinValue)
+                {
+                    Console.WriteLine("trigger on cooldown");
+                    continue;
+                };
 
                 bool bitsRequired = (trigger.BitsEnabled && trigger.BitsAmount > 0);
                 if (!bitsRequired && trigger.Keywords == "[]")
@@ -135,6 +151,12 @@ namespace Triggleh
                 Console.WriteLine("matched!!");
                 SendKeystroke.Send(trigger.CharAnimTriggerKeyValue);
 
+                DateTime triggeredAt = DateTime.Now;
+
+                repository.UpdateTriggerUsage(trigger.Name, triggeredAt);
+
+                BotTriggeredArgs args = new BotTriggeredArgs { TriggeredAt = triggeredAt };
+                BotTriggered?.Invoke(this, args);
 
                 if (settings.LoggingEnabled) Logger.Write(trigger.Name, message.DisplayName, message.Bits, message.Message);
             }
@@ -160,5 +182,10 @@ namespace Triggleh
     public class BotDisconnectedArgs : EventArgs
     {
         public string Channel { get; set; }
+    }
+
+    public class BotTriggeredArgs : EventArgs
+    {
+        public DateTime TriggeredAt { get; set; }
     }
 }

@@ -10,6 +10,7 @@ namespace Triggleh
 {
     public partial class Form1 : Form, IFormGUI
     {
+        private delegate string SafeCallDelegate2();
         private delegate void SafeCallDelegate(string text);
         private FormPresenter presenter;
 
@@ -173,13 +174,19 @@ namespace Triggleh
         public int Cooldown
         {
             set { nud_Cooldown.Value = value; }
-            get { return (int)nud_Cooldown.Value; }
+            get { return (int) nud_Cooldown.Value; }
         }
 
         public int CooldownUnit
         {
             set { cmb_CooldownUnit.SelectedIndex = value; }
             get { return cmb_CooldownUnit.SelectedIndex; }
+        }
+
+        public string LastTriggered
+        {
+            set { lbl_LastTriggered.Text = value; }
+            get { return lbl_LastTriggered.Text; }
         }
 
         public void ResetDetails()
@@ -194,6 +201,7 @@ namespace Triggleh
             CharAnimTriggerKeyValue = -1;
             Cooldown = 30;
             CooldownUnit = 0;
+            LastTriggered = "Never";
         }
 
         public void EnableBits(bool enabled)
@@ -288,6 +296,7 @@ namespace Triggleh
             CharAnimTriggerKeyValue = trigger.CharAnimTriggerKeyValue;
             Cooldown = trigger.Cooldown;
             CooldownUnit = trigger.CooldownUnit;
+            LastTriggered = (trigger.LastTriggered == DateTime.MinValue) ? "Never" : trigger.LastTriggered.ToString();
         }
 
         public void SetSelectedTrigger(int index)
@@ -296,6 +305,12 @@ namespace Triggleh
             if (index == -1) return;
             dgv_Triggers.Rows[index].Selected = true;
             Dgv_CurrentRow = index;
+        }
+
+        public string GetSelectedTrigger()
+        {
+            if (dgv_Triggers.SelectedRows.Count <= 0) return null;
+            return dgv_Triggers.SelectedRows[0].Cells["dgv_Name"].Value.ToString();
         }
 
         public int GetNumberRows()
@@ -404,6 +419,19 @@ namespace Triggleh
             }
         }
 
+        public void SetLastTriggered(string time)
+        {
+            if (lbl_LastTriggered.InvokeRequired)
+            {
+                var d = new SafeCallDelegate(SetLastTriggered);
+                Invoke(d, new object[] { time });
+            }
+            else
+            {
+                lbl_LastTriggered.Text = time;
+            }
+        }
+
         private void Chk_Bits_CheckedChanged(object sender, EventArgs e)
         {
             presenter.Chk_Bits_CheckedChanged();
@@ -454,7 +482,8 @@ namespace Triggleh
         private void Dgv_Triggers_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex == -1) return;
-            Dgv_CurrentRow = e.RowIndex;
+            // Dgv_CurrentRow = e.RowIndex;
+            SetSelectedTrigger(e.RowIndex);
             presenter.Dgv_Triggers_CellClick(dgv_Triggers.Rows[e.RowIndex].Cells["dgv_Name"].Value.ToString());
         }
 
@@ -483,6 +512,11 @@ namespace Triggleh
         private void Btn_Settings_Click(object sender, EventArgs e)
         {
             presenter.Btn_Settings_Click();
+        }
+
+        private void Btn_ResetLastTriggered_Click(object sender, EventArgs e)
+        {
+            presenter.Btn_ResetLastTriggered_Click();
         }
     }
 }
