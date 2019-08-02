@@ -34,6 +34,7 @@
             this.btn_AddTrigger = new System.Windows.Forms.Button();
             this.tab_TriggerDetails = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lbl_UnsavedChanges = new System.Windows.Forms.Label();
             this.btn_ResetLastTriggered = new System.Windows.Forms.Button();
             this.lbl_LastTriggered = new System.Windows.Forms.Label();
             this.lbl_LastTriggeredAt = new System.Windows.Forms.Label();
@@ -133,6 +134,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.lbl_UnsavedChanges);
             this.tabPage1.Controls.Add(this.btn_ResetLastTriggered);
             this.tabPage1.Controls.Add(this.lbl_LastTriggered);
             this.tabPage1.Controls.Add(this.lbl_LastTriggeredAt);
@@ -170,6 +172,17 @@
             this.tabPage1.Text = "Details";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // lbl_UnsavedChanges
+            // 
+            this.lbl_UnsavedChanges.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lbl_UnsavedChanges.Location = new System.Drawing.Point(538, 274);
+            this.lbl_UnsavedChanges.Name = "lbl_UnsavedChanges";
+            this.lbl_UnsavedChanges.Size = new System.Drawing.Size(107, 23);
+            this.lbl_UnsavedChanges.TabIndex = 0;
+            this.lbl_UnsavedChanges.Text = "Unsaved changes!";
+            this.lbl_UnsavedChanges.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbl_UnsavedChanges.Visible = false;
+            // 
             // btn_ResetLastTriggered
             // 
             this.btn_ResetLastTriggered.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -197,9 +210,9 @@
             this.lbl_LastTriggeredAt.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lbl_LastTriggeredAt.Location = new System.Drawing.Point(305, 202);
             this.lbl_LastTriggeredAt.Name = "lbl_LastTriggeredAt";
-            this.lbl_LastTriggeredAt.Size = new System.Drawing.Size(121, 20);
+            this.lbl_LastTriggeredAt.Size = new System.Drawing.Size(104, 20);
             this.lbl_LastTriggeredAt.TabIndex = 0;
-            this.lbl_LastTriggeredAt.Text = "Last triggered at:";
+            this.lbl_LastTriggeredAt.Text = "Last triggered:";
             // 
             // cmb_CooldownUnit
             // 
@@ -214,6 +227,7 @@
             this.cmb_CooldownUnit.Name = "cmb_CooldownUnit";
             this.cmb_CooldownUnit.Size = new System.Drawing.Size(75, 31);
             this.cmb_CooldownUnit.TabIndex = 16;
+            this.cmb_CooldownUnit.SelectedIndexChanged += new System.EventHandler(this.FormControls_ChangesMade);
             // 
             // lbl_Cooldown
             // 
@@ -235,6 +249,7 @@
             0,
             0,
             0});
+            this.nud_Cooldown.ValueChanged += new System.EventHandler(this.FormControls_ChangesMade);
             // 
             // lbl_ValidationError
             // 
@@ -301,6 +316,7 @@
             0,
             0,
             0});
+            this.nud_Bits2.ValueChanged += new System.EventHandler(this.FormControls_ChangesMade);
             // 
             // lbl_BitsInfo2
             // 
@@ -339,6 +355,7 @@
             0,
             0,
             0});
+            this.nud_Bits1.ValueChanged += new System.EventHandler(this.FormControls_ChangesMade);
             // 
             // txt_Keywords
             // 
@@ -408,6 +425,7 @@
             this.chk_ULMods.TabIndex = 10;
             this.chk_ULMods.Text = "Mods";
             this.chk_ULMods.UseVisualStyleBackColor = true;
+            this.chk_ULMods.CheckedChanged += new System.EventHandler(this.FormControls_ChangesMade);
             // 
             // chk_ULSubs
             // 
@@ -419,6 +437,7 @@
             this.chk_ULSubs.TabIndex = 9;
             this.chk_ULSubs.Text = "Subs";
             this.chk_ULSubs.UseVisualStyleBackColor = true;
+            this.chk_ULSubs.CheckedChanged += new System.EventHandler(this.FormControls_ChangesMade);
             // 
             // chk_ULEveryone
             // 
@@ -439,6 +458,7 @@
             this.txt_TriggerName.Name = "txt_TriggerName";
             this.txt_TriggerName.Size = new System.Drawing.Size(301, 30);
             this.txt_TriggerName.TabIndex = 3;
+            this.txt_TriggerName.TextChanged += new System.EventHandler(this.FormControls_ChangesMade);
             // 
             // lst_Keywords
             // 
@@ -446,7 +466,7 @@
             this.lst_Keywords.ItemHeight = 23;
             this.lst_Keywords.Location = new System.Drawing.Point(538, 160);
             this.lst_Keywords.Name = "lst_Keywords";
-            this.lst_Keywords.Size = new System.Drawing.Size(107, 96);
+            this.lst_Keywords.Size = new System.Drawing.Size(107, 73);
             this.lst_Keywords.TabIndex = 14;
             // 
             // lbl_Keywords
@@ -619,6 +639,7 @@
         private System.Windows.Forms.Label lbl_LastTriggeredAt;
         private System.Windows.Forms.Label lbl_LastTriggered;
         private System.Windows.Forms.Button btn_ResetLastTriggered;
+        private System.Windows.Forms.Label lbl_UnsavedChanges;
     }
 }
 

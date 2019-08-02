@@ -202,6 +202,8 @@ namespace Triggleh
             Cooldown = 30;
             CooldownUnit = 0;
             LastTriggered = "Never";
+
+            ShowChangesMade(false);
         }
 
         public void EnableBits(bool enabled)
@@ -297,6 +299,8 @@ namespace Triggleh
             Cooldown = trigger.Cooldown;
             CooldownUnit = trigger.CooldownUnit;
             LastTriggered = (trigger.LastTriggered == DateTime.MinValue) ? "Never" : trigger.LastTriggered.ToString();
+
+            ShowChangesMade(false);
         }
 
         public void SetSelectedTrigger(int index)
@@ -432,6 +436,16 @@ namespace Triggleh
             }
         }
 
+        public void ShowChangesMade(bool showing)
+        {
+            if (showing)
+            {
+                lbl_UnsavedChanges.ForeColor = Color.Red;
+                lbl_UnsavedChanges.Visible = true;
+            }
+            else lbl_UnsavedChanges.Visible = false;
+        }
+
         private void Chk_Bits_CheckedChanged(object sender, EventArgs e)
         {
             presenter.Chk_Bits_CheckedChanged();
@@ -517,6 +531,11 @@ namespace Triggleh
         private void Btn_ResetLastTriggered_Click(object sender, EventArgs e)
         {
             presenter.Btn_ResetLastTriggered_Click();
+        }
+
+        private void FormControls_ChangesMade(object sender, EventArgs e)
+        {
+            presenter.FormControls_ChangesMade();
         }
     }
 }

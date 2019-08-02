@@ -162,16 +162,19 @@ namespace Triggleh
         public void Chk_Bits_CheckedChanged()
         {
             screen.EnableBits(screen.BitsEnabled);
+            screen.ShowChangesMade(true);
         }
 
         public void Cmb_Bits_SelectedIndexChanged()
         {
             screen.EnableBitsBetween(screen.BitsCondition == 3);
+            screen.ShowChangesMade(true);
         }
 
         public void Chk_ULEveryone_CheckedChanged()
         {
             screen.AllowSubsMods(!screen.UserLevelEveryone);
+            screen.ShowChangesMade(true);
         }
 
         public void Txt_Keywords_Enter()
@@ -185,6 +188,7 @@ namespace Triggleh
 
             int index = screen.AddKeyword(screen.Keyword.Trim());
             screen.KeywordsIndex = index;
+            screen.ShowChangesMade(true);
         }
 
         public void Btn_RemoveKeyword_Click()
@@ -192,11 +196,13 @@ namespace Triggleh
             if (screen.KeywordsIndex == -1) return;
 
             screen.RemoveKeyword(screen.KeywordsIndex);
+            screen.ShowChangesMade(true);
         }
 
         public void Btn_RecordTrigger_Click()
         {
             screen.StartRecordingTrigger();
+            screen.ShowChangesMade(true);
         }
 
         public void Btn_RecordTrigger_KeyDown(string keychar, int keyvalue)
@@ -212,6 +218,7 @@ namespace Triggleh
             bool valid = ValidateTrigger();
             if (!valid) return;
 
+            screen.ShowChangesMade(false);
             SaveTrigger();
         }
 
@@ -248,6 +255,11 @@ namespace Triggleh
             if (screen.GetSelectedTrigger() == null) return;
             repository.UpdateTriggerUsage(screen.GetSelectedTrigger(), DateTime.MinValue);
             UpdateView();
+        }
+
+        public void FormControls_ChangesMade()
+        {
+            screen.ShowChangesMade(true);
         }
     }
 }
