@@ -189,6 +189,12 @@ namespace Triggleh
             get { return lbl_LastTriggered.Text; }
         }
 
+        public bool NotifyIconVisible
+        {
+            set { icn_Triggleh.Visible = value; }
+            get { return icn_Triggleh.Visible; }
+        }
+
         public void ResetDetails()
         {
             TriggerName = "";
@@ -461,6 +467,11 @@ namespace Triggleh
             else lbl_UnsavedChanges.Visible = false;
         }
 
+        public void ShowContextMenu()
+        {
+            cms_Triggleh.Show();
+        }
+
         private void Chk_Bits_CheckedChanged(object sender, EventArgs e)
         {
             presenter.Chk_Bits_CheckedChanged();
@@ -551,6 +562,33 @@ namespace Triggleh
         private void FormControls_ChangesMade(object sender, EventArgs e)
         {
             presenter.FormControls_ChangesMade();
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            if (WindowState != FormWindowState.Minimized) return;
+            
+            Hide();
+            presenter.Form1_Resize();
+        }
+
+        private void Icn_Triggleh_Click(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                Show();
+                WindowState = FormWindowState.Normal;
+                TopMost = true;
+                Application.DoEvents();
+                TopMost = false;
+                presenter.Icn_Triggleh_LeftClick();
+            }
+            else return;
+        }
+
+        private void Tsmi_Exit_Click(object sender, EventArgs e)
+        {
+            Dispose(true);
         }
     }
 }

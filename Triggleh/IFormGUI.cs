@@ -35,6 +35,7 @@ namespace Triggleh
         int Cooldown { get; set; }
         int CooldownUnit { get; set; }
         string LastTriggered { get; set; }
+        bool NotifyIconVisible { get; set; }
 
         void ResetDetails();
         void EnableBits(bool enabled);

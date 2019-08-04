@@ -263,5 +263,15 @@ namespace Triggleh
         {
             screen.ShowChangesMade(true);
         }
+
+        public void Form1_Resize()
+        {
+            screen.NotifyIconVisible = true;
+        }
+
+        public void Icn_Triggleh_LeftClick()
+        {
+            screen.NotifyIconVisible = false;
+        }
     }
 }

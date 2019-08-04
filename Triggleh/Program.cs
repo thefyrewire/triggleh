@@ -19,8 +19,15 @@ namespace Triggleh
             // Application.Run(new Form1());
 
             Form1 f1 = new Form1();
-            FormPresenter FM = new FormPresenter(f1);
+            new FormPresenter(f1);
             Application.Run(f1);
+
+            /*
+             -- High DPI Support
+                <System.Windows.Forms.ApplicationConfigurationSection>
+                  <add key="DpiAwareness" value="PerMonitorV2" />
+                </System.Windows.Forms.ApplicationConfigurationSection>
+            */
         }
     }
 }

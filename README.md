@@ -4,13 +4,15 @@
 
 A small app I threw together that allows chat to interact with character streamers. You can set up specific conditions for triggers to activate! This can provide sub-only incentives and reward subs with fun ways to affect the stream, increasing viewer interaction and bit revenue as a whole.
 
-[![Everything Is AWESOME](https://img.youtube.com/vi/StTqXEQ2l-Y/0.jpg)](https://www.youtube.com/watch?v=StTqXEQ2l-Y "Everything Is AWESOME")
+Click below for a video demonstration of Triggleh, brought to you by the sexiest dog on Twitch, Cazzler (and Bradley).
+
+[![Triggleh, with Cazzler](https://i.imgur.com/gHT6zXo.png)](https://www.youtube.com/watch?v=StTqXEQ2l-Y "Triggleh, with Cazzler")
 
 ## Features
 * Simple, unified interface to create and manage chat-activated puppet triggers
 * Control specific conditions (bits/user level/message keywords) for activation
 * Trigger cooldowns to prevent spam
-* Logs to see which triggers are most popular and create the most revenue
+* Monthly logs to see which triggers are most popular and create the most revenue
 
 ## Options
 
@@ -22,7 +24,7 @@ Add a condition that means it only triggers when someone cheers. There are four 
 * Exactly
 * Between
 
-For example, `At least 100 bits` or `Between 200 and 400 bits`.
+For example, `At least 100 bits` or `Between 200 and 400 bits` (inclusive).
 
 ### User Level
 Restrict the trigger to a certain user rank:

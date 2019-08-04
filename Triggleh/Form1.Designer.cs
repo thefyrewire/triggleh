@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.dgv_Triggers = new System.Windows.Forms.DataGridView();
             this.dgv_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -70,6 +71,11 @@
             this.btn_Settings = new System.Windows.Forms.Button();
             this.pic_ProfilePicture = new System.Windows.Forms.PictureBox();
             this.lbl_ChatStatus = new System.Windows.Forms.Label();
+            this.icn_Triggleh = new System.Windows.Forms.NotifyIcon(this.components);
+            this.cms_Triggleh = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmi_Exit = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmi_CazzTrigControlPanel = new System.Windows.Forms.ToolStripMenuItem();
+            this.tss_1 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Triggers)).BeginInit();
             this.tab_TriggerDetails.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -77,6 +83,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nud_Bits2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Bits1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_ProfilePicture)).BeginInit();
+            this.cms_Triggleh.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgv_Triggers
@@ -565,6 +572,44 @@
             this.lbl_ChatStatus.TabIndex = 0;
             this.lbl_ChatStatus.Text = "Chat connected";
             // 
+            // icn_Triggleh
+            // 
+            this.icn_Triggleh.ContextMenuStrip = this.cms_Triggleh;
+            this.icn_Triggleh.Icon = ((System.Drawing.Icon)(resources.GetObject("icn_Triggleh.Icon")));
+            this.icn_Triggleh.Text = "Triggleh";
+            this.icn_Triggleh.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Icn_Triggleh_Click);
+            // 
+            // cms_Triggleh
+            // 
+            this.cms_Triggleh.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.cms_Triggleh.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.cms_Triggleh.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmi_CazzTrigControlPanel,
+            this.tss_1,
+            this.tsmi_Exit});
+            this.cms_Triggleh.Name = "cms_Triggleh";
+            this.cms_Triggleh.Size = new System.Drawing.Size(227, 90);
+            // 
+            // tsmi_Exit
+            // 
+            this.tsmi_Exit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsmi_Exit.Name = "tsmi_Exit";
+            this.tsmi_Exit.Size = new System.Drawing.Size(226, 24);
+            this.tsmi_Exit.Text = "Exit";
+            this.tsmi_Exit.Click += new System.EventHandler(this.Tsmi_Exit_Click);
+            // 
+            // tsmi_CazzTrigControlPanel
+            // 
+            this.tsmi_CazzTrigControlPanel.Enabled = false;
+            this.tsmi_CazzTrigControlPanel.Name = "tsmi_CazzTrigControlPanel";
+            this.tsmi_CazzTrigControlPanel.Size = new System.Drawing.Size(226, 24);
+            this.tsmi_CazzTrigControlPanel.Text = "CazzTrig Control Panel";
+            // 
+            // tss_1
+            // 
+            this.tss_1.Name = "tss_1";
+            this.tss_1.Size = new System.Drawing.Size(223, 6);
+            // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(933, 444);
@@ -584,6 +629,7 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Triggleh v1.0 by thefyrewire (@MikeyHay)";
+            this.Resize += new System.EventHandler(this.Form1_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Triggers)).EndInit();
             this.tab_TriggerDetails.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -592,6 +638,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nud_Bits2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Bits1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_ProfilePicture)).EndInit();
+            this.cms_Triggleh.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -640,6 +687,11 @@
         private System.Windows.Forms.Label lbl_LastTriggered;
         private System.Windows.Forms.Button btn_ResetLastTriggered;
         private System.Windows.Forms.Label lbl_UnsavedChanges;
+        private System.Windows.Forms.NotifyIcon icn_Triggleh;
+        private System.Windows.Forms.ContextMenuStrip cms_Triggleh;
+        private System.Windows.Forms.ToolStripMenuItem tsmi_Exit;
+        private System.Windows.Forms.ToolStripMenuItem tsmi_CazzTrigControlPanel;
+        private System.Windows.Forms.ToolStripSeparator tss_1;
     }
 }
 
