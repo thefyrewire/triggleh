@@ -78,6 +78,7 @@ namespace Triggleh
         public void BotTriggered(object sender, BotTriggeredArgs e)
         {
             screen.SetLastTriggered(e.TriggeredAt.ToString());
+            screen.ResetButtonVisible(true);
         }
 
         private bool ValidateTrigger()
@@ -254,7 +255,8 @@ namespace Triggleh
         {
             if (screen.GetSelectedTrigger() == null) return;
             repository.UpdateTriggerUsage(screen.GetSelectedTrigger(), DateTime.MinValue);
-            UpdateView();
+            screen.LastTriggered = "Never";
+            screen.ResetButtonVisible(false);
         }
 
         public void FormControls_ChangesMade()

@@ -10,8 +10,8 @@ namespace Triggleh
 {
     public partial class Form1 : Form, IFormGUI
     {
-        private delegate string SafeCallDelegate2();
         private delegate void SafeCallDelegate(string text);
+        private delegate void SafeCallDelegateBool(bool boolean);
         private FormPresenter presenter;
 
         public Form1()
@@ -202,6 +202,7 @@ namespace Triggleh
             Cooldown = 30;
             CooldownUnit = 0;
             LastTriggered = "Never";
+            ResetButtonVisible(false);
 
             ShowChangesMade(false);
         }
@@ -299,6 +300,7 @@ namespace Triggleh
             Cooldown = trigger.Cooldown;
             CooldownUnit = trigger.CooldownUnit;
             LastTriggered = (trigger.LastTriggered == DateTime.MinValue) ? "Never" : trigger.LastTriggered.ToString();
+            ResetButtonVisible(trigger.LastTriggered != DateTime.MinValue);
 
             ShowChangesMade(false);
         }
@@ -433,6 +435,19 @@ namespace Triggleh
             else
             {
                 lbl_LastTriggered.Text = time;
+            }
+        }
+
+        public void ResetButtonVisible(bool showing)
+        {
+            if (btn_ResetLastTriggered.InvokeRequired)
+            {
+                var d = new SafeCallDelegateBool(ResetButtonVisible);
+                Invoke(d, new object[] { showing });
+            }
+            else
+            {
+                btn_ResetLastTriggered.Visible = showing;
             }
         }
 

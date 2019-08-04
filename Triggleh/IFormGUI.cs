@@ -64,6 +64,7 @@ namespace Triggleh
         void SetProfilePicture(string url);
         void UpdateChatStatus(int status);
         void SetLastTriggered(string time);
+        void ResetButtonVisible(bool showing);
 
         void ShowChangesMade(bool showing);
     }

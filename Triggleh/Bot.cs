@@ -126,6 +126,7 @@ namespace Triggleh
 
                 List<string> rawkeywords = JsonConvert.DeserializeObject<List<string>>(trigger.Keywords);
                 MatchCollection matches = null;
+                MatchCollection hmatches = null;
 
                 if (message.Message.StartsWith("!"))
                 {
@@ -138,15 +139,29 @@ namespace Triggleh
                 }
                 else
                 {
-                    List<string> keywords = rawkeywords.Where(k => !k.StartsWith("!")).Select(k => Regex.Escape(k)).ToList();
-                    if (keywords.Count == 0) continue; // no keywords to look for
-                    string keyworded = string.Join("|", keywords);
-                    Regex regexKeywords = new Regex(@"\b(" + keyworded + @")\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-                    matches = regexKeywords.Matches(message.Message);
-                    Console.WriteLine("keywords:" + keyworded);
+                    List<string> keywords = rawkeywords.Where(k => !k.StartsWith("!") && !k.StartsWith("#")).Select(k => Regex.Escape(k)).ToList();
+                    List<string> hashtags = rawkeywords.Where(k => k.StartsWith("#")).Select(k => Regex.Escape(k.Substring(1))).ToList();
+
+                    if (keywords.Count == 0 && hashtags.Count == 0) continue; // no keywords/hashtags to look for
+
+                    if (keywords.Count > 0)
+                    {
+                        string keyworded = string.Join("|", keywords);
+                        Regex regexKeywords = new Regex(@"\b(" + keyworded + @")\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        matches = regexKeywords.Matches(message.Message);
+                        Console.WriteLine("keywords:" + keyworded);
+                    }
+
+                    if (hashtags.Count > 0)
+                    {
+                        string hashtagged = string.Join("|", hashtags);
+                        Regex regexHashtags = new Regex(@"\B#(" + hashtagged + @")\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        hmatches = regexHashtags.Matches(message.Message);
+                        Console.WriteLine("hashtags:" + hashtagged);
+                    }
                 }
 
-                if (matches.Count == 0) continue; // no keyword/command match
+                if ((matches == null || matches.Count == 0) && (hmatches == null || hmatches.Count == 0)) continue; // no keyword/command match
 
                 Console.WriteLine("matched!!");
                 SendKeystroke.Send(trigger.CharAnimTriggerKeyValue);
