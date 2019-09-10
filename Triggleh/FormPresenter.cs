@@ -19,6 +19,7 @@ namespace Triggleh
 
         private void InitialiseForm()
         {
+            screen.RefreshCharAnimStatus();
             screen.UpdateChatStatus(0);
             UpdateView();
             bot.BotDisconnected += BotDisconnected;
@@ -51,15 +52,30 @@ namespace Triggleh
             Setting settings = repository.LoadSettings();
             if (settings == null || settings.Username.Length == 0)
             {
-                bot.LeaveAllChannels();
+                bot.LeaveAllChannels("");
+                screen.RefreshCharAnimStatus();
                 screen.SetProfilePicture("https://static-cdn.jtvnw.net/jtv_user_pictures/twitch-profile_image-8a8c5be2e3b64a9a-300x300.png");
                 screen.UpdateChatStatus(0);
                 return;
             }
 
             screen.SetProfilePicture(settings.ProfilePicture);
-            bot.LeaveAllChannels();
-            bot.JoinChannel(settings.Username);
+
+            List<string> channels = bot.GetAllChannels();
+
+            if (channels.IndexOf(settings.Username) != -1)
+            {
+                return;
+            }
+            else if (channels.Count > 0)
+            {
+                bot.LeaveAllChannels(settings.Username);
+            }
+            else
+            {
+                bot.JoinChannel(settings.Username);
+            }
+            
         }
 
         public void BotDisconnected(object sender, BotDisconnectedArgs e)
@@ -158,6 +174,19 @@ namespace Triggleh
             }
 
             UpdateView();
+        }
+
+        public string GetApplicationName()
+        {
+            Setting settings = repository.LoadSettings();
+            if (settings != null)
+            {
+                return settings.Application;
+            }
+            else
+            {
+                return "";
+            }
         }
 
         public void Chk_Bits_CheckedChanged()

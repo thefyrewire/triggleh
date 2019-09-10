@@ -73,9 +73,9 @@
             this.lbl_ChatStatus = new System.Windows.Forms.Label();
             this.icn_Triggleh = new System.Windows.Forms.NotifyIcon(this.components);
             this.cms_Triggleh = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tsmi_Exit = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmi_CazzTrigControlPanel = new System.Windows.Forms.ToolStripMenuItem();
             this.tss_1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmi_Exit = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Triggers)).BeginInit();
             this.tab_TriggerDetails.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -588,15 +588,7 @@
             this.tss_1,
             this.tsmi_Exit});
             this.cms_Triggleh.Name = "cms_Triggleh";
-            this.cms_Triggleh.Size = new System.Drawing.Size(227, 90);
-            // 
-            // tsmi_Exit
-            // 
-            this.tsmi_Exit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tsmi_Exit.Name = "tsmi_Exit";
-            this.tsmi_Exit.Size = new System.Drawing.Size(226, 24);
-            this.tsmi_Exit.Text = "Exit";
-            this.tsmi_Exit.Click += new System.EventHandler(this.Tsmi_Exit_Click);
+            this.cms_Triggleh.Size = new System.Drawing.Size(227, 58);
             // 
             // tsmi_CazzTrigControlPanel
             // 
@@ -609,6 +601,14 @@
             // 
             this.tss_1.Name = "tss_1";
             this.tss_1.Size = new System.Drawing.Size(223, 6);
+            // 
+            // tsmi_Exit
+            // 
+            this.tsmi_Exit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsmi_Exit.Name = "tsmi_Exit";
+            this.tsmi_Exit.Size = new System.Drawing.Size(226, 24);
+            this.tsmi_Exit.Text = "Exit";
+            this.tsmi_Exit.Click += new System.EventHandler(this.Tsmi_Exit_Click);
             // 
             // Form1
             // 
@@ -628,7 +628,7 @@
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Triggleh v1.0 by thefyrewire (@MikeyHay)";
+            this.Text = "Triggleh v1.1 by thefyrewire (@MikeyHay)";
             this.Resize += new System.EventHandler(this.Form1_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Triggers)).EndInit();
             this.tab_TriggerDetails.ResumeLayout(false);

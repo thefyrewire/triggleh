@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 using System.Linq;
 using System.Net.Http;
+using System.Diagnostics;
 using Newtonsoft.Json.Linq;
 
 namespace Triggleh
@@ -9,7 +10,7 @@ namespace Triggleh
     public class SettingsPresenter
     {
         private readonly ISettingsGUI screen;
-        readonly ModelRepository repository = new ModelRepository();
+        private readonly ModelRepository repository = new ModelRepository();
 
         public SettingsPresenter(ISettingsGUI screen)
         {
@@ -25,16 +26,30 @@ namespace Triggleh
 
         private void UpdateView()
         {
+            RefreshApplications();
+
             Setting settings = repository.LoadSettings();
-            if (settings != null)
+            if (settings == null)
+            {
+                screen.Username = "";
+                screen.LoggingEnabled = true;
+                return;
+            }
+            else
             {
                 screen.Username = settings.Username;
                 screen.LoggingEnabled = settings.LoggingEnabled;
             }
-            else
+
+            if (String.IsNullOrEmpty(settings.Application))
             {
-                screen.Username = "";
-                screen.LoggingEnabled = true;
+                return;
+            }
+
+            int index = screen.GetApplicationIndex(settings.Application);
+            if (index != -1)
+            {
+                screen.ApplicationsIndexOrLength = index;
             }
 
         }
@@ -70,16 +85,38 @@ namespace Triggleh
                 screen.ShowError(false);
                 screen.Username = (validate != null) ? validate["display_name"].ToString() : "";
 
-                Setting settings = new Setting();
-                settings.Username = screen.Username;
-                settings.ProfilePicture = (validate != null) ? validate["profile_image_url"].ToString() : "https://static-cdn.jtvnw.net/jtv_user_pictures/twitch-profile_image-8a8c5be2e3b64a9a-300x300.png";
-                settings.LoggingEnabled = screen.LoggingEnabled;
+                Setting settings = new Setting
+                {
+                    Application = screen.Application,
+                    Username = screen.Username,
+                    ProfilePicture = (validate != null) ? validate["profile_image_url"].ToString() : "https://static-cdn.jtvnw.net/jtv_user_pictures/twitch-profile_image-8a8c5be2e3b64a9a-300x300.png",
+                    LoggingEnabled = screen.LoggingEnabled
+                };
 
                 repository.SaveSettings(settings);
 
                 screen.CloseForm();
             }
             else screen.ShowError(true);
+        }
+
+        public void Btn_RefreshList_Click()
+        {
+            RefreshApplications();
+        }
+
+        private void RefreshApplications()
+        {
+            screen.ClearApplications();
+
+            Process[] processes = Process.GetProcesses();
+            foreach (Process p in processes)
+            {
+                if (!String.IsNullOrEmpty(p.MainWindowTitle))
+                {
+                    screen.AddApplication(p.ProcessName);
+                }
+            }
         }
     }
 }

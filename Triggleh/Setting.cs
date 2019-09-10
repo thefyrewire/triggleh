@@ -7,6 +7,9 @@ namespace Triggleh
         [Key, Required]
         public int ID { get; set; }
 
+        [MaxLength]
+        public string Application { get; set; }
+
         [MaxLength(25)]
         public string Username { get; set; }
 

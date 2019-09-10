@@ -18,8 +18,6 @@ namespace Triggleh
         {
             InitializeComponent();
             new Logger();
-
-            RefreshCharAnimStatus();
         }
 
         public void Register(FormPresenter FP)
@@ -377,16 +375,22 @@ namespace Triggleh
 
         public void RefreshCharAnimStatus()
         {
-            if (SendKeystroke.CharAnimRunning)
+            string processName = presenter.GetApplicationName();
+
+            if (SendKeystroke.ApplicationRunning(processName) && !String.IsNullOrEmpty(processName))
             {
                 lbl_CharAnimStatus.ForeColor = Color.ForestGreen;
-                lbl_CharAnimStatus.Text = "Character Animator found!";
+                lbl_CharAnimStatus.Text = $"{processName} found!";
             }
-
             else
             {
                 lbl_CharAnimStatus.ForeColor = Color.Red;
-                lbl_CharAnimStatus.Text = "Character Animator missing :(";
+
+                if (String.IsNullOrEmpty(processName))
+                    lbl_CharAnimStatus.Text = "Set application in settings!";
+                else
+                    lbl_CharAnimStatus.Text = $"{processName} missing :(";
+
             }
         }
 
@@ -396,6 +400,7 @@ namespace Triggleh
             new SettingsPresenter(f1);
             f1.ShowDialog();
             presenter.LoadFromSettings();
+            RefreshCharAnimStatus();
         }
 
         public void SetProfilePicture(string url)

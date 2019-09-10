@@ -10,10 +10,15 @@ namespace Triggleh
     {
         void Register(SettingsPresenter SP);
 
+        string Application { get; }
         string Username { get; set; }
         bool LoggingEnabled { get; set; }
+        int ApplicationsIndexOrLength { get; set; }
 
         void ShowError(bool showing);
         void CloseForm();
+        void ClearApplications();
+        void AddApplication(string name);
+        int GetApplicationIndex(string name);
     }
 }

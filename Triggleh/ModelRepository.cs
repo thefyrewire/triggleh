@@ -131,6 +131,7 @@ namespace Triggleh
                 {
                     context.Settings.Add(new Setting()
                     {
+                        Application = settingToSet.Application,
                         Username = settingToSet.Username,
                         ProfilePicture = settingToSet.ProfilePicture,
                         LoggingEnabled = settingToSet.LoggingEnabled
@@ -139,6 +140,7 @@ namespace Triggleh
                 else
                 {
                     Setting mainSettings = settings.First<Setting>();
+                    mainSettings.Application = settingToSet.Application;
                     mainSettings.Username = settingToSet.Username;
                     mainSettings.ProfilePicture = settingToSet.ProfilePicture;
                     mainSettings.LoggingEnabled = settingToSet.LoggingEnabled;

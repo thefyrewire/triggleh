@@ -23,6 +23,11 @@ namespace Triggleh
             presenter = SP;
         }
 
+        public string Application
+        {
+            get { return cmb_Applications.Text; }
+        }
+
         public string Username
         {
             get { return txt_Username.Text; }
@@ -41,6 +46,12 @@ namespace Triggleh
             set { chk_LoggingEnabled.Checked = value; }
         }
 
+        public int ApplicationsIndexOrLength
+        {
+            get { return cmb_Applications.Items.Count; }
+            set { cmb_Applications.SelectedIndex = value; }
+        }
+
         public void ShowError(bool showing)
         {
             if (showing) lbl_Username.ForeColor = Color.Red;
@@ -52,9 +63,29 @@ namespace Triggleh
             Close();
         }
 
+        public void ClearApplications()
+        {
+            cmb_Applications.Items.Clear();
+        }
+
+        public void AddApplication(string name)
+        {
+            cmb_Applications.Items.Add(name);
+        }
+
+        public int GetApplicationIndex(string name)
+        {
+            return cmb_Applications.Items.IndexOf(name);
+        }
+
         private void Btn_SaveSettings_Click(object sender, EventArgs e)
         {
             presenter.Btn_SaveSettings_Click();
+        }
+
+        private void Btn_RefreshList_Click(object sender, EventArgs e)
+        {
+            presenter.Btn_RefreshList_Click();
         }
     }
 }

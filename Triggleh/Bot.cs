@@ -15,7 +15,7 @@ namespace Triggleh
     {
         private readonly TwitchClient client;
 
-        readonly ModelRepository repository = new ModelRepository();
+        private readonly ModelRepository repository = new ModelRepository();
 
         public event EventHandler BotConnected;
         public event EventHandler<BotDisconnectedArgs> BotDisconnected;
@@ -56,6 +56,18 @@ namespace Triggleh
             ChatMessage message = e.ChatMessage;
 
             Setting settings = repository.LoadSettings();
+
+            if (message.Channel.ToLower() != settings.Username.ToLower())
+            {
+                Console.WriteLine("wrong timeline, friend");
+                return;
+            }
+            
+            if (!String.IsNullOrEmpty(settings.Application))
+            {
+                Console.WriteLine("is there any point?");
+                return;
+            }
 
             List<Trigger> triggers = repository.GetTriggers();
             foreach (Trigger trigger in triggers)
@@ -164,7 +176,7 @@ namespace Triggleh
                 if ((matches == null || matches.Count == 0) && (hmatches == null || hmatches.Count == 0)) continue; // no keyword/command match
 
                 Console.WriteLine("matched!!");
-                SendKeystroke.Send(trigger.CharAnimTriggerKeyValue);
+                SendKeystroke.Send(settings.Application, trigger.CharAnimTriggerKeyValue);
 
                 DateTime triggeredAt = DateTime.Now;
 
@@ -182,10 +194,26 @@ namespace Triggleh
             client.JoinChannel(channel);
         }
 
-        public void LeaveAllChannels()
+        public List<string> GetAllChannels()
+        {
+            List<string> channels = client.JoinedChannels.ToList().Select(c => c.Channel).ToList<string>();
+            return channels;
+        }
+
+        public void LeaveAllChannels(string username)
         {
             List<JoinedChannel> channels = client.JoinedChannels.ToList();
-            foreach (JoinedChannel c in channels) client.LeaveChannel(c);
+            int totalChannels = channels.Count;
+            int currentCount = 0;
+            foreach (JoinedChannel c in channels)
+            {
+                client.LeaveChannel(c);
+                currentCount++;
+                if (currentCount >= totalChannels)
+                {
+                    client.JoinChannel(username);
+                }
+            }
         }
 
         public bool JoinedChannel(string channel)

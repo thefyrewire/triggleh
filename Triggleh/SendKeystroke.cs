@@ -10,14 +10,12 @@ namespace Triggleh
         [DllImport("User32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int uMsg, int wParam, string lParam);
 
-        const string processName = "Character Animator";
-
-        public static void Send(int key) // Keys key
+        public static void Send(string processName, int key) // Keys key
         {
             Process[] charAnimProcesses = Process.GetProcessesByName(processName);
             if (charAnimProcesses.Length == 0)
             {
-                Console.WriteLine("Character Animator not running...");
+                Console.WriteLine($"{processName} not running...");
             }
             else
             {
@@ -26,14 +24,10 @@ namespace Triggleh
             }
         }
 
-        public static bool CharAnimRunning
+        public static bool ApplicationRunning(string processName)
         {
-            get
-            {
-                Process[] charAnimProcesses = Process.GetProcessesByName(processName);
-                return !(charAnimProcesses.Length == 0);
-            }
-            
+            Process[] charAnimProcesses = Process.GetProcessesByName(processName);
+            return !(charAnimProcesses.Length == 0);
         }
     }
 }
