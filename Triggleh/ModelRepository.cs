@@ -105,6 +105,30 @@ namespace Triggleh
                 triggerToUpdate.LastTriggered = time;
                 Console.WriteLine($"updating last trigger usage... {time}");
 
+                List<Setting> settings = context.Settings.ToList<Setting>();
+                if (settings.Count > 0 && time != DateTime.MinValue)
+                {
+                    Setting mainSettings = settings.First<Setting>();
+                    mainSettings.GlobalLastTriggered = time;
+                    Console.WriteLine($"updating global last trigger usage... {time}");
+                }
+
+                context.SaveChanges();
+            }
+        }
+
+        public void ResetGlobalCooldown()
+        {
+            using (Model context = new Model())
+            {
+                List<Setting> settings = context.Settings.ToList<Setting>();
+                if (settings.Count > 0)
+                {
+                    Setting mainSettings = settings.First<Setting>();
+                    mainSettings.GlobalLastTriggered = DateTime.MinValue;
+                    Console.WriteLine($"updating global last trigger usage... {DateTime.MinValue}");
+                }
+
                 context.SaveChanges();
             }
         }
@@ -134,6 +158,8 @@ namespace Triggleh
                         Application = settingToSet.Application,
                         Username = settingToSet.Username,
                         ProfilePicture = settingToSet.ProfilePicture,
+                        GlobalCooldown = settingToSet.GlobalCooldown,
+                        GlobalCooldownUnit = settingToSet.GlobalCooldownUnit,
                         LoggingEnabled = settingToSet.LoggingEnabled
                     });
                 }
@@ -143,6 +169,8 @@ namespace Triggleh
                     mainSettings.Application = settingToSet.Application;
                     mainSettings.Username = settingToSet.Username;
                     mainSettings.ProfilePicture = settingToSet.ProfilePicture;
+                    mainSettings.GlobalCooldown = settingToSet.GlobalCooldown;
+                    mainSettings.GlobalCooldownUnit = settingToSet.GlobalCooldownUnit;
                     mainSettings.LoggingEnabled = settingToSet.LoggingEnabled;
                 }
 

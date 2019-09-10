@@ -9,6 +9,7 @@ namespace Triggleh
     public interface IFormGUI
     {
         void Register(FormPresenter FM);
+        void InitialiseForm();
         string TriggerName { get; set; }
         bool BitsEnabled { get; set; }
         int BitsCondition { get; set; }
@@ -35,7 +36,7 @@ namespace Triggleh
         int Cooldown { get; set; }
         int CooldownUnit { get; set; }
         string LastTriggered { get; set; }
-        bool NotifyIconVisible { get; set; }
+        // bool NotifyIconVisible { get; set; }
 
         void ResetDetails();
         void EnableBits(bool enabled);

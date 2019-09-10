@@ -21,6 +21,7 @@ namespace Triggleh
 
         private void InitialiseForm()
         {
+            screen.InitialiseForm();
             UpdateView();
         }
 
@@ -32,12 +33,16 @@ namespace Triggleh
             if (settings == null)
             {
                 screen.Username = "";
+                screen.GlobalCooldown = 0;
+                screen.GlobalCooldownUnit = 0;
                 screen.LoggingEnabled = true;
                 return;
             }
             else
             {
                 screen.Username = settings.Username;
+                screen.GlobalCooldown = settings.GlobalCooldown;
+                screen.GlobalCooldownUnit = settings.GlobalCooldownUnit;
                 screen.LoggingEnabled = settings.LoggingEnabled;
             }
 
@@ -76,6 +81,20 @@ namespace Triggleh
             return (parsed["data"].Count<JToken>() > 0) ? (JObject) parsed["data"][0] : null;
         }
 
+        private void RefreshApplications()
+        {
+            screen.ClearApplications();
+
+            Process[] processes = Process.GetProcesses();
+            foreach (Process p in processes)
+            {
+                if (!String.IsNullOrEmpty(p.MainWindowTitle))
+                {
+                    screen.AddApplication(p.ProcessName);
+                }
+            }
+        }
+
         public void Btn_SaveSettings_Click()
         {
             JObject validate = ValidateSettings();
@@ -90,6 +109,8 @@ namespace Triggleh
                     Application = screen.Application,
                     Username = screen.Username,
                     ProfilePicture = (validate != null) ? validate["profile_image_url"].ToString() : "https://static-cdn.jtvnw.net/jtv_user_pictures/twitch-profile_image-8a8c5be2e3b64a9a-300x300.png",
+                    GlobalCooldown = screen.GlobalCooldown,
+                    GlobalCooldownUnit = screen.GlobalCooldownUnit,
                     LoggingEnabled = screen.LoggingEnabled
                 };
 
@@ -105,18 +126,17 @@ namespace Triggleh
             RefreshApplications();
         }
 
-        private void RefreshApplications()
+        public void Btn_GlobalCooldownHelp_Click()
         {
-            screen.ClearApplications();
+            screen.ShowHelpMessage("The global cooldown applies to ALL triggers. During this period, none of the triggers can be used.\n\n" +
+                "This is useful for preventing people from spamming multiple different triggers in a short period.",
+                "Global cooldown"
+            );
+        }
 
-            Process[] processes = Process.GetProcesses();
-            foreach (Process p in processes)
-            {
-                if (!String.IsNullOrEmpty(p.MainWindowTitle))
-                {
-                    screen.AddApplication(p.ProcessName);
-                }
-            }
+        public void Btn_ResetGlobalLastTriggered_Click()
+        {
+            repository.ResetGlobalCooldown();
         }
     }
 }

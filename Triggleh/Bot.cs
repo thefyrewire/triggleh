@@ -63,31 +63,26 @@ namespace Triggleh
                 return;
             }
             
-            if (!String.IsNullOrEmpty(settings.Application))
+            if (String.IsNullOrEmpty(settings.Application))
             {
                 Console.WriteLine("is there any point?");
+                return;
+            }
+
+            if (IsOnCooldown(settings.GlobalLastTriggered, settings.GlobalCooldown, settings.GlobalCooldownUnit))
+            {
+                Console.WriteLine("trigger on global cooldown");
                 return;
             }
 
             List<Trigger> triggers = repository.GetTriggers();
             foreach (Trigger trigger in triggers)
             {
-                TimeSpan difference = DateTime.Now - trigger.LastTriggered;
-                int cooldown = trigger.Cooldown;
-                switch (trigger.CooldownUnit)
-                {
-                    case 1:
-                        cooldown *= 60;
-                        break;
-                    case 2:
-                        cooldown *= 3600;
-                        break;
-                }
-                if ((int) difference.TotalSeconds < cooldown && trigger.LastTriggered != DateTime.MinValue)
+                if (IsOnCooldown(trigger.LastTriggered, trigger.Cooldown, trigger.CooldownUnit))
                 {
                     Console.WriteLine("trigger on cooldown");
                     continue;
-                };
+                }
 
                 bool bitsRequired = (trigger.BitsEnabled && trigger.BitsAmount > 0);
                 if (!bitsRequired && trigger.Keywords == "[]")
@@ -187,6 +182,22 @@ namespace Triggleh
 
                 if (settings.LoggingEnabled) Logger.Write(trigger.Name, message.DisplayName, message.Bits, message.Message);
             }
+        }
+
+        private bool IsOnCooldown(DateTime lastTriggered, int cooldown, int cooldownUnit)
+        {
+            TimeSpan difference = DateTime.Now - lastTriggered;
+            switch (cooldownUnit)
+            {
+                case 1:
+                    cooldown *= 60;
+                    break;
+                case 2:
+                    cooldown *= 3600;
+                    break;
+            }
+
+            return ((int)difference.TotalSeconds < cooldown && lastTriggered != DateTime.MinValue);
         }
 
         public void JoinChannel(string channel)

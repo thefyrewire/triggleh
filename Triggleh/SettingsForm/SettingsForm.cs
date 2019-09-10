@@ -23,6 +23,11 @@ namespace Triggleh
             presenter = SP;
         }
 
+        public void InitialiseForm()
+        {
+            nud_GlobalCooldown.Maximum = Decimal.MaxValue;
+        }
+
         public string Application
         {
             get { return cmb_Applications.Text; }
@@ -38,6 +43,18 @@ namespace Triggleh
         {
             get { return txt_Username.Text; }
             set { txt_Username.Text = value; }
+        }
+
+        public int GlobalCooldown
+        {
+            set { nud_GlobalCooldown.Value = value; }
+            get { return (int)nud_GlobalCooldown.Value; }
+        }
+
+        public int GlobalCooldownUnit
+        {
+            set { cmb_GlobalCooldownUnit.SelectedIndex = value; }
+            get { return cmb_GlobalCooldownUnit.SelectedIndex; }
         }
 
         public bool LoggingEnabled
@@ -78,6 +95,11 @@ namespace Triggleh
             return cmb_Applications.Items.IndexOf(name);
         }
 
+        public void ShowHelpMessage(string message, string title)
+        {
+            MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
         private void Btn_SaveSettings_Click(object sender, EventArgs e)
         {
             presenter.Btn_SaveSettings_Click();
@@ -86,6 +108,16 @@ namespace Triggleh
         private void Btn_RefreshList_Click(object sender, EventArgs e)
         {
             presenter.Btn_RefreshList_Click();
+        }
+
+        private void Btn_GlobalCooldownHelp_Click(object sender, EventArgs e)
+        {
+            presenter.Btn_GlobalCooldownHelp_Click();
+        }
+
+        private void Btn_ResetGlobalLastTriggered_Click(object sender, EventArgs e)
+        {
+            presenter.Btn_ResetGlobalLastTriggered_Click();
         }
     }
 }

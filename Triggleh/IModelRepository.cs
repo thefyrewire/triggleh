@@ -16,6 +16,7 @@ namespace Triggleh
         void UpdateTrigger(string triggerName, Trigger triggerData);
         void RemoveTrigger(string triggerName);
         void UpdateTriggerUsage(string triggerName);
+        void ResetGlobalCooldown();
 
         void SaveSettings(Setting settings);
         void LoadSettings();

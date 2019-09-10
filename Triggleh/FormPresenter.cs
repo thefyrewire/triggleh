@@ -19,6 +19,7 @@ namespace Triggleh
 
         private void InitialiseForm()
         {
+            screen.InitialiseForm();
             screen.RefreshCharAnimStatus();
             screen.UpdateChatStatus(0);
             UpdateView();
@@ -293,14 +294,14 @@ namespace Triggleh
             screen.ShowChangesMade(true);
         }
 
-        public void Form1_Resize()
+        /*public void Form1_Resize()
         {
             screen.NotifyIconVisible = true;
-        }
+        }*/
 
-        public void Icn_Triggleh_LeftClick()
+        /*public void Icn_Triggleh_LeftClick()
         {
             screen.NotifyIconVisible = false;
-        }
+        }*/
     }
 }

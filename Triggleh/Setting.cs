@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Triggleh
 {
@@ -15,6 +16,14 @@ namespace Triggleh
 
         [MaxLength]
         public string ProfilePicture { get; set; }
+
+        [Required]
+        public int GlobalCooldown { get; set; }
+
+        [Required]
+        public int GlobalCooldownUnit { get; set; }
+
+        public DateTime GlobalLastTriggered { get; set; }
 
         [Required]
         public bool LoggingEnabled { get; set; }

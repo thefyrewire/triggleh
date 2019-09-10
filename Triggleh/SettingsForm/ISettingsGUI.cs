@@ -10,8 +10,12 @@ namespace Triggleh
     {
         void Register(SettingsPresenter SP);
 
+        void InitialiseForm();
+
         string Application { get; }
         string Username { get; set; }
+        int GlobalCooldown { get; set; }
+        int GlobalCooldownUnit { get; set; }
         bool LoggingEnabled { get; set; }
         int ApplicationsIndexOrLength { get; set; }
 
@@ -20,5 +24,6 @@ namespace Triggleh
         void ClearApplications();
         void AddApplication(string name);
         int GetApplicationIndex(string name);
+        void ShowHelpMessage(string message, string title);
     }
 }

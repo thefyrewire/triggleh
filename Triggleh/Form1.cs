@@ -25,6 +25,11 @@ namespace Triggleh
             presenter = FP;
         }
 
+        public void InitialiseForm()
+        {
+            nud_Bits1.Maximum = nud_Bits2.Maximum = nud_Cooldown.Maximum = Decimal.MaxValue;
+        }
+
         public string TriggerName
         {
             set { txt_TriggerName.Text = value; }
@@ -187,11 +192,11 @@ namespace Triggleh
             get { return lbl_LastTriggered.Text; }
         }
 
-        public bool NotifyIconVisible
+        /*public bool NotifyIconVisible
         {
             set { icn_Triggleh.Visible = value; }
             get { return icn_Triggleh.Visible; }
-        }
+        }*/
 
         public void ResetDetails()
         {
@@ -569,12 +574,17 @@ namespace Triggleh
             presenter.FormControls_ChangesMade();
         }
 
+        private void FormControls_ChangesMade_KeyEvent(object sender, KeyPressEventArgs e)
+        {
+            presenter.FormControls_ChangesMade();
+        }
+
         private void Form1_Resize(object sender, EventArgs e)
         {
             if (WindowState != FormWindowState.Minimized) return;
             
             Hide();
-            presenter.Form1_Resize();
+            // presenter.Form1_Resize();
         }
 
         private void Icn_Triggleh_Click(object sender, MouseEventArgs e)
@@ -586,7 +596,7 @@ namespace Triggleh
                 TopMost = true;
                 Application.DoEvents();
                 TopMost = false;
-                presenter.Icn_Triggleh_LeftClick();
+                // presenter.Icn_Triggleh_LeftClick();
             }
             else return;
         }
