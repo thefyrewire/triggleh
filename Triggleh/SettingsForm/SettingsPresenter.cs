@@ -67,18 +67,35 @@ namespace Triggleh
             MatchCollection matches = regex.Matches(screen.Username.Trim());
             if (matches.Count > 0) return null;
 
+            string token = GetToken();
+
             HttpClient client = new HttpClient();
             HttpRequestMessage request = new HttpRequestMessage()
             {
                 RequestUri = new Uri("https://api.twitch.tv/helix/users?login=" + screen.Username),
                 Method = HttpMethod.Get
             };
-            request.Headers.Add("Client-ID", "4svh28tgbd14fe4j5co9tuwjxbc0j7");
+            request.Headers.Add("Client-ID", "gp762nuuoqcoxypju8c569th9wz7q5");
+            request.Headers.Add("Authorization", "Bearer " + token);
 
             HttpResponseMessage response = client.SendAsync(request).Result;
             JObject parsed = JObject.Parse(response.Content.ReadAsStringAsync().Result);
 
             return (parsed["data"].Count<JToken>() > 0) ? (JObject) parsed["data"][0] : null;
+        }
+
+        private string GetToken()
+        {
+            HttpClient client = new HttpClient();
+            HttpRequestMessage request = new HttpRequestMessage()
+            {
+                RequestUri = new Uri("https://twitchtokengenerator.com/api/refresh/tdu1bo1vyaesiaghnxk5ezns6p6ttzdegno3h0ci3z3mq1yexq"),
+                Method = HttpMethod.Get
+            };
+            HttpResponseMessage response = client.SendAsync(request).Result;
+            JObject parsed = JObject.Parse(response.Content.ReadAsStringAsync().Result);
+
+            return (string) parsed["token"];
         }
 
         private void RefreshApplications()
