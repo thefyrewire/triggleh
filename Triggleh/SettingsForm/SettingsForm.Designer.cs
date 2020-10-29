@@ -41,6 +41,10 @@
             this.nud_GlobalCooldown = new System.Windows.Forms.NumericUpDown();
             this.btn_GlobalCooldownHelp = new System.Windows.Forms.Button();
             this.btn_ResetGlobalLastTriggered = new System.Windows.Forms.Button();
+            this.btn_Export = new System.Windows.Forms.Button();
+            this.sfd_Export = new System.Windows.Forms.SaveFileDialog();
+            this.btn_Import = new System.Windows.Forms.Button();
+            this.ofd_Import = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.nud_GlobalCooldown)).BeginInit();
             this.SuspendLayout();
             // 
@@ -161,12 +165,48 @@
             this.btn_ResetGlobalLastTriggered.UseVisualStyleBackColor = true;
             this.btn_ResetGlobalLastTriggered.Click += new System.EventHandler(this.Btn_ResetGlobalLastTriggered_Click);
             // 
+            // btn_Export
+            // 
+            this.btn_Export.Location = new System.Drawing.Point(30, 269);
+            this.btn_Export.Name = "btn_Export";
+            this.btn_Export.Size = new System.Drawing.Size(89, 29);
+            this.btn_Export.TabIndex = 13;
+            this.btn_Export.Text = "Export";
+            this.btn_Export.UseVisualStyleBackColor = true;
+            this.btn_Export.Click += new System.EventHandler(this.Btn_Export_Click);
+            // 
+            // sfd_Export
+            // 
+            this.sfd_Export.DefaultExt = "json";
+            this.sfd_Export.FileName = "triggleh_export";
+            this.sfd_Export.Filter = "JSON files (*.json)|*.json";
+            this.sfd_Export.RestoreDirectory = true;
+            this.sfd_Export.Title = "Export triggers to file...";
+            // 
+            // btn_Import
+            // 
+            this.btn_Import.Location = new System.Drawing.Point(125, 269);
+            this.btn_Import.Name = "btn_Import";
+            this.btn_Import.Size = new System.Drawing.Size(89, 29);
+            this.btn_Import.TabIndex = 14;
+            this.btn_Import.Text = "Import";
+            this.btn_Import.UseVisualStyleBackColor = true;
+            this.btn_Import.Click += new System.EventHandler(this.Btn_Import_Click);
+            // 
+            // ofd_Import
+            // 
+            this.ofd_Import.DefaultExt = "json";
+            this.ofd_Import.Filter = "JSON files (*.json)|*.json";
+            this.ofd_Import.Title = "Import triggers from file...";
+            // 
             // SettingsForm
             // 
             this.AcceptButton = this.btn_SaveSettings;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(487, 256);
+            this.ClientSize = new System.Drawing.Size(487, 316);
+            this.Controls.Add(this.btn_Import);
+            this.Controls.Add(this.btn_Export);
             this.Controls.Add(this.btn_ResetGlobalLastTriggered);
             this.Controls.Add(this.btn_GlobalCooldownHelp);
             this.Controls.Add(this.cmb_GlobalCooldownUnit);
@@ -207,5 +247,9 @@
         private System.Windows.Forms.NumericUpDown nud_GlobalCooldown;
         private System.Windows.Forms.Button btn_GlobalCooldownHelp;
         private System.Windows.Forms.Button btn_ResetGlobalLastTriggered;
+        private System.Windows.Forms.Button btn_Export;
+        private System.Windows.Forms.SaveFileDialog sfd_Export;
+        private System.Windows.Forms.Button btn_Import;
+        private System.Windows.Forms.OpenFileDialog ofd_Import;
     }
 }

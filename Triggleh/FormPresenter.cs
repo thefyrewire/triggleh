@@ -47,6 +47,10 @@ namespace Triggleh
                 screen.ResetDetails();
             }
         }
+        public void ForceUpdateView()
+        {
+            UpdateView();
+        }
 
         public void LoadFromSettings()
         {

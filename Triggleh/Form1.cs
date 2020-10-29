@@ -406,6 +406,12 @@ namespace Triggleh
             f1.ShowDialog();
             presenter.LoadFromSettings();
             RefreshCharAnimStatus();
+
+            if (f1.refreshView)
+            {
+                Console.WriteLine("Force updating view");
+                presenter.ForceUpdateView();
+            } 
         }
 
         public void SetProfilePicture(string url)

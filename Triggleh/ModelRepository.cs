@@ -177,5 +177,15 @@ namespace Triggleh
                 context.SaveChanges();
             }
         }
+
+        public void ImportTriggers(List<Trigger> triggers)
+        {
+            using (Model context = new Model())
+            {
+                context.Triggers.RemoveRange(context.Triggers);
+                context.Triggers.AddRange(triggers);
+                context.SaveChanges();
+            }
+        }
     }
 }

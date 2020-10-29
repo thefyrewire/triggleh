@@ -3,7 +3,9 @@ using System.Text.RegularExpressions;
 using System.Linq;
 using System.Net.Http;
 using System.Diagnostics;
+using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace Triggleh
 {
@@ -154,6 +156,22 @@ namespace Triggleh
         public void Btn_ResetGlobalLastTriggered_Click()
         {
             repository.ResetGlobalCooldown();
+        }
+
+        public void Btn_Export_Click()
+        {
+            List<Trigger> triggers = repository.GetTriggers();
+            string stringified = JsonConvert.SerializeObject(triggers.ToArray(), Formatting.Indented);
+            screen.ShowExportFileDialog(stringified);
+        }
+
+        public void Btn_Import_Click()
+        {
+            string data = screen.ShowImportFileDialog();
+            List<Trigger> triggers = JsonConvert.DeserializeObject<List<Trigger>>(data);
+            repository.ImportTriggers(triggers);
+            screen.SetRefreshView(true);
+            screen.CloseForm();
         }
     }
 }

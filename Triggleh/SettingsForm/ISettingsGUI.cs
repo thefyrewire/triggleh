@@ -25,5 +25,8 @@ namespace Triggleh
         void AddApplication(string name);
         int GetApplicationIndex(string name);
         void ShowHelpMessage(string message, string title);
+        void ShowExportFileDialog(string data);
+        string ShowImportFileDialog();
+        void SetRefreshView(bool refresh);
     }
 }
