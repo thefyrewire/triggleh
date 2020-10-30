@@ -158,5 +158,11 @@ namespace Triggleh
         {
             presenter.Btn_Import_Click();
         }
+
+        private void Btn_Login_Click(object sender, EventArgs e)
+        {
+            LoginForm loginForm = new LoginForm();
+            loginForm.ShowDialog();
+        }
     }
 }
