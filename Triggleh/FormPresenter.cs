@@ -55,7 +55,7 @@ namespace Triggleh
         public void LoadFromSettings()
         {
             Setting settings = repository.LoadSettings();
-            if (settings == null || settings.Username.Length == 0)
+            if (settings == null || settings.Username == null || settings.Username.Length == 0 || settings.UserID == null)
             {
                 bot.LeaveAllChannels("");
                 screen.RefreshCharAnimStatus();
@@ -79,6 +79,7 @@ namespace Triggleh
             else
             {
                 bot.JoinChannel(settings.Username);
+                bot.ConnectToPubSub(settings.UserID);
             }
             
         }

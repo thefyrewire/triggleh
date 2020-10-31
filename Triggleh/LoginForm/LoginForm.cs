@@ -19,6 +19,8 @@ namespace Triggleh
     public partial class LoginForm : Form
     {
         // static HttpListener httpListener = new HttpListener();
+        public string username;
+        public string user_id;
 
         public LoginForm()
         {
@@ -59,8 +61,8 @@ namespace Triggleh
                 return;
 
             NameValueCollection parameters = HttpUtility.ParseQueryString(e.Uri.Query);
-            Console.WriteLine("Fyre token: " + parameters.Get("triggleh_token"));
-            Console.WriteLine("Access token: " + parameters.Get("access_token"));
+            username = parameters.Get("username");
+            user_id = parameters.Get("user_id");
         }
     }
 }

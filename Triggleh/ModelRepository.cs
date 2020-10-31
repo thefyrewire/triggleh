@@ -157,6 +157,7 @@ namespace Triggleh
                     {
                         Application = settingToSet.Application,
                         Username = settingToSet.Username,
+                        UserID = settingToSet.UserID,
                         ProfilePicture = settingToSet.ProfilePicture,
                         GlobalCooldown = settingToSet.GlobalCooldown,
                         GlobalCooldownUnit = settingToSet.GlobalCooldownUnit,
@@ -168,6 +169,7 @@ namespace Triggleh
                     Setting mainSettings = settings.First<Setting>();
                     mainSettings.Application = settingToSet.Application;
                     mainSettings.Username = settingToSet.Username;
+                    mainSettings.UserID = settingToSet.UserID;
                     mainSettings.ProfilePicture = settingToSet.ProfilePicture;
                     mainSettings.GlobalCooldown = settingToSet.GlobalCooldown;
                     mainSettings.GlobalCooldownUnit = settingToSet.GlobalCooldownUnit;

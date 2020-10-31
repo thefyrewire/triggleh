@@ -15,6 +15,12 @@ namespace Triggleh
         public string Username { get; set; }
 
         [MaxLength]
+        public string UserID { get; set; }
+
+        [MaxLength(24)]
+        public string TrigglehToken { get; set; }
+
+        [MaxLength]
         public string ProfilePicture { get; set; }
 
         [Required]

@@ -8,12 +8,15 @@ using Newtonsoft.Json;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
+using TwitchLib.PubSub;
+using TwitchLib.PubSub.Events;
 
 namespace Triggleh
 {
     class Bot
     {
         private readonly TwitchClient client;
+        private readonly TwitchPubSub pubsub;
 
         private readonly ModelRepository repository = new ModelRepository();
 
@@ -33,6 +36,8 @@ namespace Triggleh
             client.OnMessageReceived += Client_OnMessageReceived;
 
             client.Connect();
+
+            pubsub = new TwitchPubSub();
         }
 
         // TWITCHLIB - for chat
@@ -230,6 +235,39 @@ namespace Triggleh
         public bool JoinedChannel(string channel)
         {
             return client.JoinedChannels.Where(c => c.Channel == channel).ToList().Count > 0;
+        }
+
+
+        // TWITCHPUBSUB - for rewards
+
+        public void ConnectToPubSub(string userID)
+        {
+            Console.WriteLine("Connecting to PubSub...");
+            pubsub.OnPubSubServiceConnected += PubSub_OnPubSubServiceConnected;
+            pubsub.OnListenResponse += PubSub_OnListenResponse;
+            pubsub.OnRewardRedeemed += PubSub_OnRewardRedeemed;
+
+            pubsub.ListenToRewards(userID);
+
+            pubsub.Connect();
+        }
+
+        private void PubSub_OnPubSubServiceConnected(object sender, EventArgs e)
+        {
+            pubsub.SendTopics();
+        }
+
+        private void PubSub_OnListenResponse(object sender, OnListenResponseArgs e)
+        {
+            if (e.Successful)
+                Console.WriteLine("Listening to " + e.Topic + " successfully!");
+            else
+                Console.WriteLine("Couldn't start listening to " + e.Topic + "...");
+        }
+
+        private void PubSub_OnRewardRedeemed(object sender, OnRewardRedeemedArgs e)
+        {
+            Console.WriteLine(e.RewardTitle.Trim() + " was redeemed!");
         }
     }
 

@@ -14,6 +14,7 @@ namespace Triggleh
 
         string Application { get; }
         string Username { get; set; }
+        string UserID { get; set; }
         int GlobalCooldown { get; set; }
         int GlobalCooldownUnit { get; set; }
         bool LoggingEnabled { get; set; }

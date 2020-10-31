@@ -16,6 +16,8 @@ namespace Triggleh
         private SettingsPresenter presenter;
         public bool refreshView = false;
 
+        private string userID;
+
         public SettingsForm()
         {
             InitializeComponent();
@@ -40,6 +42,12 @@ namespace Triggleh
         {
             get { return txt_Username.Text; }
             set { txt_Username.Text = value; }
+        }
+
+        public string UserID
+        {
+            get { return userID; }
+            set { userID = value; }
         }
 
         public string ProfilePicture
@@ -74,8 +82,8 @@ namespace Triggleh
 
         public void ShowError(bool showing)
         {
-            if (showing) lbl_Username.ForeColor = Color.Red;
-            else lbl_Username.ForeColor = SystemColors.ControlText;
+            if (showing) lbl_Account.ForeColor = Color.Red;
+            else lbl_Account.ForeColor = SystemColors.ControlText;
         }
 
         public void CloseForm()
@@ -162,7 +170,11 @@ namespace Triggleh
         private void Btn_Login_Click(object sender, EventArgs e)
         {
             LoginForm loginForm = new LoginForm();
-            loginForm.ShowDialog();
+            if (loginForm.ShowDialog() == DialogResult.Cancel)
+            {
+                Username = loginForm.username;
+                UserID = loginForm.user_id;
+            }
         }
     }
 }

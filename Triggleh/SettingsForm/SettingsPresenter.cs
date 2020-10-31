@@ -127,6 +127,7 @@ namespace Triggleh
                 {
                     Application = screen.Application,
                     Username = screen.Username,
+                    UserID = screen.UserID,
                     ProfilePicture = (validate != null) ? validate["profile_image_url"].ToString() : "https://static-cdn.jtvnw.net/jtv_user_pictures/twitch-profile_image-8a8c5be2e3b64a9a-300x300.png",
                     GlobalCooldown = screen.GlobalCooldown,
                     GlobalCooldownUnit = screen.GlobalCooldownUnit,
