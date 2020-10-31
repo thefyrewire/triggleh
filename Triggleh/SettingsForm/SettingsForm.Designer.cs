@@ -72,6 +72,7 @@
             // 
             // btn_SaveSettings
             // 
+            this.btn_SaveSettings.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btn_SaveSettings.Location = new System.Drawing.Point(357, 214);
             this.btn_SaveSettings.Name = "btn_SaveSettings";
             this.btn_SaveSettings.Size = new System.Drawing.Size(98, 43);

@@ -36,6 +36,12 @@ namespace Triggleh
             get { return txt_TriggerName.Text; }
         }
 
+        public string RewardName
+        {
+            set { txt_RewardName.Text = value; }
+            get { return txt_RewardName.Text; }
+        }
+
         public bool BitsEnabled
         {
             set { chk_Bits.Checked = value; }
@@ -209,9 +215,12 @@ namespace Triggleh
             CharAnimTriggerKeyChar = "None";
             CharAnimTriggerKeyValue = -1;
             Cooldown = 30;
-            CooldownUnit = 0;
+            CooldownUnit = (int) CooldownUnits.Seconds;
+            RewardName = "";
             LastTriggered = "Never";
             ResetButtonVisible(false);
+
+            DisableAsReward();
 
             ShowChangesMade(false);
         }
@@ -309,7 +318,13 @@ namespace Triggleh
             Cooldown = trigger.Cooldown;
             CooldownUnit = trigger.CooldownUnit;
             LastTriggered = (trigger.LastTriggered == DateTime.MinValue) ? "Never" : trigger.LastTriggered.ToString();
+            RewardName = trigger.RewardName;
             ResetButtonVisible(trigger.LastTriggered != DateTime.MinValue);
+
+            if (!String.IsNullOrEmpty(RewardName))
+                EnableAsReward();
+            else
+                DisableAsReward();
 
             ShowChangesMade(false);
         }
@@ -355,6 +370,9 @@ namespace Triggleh
                     break;
                 case "chat":
                     lbl = lbl_ChatStatus;
+                    break;
+                case "rewardname":
+                    lbl = lbl_RewardName;
                     break;
             }
 
@@ -403,15 +421,24 @@ namespace Triggleh
         {
             SettingsForm f1 = new SettingsForm();
             new SettingsPresenter(f1);
-            f1.ShowDialog();
-            presenter.LoadFromSettings();
+
+            if (f1.ShowDialog() != DialogResult.OK)
+                return;
+
+            if (f1.connectToChat)
+            {
+                Console.WriteLine("Understood, I'm going to connect to chat + PubSub now");
+                presenter.LoadFromSettings();
+            }
+            else Console.WriteLine("Settings saved... but wasn't told to reconnect to chat.");
+
             RefreshCharAnimStatus();
 
             if (f1.refreshView)
             {
                 Console.WriteLine("Force updating view");
                 presenter.ForceUpdateView();
-            } 
+            }
         }
 
         public void SetProfilePicture(string url)
@@ -486,6 +513,30 @@ namespace Triggleh
         public void ShowContextMenu()
         {
             cms_Triggleh.Show();
+        }
+
+        public void EnableAsReward()
+        {
+            BitsEnabled = false;
+            chk_Bits.Enabled = false;
+
+            UserLevelEveryone = true;
+            chk_ULEveryone.Enabled = false;
+
+            Cooldown = 0;
+            CooldownUnit = (int) CooldownUnits.Seconds;
+            nud_Cooldown.Enabled = false;
+            cmb_CooldownUnit.Enabled = false;
+        }
+
+        public void DisableAsReward()
+        {
+            chk_Bits.Enabled = true;
+
+            chk_ULEveryone.Enabled = true;
+
+            nud_Cooldown.Enabled = true;
+            cmb_CooldownUnit.Enabled = true;
         }
 
         private void Chk_Bits_CheckedChanged(object sender, EventArgs e)
@@ -610,6 +661,11 @@ namespace Triggleh
         private void Tsmi_Exit_Click(object sender, EventArgs e)
         {
             Dispose(true);
+        }
+
+        private void Txt_RewardName_KeyUp(object sender, KeyEventArgs e)
+        {
+            presenter.Txt_RewardName_KeyUp();
         }
     }
 }

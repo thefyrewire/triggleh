@@ -37,7 +37,8 @@ namespace Triggleh
                     CharAnimTriggerKeyChar = trigger.CharAnimTriggerKeyChar,
                     CharAnimTriggerKeyValue = trigger.CharAnimTriggerKeyValue,
                     Cooldown = trigger.Cooldown,
-                    CooldownUnit = trigger.CooldownUnit
+                    CooldownUnit = trigger.CooldownUnit,
+                    RewardName = trigger.RewardName
             });
 
                 context.SaveChanges();
@@ -80,6 +81,7 @@ namespace Triggleh
                 triggerToUpdate.CharAnimTriggerKeyValue = triggerData.CharAnimTriggerKeyValue;
                 triggerToUpdate.Cooldown = triggerData.Cooldown;
                 triggerToUpdate.CooldownUnit = triggerData.CooldownUnit;
+                triggerToUpdate.RewardName = triggerData.RewardName;
 
                 // need to ensure trigger is updated
                 context.SaveChanges();

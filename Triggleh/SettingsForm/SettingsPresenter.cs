@@ -35,14 +35,16 @@ namespace Triggleh
             if (settings == null)
             {
                 screen.Username = "";
+                screen.UserID = "";
                 screen.GlobalCooldown = 0;
-                screen.GlobalCooldownUnit = 0;
+                screen.GlobalCooldownUnit = (int) CooldownUnits.Seconds;
                 screen.LoggingEnabled = true;
                 return;
             }
             else
             {
                 screen.Username = settings.Username;
+                screen.UserID = settings.UserID;
                 screen.GlobalCooldown = settings.GlobalCooldown;
                 screen.GlobalCooldownUnit = settings.GlobalCooldownUnit;
                 screen.LoggingEnabled = settings.LoggingEnabled;

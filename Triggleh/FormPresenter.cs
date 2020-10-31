@@ -144,6 +144,13 @@ namespace Triggleh
             }
             else screen.ShowError("chtrigger", false);
 
+            if (screen.RewardName.Length > 45)
+            {
+                screen.ShowError("rewardname", true);
+                valid = false;
+            }
+            else screen.ShowError("rewardname", false);
+
             return valid;
         }
 
@@ -163,7 +170,8 @@ namespace Triggleh
                 CharAnimTriggerKeyChar = screen.CharAnimTriggerKeyChar,
                 CharAnimTriggerKeyValue = screen.CharAnimTriggerKeyValue,
                 Cooldown = screen.Cooldown,
-                CooldownUnit = screen.CooldownUnit
+                CooldownUnit = screen.CooldownUnit,
+                RewardName = screen.RewardName.Trim()
             };
 
             Trigger triggerExists = repository.GetTriggerByName(screen.TriggerName.Trim());
@@ -308,5 +316,15 @@ namespace Triggleh
         {
             screen.NotifyIconVisible = false;
         }*/
+
+        public void Txt_RewardName_KeyUp()
+        {
+            if (!String.IsNullOrEmpty(screen.RewardName.Trim()))
+                screen.EnableAsReward();
+            else
+                screen.DisableAsReward();
+
+            screen.ShowChangesMade(true);
+        }
     }
 }

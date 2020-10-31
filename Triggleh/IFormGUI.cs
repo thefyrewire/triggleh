@@ -11,6 +11,7 @@ namespace Triggleh
         void Register(FormPresenter FM);
         void InitialiseForm();
         string TriggerName { get; set; }
+        string RewardName { get; set; }
         bool BitsEnabled { get; set; }
         int BitsCondition { get; set; }
         bool BitsConditionEnabled { get; set; }
@@ -69,5 +70,8 @@ namespace Triggleh
         void ResetButtonVisible(bool showing);
 
         void ShowChangesMade(bool showing);
+
+        void EnableAsReward();
+        void DisableAsReward();
     }
 }

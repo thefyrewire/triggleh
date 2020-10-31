@@ -268,6 +268,33 @@ namespace Triggleh
         private void PubSub_OnRewardRedeemed(object sender, OnRewardRedeemedArgs e)
         {
             Console.WriteLine(e.RewardTitle.Trim() + " was redeemed!");
+
+            Setting settings = repository.LoadSettings();
+
+            if (String.IsNullOrEmpty(settings.Application))
+            {
+                Console.WriteLine("is there any point?");
+                return;
+            }
+
+            List<Trigger> triggers = repository.GetTriggers().Where(trigger => !String.IsNullOrEmpty(trigger.RewardName)).ToList<Trigger>();
+            foreach (Trigger trigger in triggers)
+            {
+                if (trigger.RewardName != e.RewardTitle.Trim())
+                    continue;
+
+                Console.WriteLine("matched!!");
+                SendKeystroke.Send(settings.Application, trigger.CharAnimTriggerKeyValue);
+
+                DateTime triggeredAt = DateTime.Now;
+
+                repository.UpdateTriggerUsage(trigger.Name, triggeredAt);
+
+                BotTriggeredArgs args = new BotTriggeredArgs { TriggeredAt = triggeredAt };
+                BotTriggered?.Invoke(this, args);
+
+                if (settings.LoggingEnabled) Logger.Write($"{trigger.Name} (REWARD: {e.RewardTitle.Trim()})", e.DisplayName, e.RewardCost, e.Message);
+            }
         }
     }
 

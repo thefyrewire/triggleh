@@ -61,5 +61,9 @@ namespace Triggleh
         public int CooldownUnit { get; set; }
 
         public DateTime LastTriggered { get; set; }
+
+
+        [MaxLength(45)]
+        public string RewardName { get; set; }
     }
 }

@@ -15,6 +15,7 @@ namespace Triggleh
     {
         private SettingsPresenter presenter;
         public bool refreshView = false;
+        public bool connectToChat = false;
 
         private string userID;
 
@@ -174,6 +175,7 @@ namespace Triggleh
             {
                 Username = loginForm.username;
                 UserID = loginForm.user_id;
+                connectToChat = true;
             }
         }
     }
