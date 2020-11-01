@@ -179,6 +179,7 @@
             // 
             // btn_Import
             // 
+            this.btn_Import.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btn_Import.Location = new System.Drawing.Point(125, 231);
             this.btn_Import.Name = "btn_Import";
             this.btn_Import.Size = new System.Drawing.Size(89, 26);
@@ -205,6 +206,8 @@
             // 
             // txt_Username
             // 
+            this.txt_Username.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.txt_Username.Enabled = false;
             this.txt_Username.Location = new System.Drawing.Point(193, 80);
             this.txt_Username.MaxLength = 25;
             this.txt_Username.Name = "txt_Username";

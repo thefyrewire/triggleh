@@ -88,6 +88,12 @@ namespace Triggleh
             }
         }
 
+        private Trigger PatchTrigger(Trigger trigger)
+        {
+            trigger.RewardName = trigger.RewardName ?? "";
+            return trigger;
+        }
+
         public void RemoveTrigger(string triggerName)
         {
             using (Model context = new Model())
@@ -135,6 +141,17 @@ namespace Triggleh
             }
         }
 
+        public void ImportTriggers(List<Trigger> triggers)
+        {
+            using (Model context = new Model())
+            {
+                List<Trigger> patchedTriggers = triggers.Select(trigger => PatchTrigger(trigger)).ToList<Trigger>();
+                context.Triggers.RemoveRange(context.Triggers);
+                context.Triggers.AddRange(patchedTriggers);
+                context.SaveChanges();
+            }
+        }
+
 
         // SETTINGS
 
@@ -178,16 +195,6 @@ namespace Triggleh
                     mainSettings.LoggingEnabled = settingToSet.LoggingEnabled;
                 }
 
-                context.SaveChanges();
-            }
-        }
-
-        public void ImportTriggers(List<Trigger> triggers)
-        {
-            using (Model context = new Model())
-            {
-                context.Triggers.RemoveRange(context.Triggers);
-                context.Triggers.AddRange(triggers);
                 context.SaveChanges();
             }
         }
