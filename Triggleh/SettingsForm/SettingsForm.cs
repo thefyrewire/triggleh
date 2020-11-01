@@ -133,6 +133,12 @@ namespace Triggleh
             return data;
         }
 
+        public string ShowImportConfirmation()
+        {
+            DialogResult dialogResult = MessageBox.Show("Would you like to replace all existing triggers?", "Importing triggers...", MessageBoxButtons.YesNoCancel);
+            return dialogResult.ToString();
+        }
+
         public void SetRefreshView(bool refresh)
         {
             refreshView = refresh;

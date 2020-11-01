@@ -90,6 +90,17 @@ namespace Triggleh
 
         private Trigger PatchTrigger(Trigger trigger)
         {
+            Trigger triggerExists = GetTriggerByName(trigger.Name);
+            if (triggerExists != null)
+            {
+                int i = 1;
+                while (GetTriggerByName(trigger.Name) != null)
+                {
+                    trigger.Name = $"{triggerExists.Name}_{i}";
+                    i++;
+                }
+            }
+            
             trigger.RewardName = trigger.RewardName ?? "";
             return trigger;
         }
@@ -146,7 +157,6 @@ namespace Triggleh
             using (Model context = new Model())
             {
                 List<Trigger> patchedTriggers = triggers.Select(trigger => PatchTrigger(trigger)).ToList<Trigger>();
-                context.Triggers.RemoveRange(context.Triggers);
                 context.Triggers.AddRange(patchedTriggers);
                 context.SaveChanges();
             }

@@ -172,9 +172,18 @@ namespace Triggleh
         {
             string data = screen.ShowImportFileDialog();
             List<Trigger> triggers = JsonConvert.DeserializeObject<List<Trigger>>(data);
-            repository.ImportTriggers(triggers);
-            screen.SetRefreshView(true);
-            screen.CloseForm();
+
+            string replaceTriggers = screen.ShowImportConfirmation();
+
+            if (replaceTriggers == "Yes" || replaceTriggers == "No")
+            {
+                if (replaceTriggers == "Yes")
+                    repository.ResetDatabase(); // clear all triggers first
+
+                repository.ImportTriggers(triggers);
+                screen.SetRefreshView(true);
+                screen.CloseForm();
+            }
         }
     }
 }

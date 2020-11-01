@@ -29,5 +29,6 @@ namespace Triggleh
         void ShowExportFileDialog(string data);
         string ShowImportFileDialog();
         void SetRefreshView(bool refresh);
+        string ShowImportConfirmation();
     }
 }
