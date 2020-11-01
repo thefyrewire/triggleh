@@ -9,7 +9,7 @@ namespace Triggleh
     public static class Globals
     {
         public static readonly string HOST = "thefyrewire.com";
-        public static readonly string AUTH_URL = "https://" + HOST + "/auth/triggleh?force_verify=true";
+        public static readonly string AUTH_URL_TWITCH = "https://" + HOST + "/auth/triggleh/twitch?force_verify=true";
     }
 
     public enum CooldownUnits : int

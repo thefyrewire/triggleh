@@ -130,7 +130,7 @@ namespace Triggleh
             }
             else screen.ShowError("userlevel", false);
 
-            if (screen.GetKeywords().Length <= 2 && screen.BitsAmount1 == 0) // []
+            if (screen.GetKeywords() == "[]" && screen.BitsAmount1 == 0 && String.IsNullOrEmpty(screen.RewardName))
             {
                 screen.ShowValidationError(true);
                 valid = false;

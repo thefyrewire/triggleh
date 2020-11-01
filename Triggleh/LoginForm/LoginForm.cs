@@ -35,7 +35,7 @@ namespace Triggleh
         private void LoginForm_Load(object sender, EventArgs e)
         {
             web_TrigglehLogin.Size = new Size(390, 600);
-            web_TrigglehLogin.Navigate(Globals.AUTH_URL);
+            web_TrigglehLogin.Navigate(Globals.AUTH_URL_TWITCH);
         }
 
         /*static void ResponseThread()
