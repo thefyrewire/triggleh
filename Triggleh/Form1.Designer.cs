@@ -185,6 +185,8 @@
             // 
             // txt_RewardName
             // 
+            this.txt_RewardName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.txt_RewardName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
             this.txt_RewardName.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txt_RewardName.Location = new System.Drawing.Point(447, 30);
             this.txt_RewardName.MaxLength = 45;
@@ -382,6 +384,8 @@
             // 
             // txt_Keywords
             // 
+            this.txt_Keywords.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.txt_Keywords.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
             this.txt_Keywords.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txt_Keywords.Location = new System.Drawing.Point(143, 160);
             this.txt_Keywords.Name = "txt_Keywords";
@@ -476,6 +480,8 @@
             // 
             // txt_TriggerName
             // 
+            this.txt_TriggerName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.txt_TriggerName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
             this.txt_TriggerName.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txt_TriggerName.Location = new System.Drawing.Point(143, 30);
             this.txt_TriggerName.Name = "txt_TriggerName";
@@ -642,10 +648,12 @@
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Triggleh v1.3.0 by thefyrewire (@MikeyHay)";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Triggers)).EndInit();
             this.tab_TriggerDetails.ResumeLayout(false);

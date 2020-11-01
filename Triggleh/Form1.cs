@@ -667,5 +667,17 @@ namespace Triggleh
         {
             presenter.Txt_RewardName_KeyUp();
         }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Modifiers == Keys.Control && e.KeyCode == Keys.S)
+            {
+                presenter.Btn_SaveTrigger_Click();
+            }
+            else if (e.Modifiers == Keys.Control && e.KeyCode == Keys.N)
+            {
+                presenter.Btn_AddTrigger_Click();
+            }
+        }
     }
 }
