@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             this.web_TrigglehLogin = new Microsoft.Toolkit.Forms.UI.Controls.WebView();
             ((System.ComponentModel.ISupportInitialize)(this.web_TrigglehLogin)).BeginInit();
             this.SuspendLayout();
@@ -49,6 +50,7 @@
             this.ClientSize = new System.Drawing.Size(432, 553);
             this.Controls.Add(this.web_TrigglehLogin);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
