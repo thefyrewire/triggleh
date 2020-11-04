@@ -61,7 +61,7 @@ namespace Triggleh
                 return;
 
             NameValueCollection parameters = HttpUtility.ParseQueryString(e.Uri.Query);
-            username = parameters.Get("username");
+            username = parameters.Get("user_name");
             user_id = parameters.Get("user_id");
         }
     }

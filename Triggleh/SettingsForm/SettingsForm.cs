@@ -135,7 +135,7 @@ namespace Triggleh
 
         public string ShowImportConfirmation()
         {
-            DialogResult dialogResult = MessageBox.Show("Would you like to replace all existing triggers?", "Importing triggers...", MessageBoxButtons.YesNoCancel);
+            DialogResult dialogResult = MessageBox.Show("Would you like to replace all existing triggers?\n\nSelecting no will merge in new triggers.", "Importing triggers...", MessageBoxButtons.YesNoCancel);
             return dialogResult.ToString();
         }
 

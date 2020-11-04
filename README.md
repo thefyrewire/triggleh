@@ -2,7 +2,7 @@
 
 > Like Scribbleh, but Triggleh.
 
-A small app I threw together that allows chat to interact with character streamers. You can set up specific conditions for triggers to activate! This can provide sub-only incentives and reward subs with fun ways to affect the stream, increasing viewer interaction and bit revenue as a whole.
+A small app I threw together that allows chat to interact with character streamers. You can set up specific conditions for triggers to activate! This can provide sub-only incentives and reward subs with fun ways to affect the stream, increasing viewer interaction and possibly even bit revenue as a whole.
 
 Click below for a video demonstration of Triggleh, brought to you by the sexiest dog on Twitch, Cazzler (and Bradley).
 
@@ -15,6 +15,11 @@ Click below for a video demonstration of Triggleh, brought to you by the sexiest
 * Monthly logs to see which triggers are most popular and create the most revenue
 
 ## Options
+
+### Reward
+Enter the name (case-sensitive) of a Twitch channel point reward here to have the trigger activate when someone redeems the reward on Twitch. When a reward name is entered, bits and user levels cannot be specified (as rewards are currently redeemable by everyone via Twitch). Cooldowns are also disabled in Triggleh, but you can set a cooldown for the reward in Twitch's reward settings.
+
+You can still specify keywords if you want the trigger to be activated using the text input of a reward. For instance, you can create multiple triggers that use the same reward, but each only play when the user enters a specific word in their redemption message.
 
 ### Bits
 Add a condition that means it only triggers when someone cheers. There are four condition types:
@@ -41,7 +46,7 @@ Specific keywords that can be used to activate the trigger. There are three type
 * Command
 
 ##### Regular
-A regular keyword trigger is just a plain old word. If this message is detected in chat and passes all the other conditions, then the trigger is activated. I recommend only using these in conjunction with the bits condition, to reduce the chances of accidental activation.
+A regular keyword trigger is just a plain old word. If this message is detected in chat and passes all the other conditions, then the trigger is activated. It's recommended only using these in conjunction with the bits condition, to reduce the chances of accidental activation.
 
 ##### Hashtag
 Hashtag keywords are essentially the same, but require the message to contain a hashtag. This might provide a more memorable and controlled experience for your viewers. For example, you may have a variety of costumes that are available to trigger and using a hashtag in your cheer message selects a certain outfit.
@@ -61,7 +66,7 @@ This is the keystroke that is sent to Character Animator if a message from chat 
 ## Installation
 * Download the [latest release](https://github.com/thefyrewire/triggleh/releases).
 * Unzip it somewhere and run.
-* In Settings, add your Twitch username to connect it to your chat and select the target application (if it isn't running yet, start it and refresh the list). You only need to do this once. From now on, when starting Triggleh, it will automatically connect to your chat and attempt to detect the application.
+* In Settings, log in with Twitch to connect it to your chat and select the target application (if it isn't running yet, start it and refresh the list). You only need to do this once. From now on, when starting Triggleh, it will automatically connect to your chat and attempt to detect the application.
 * Start creating triggers!
 
 ## Links
@@ -72,13 +77,13 @@ This is the keystroke that is sent to Character Animator if a message from chat 
 ### Special Thanks
 
 #### Cazzler
-* [Twitter](https://twitter.com/mrcazzler)
+* [Twitter](https://twitter.com/_Cazzler)
 * [Twitch](https://twitch.tv/cazzler)
 
 #### Scribbleh
-* [Twitter](https://twitter.com/scribbleh)
-* [Twitch](https://twitch.tv/scribbleh)
+* [Twitter](https://twitter.com/ScribsActually)
+* [Twitch](https://twitch.tv/scribs)
 
 #### Grif_N_More
 * [Twitter](https://twitter.com/GrifNMore)
-* [Twitch](https://twitch.tv/grif_n_more)
+* [Twitch](https://twitch.tv/GrifNMore)
