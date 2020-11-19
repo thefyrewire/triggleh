@@ -39,6 +39,9 @@ namespace Triggleh
         public bool UserLevelSubs { get; set; }
 
         [Required]
+        public bool UserLevelVips { get; set; }
+
+        [Required]
         public bool UserLevelMods { get; set; }
 
 

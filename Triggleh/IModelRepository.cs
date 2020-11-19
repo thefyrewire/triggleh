@@ -10,7 +10,7 @@ namespace Triggleh
     {
         void ResetDatabase();
 
-        void AddTrigger(string Name, bool BitsEnabled, int BitsCondition, int BitsAmount, int BitsAmount2, bool UserLevelEveryone, bool UserLevelSubs, bool UserLevelMods, List<string> Keywords, string CharAnimTriggerKeyChar, int CharAnimTriggerKeyValue, int Cooldown, int CooldownUnit);
+        void AddTrigger(string Name, bool BitsEnabled, int BitsCondition, int BitsAmount, int BitsAmount2, bool UserLevelEveryone, bool UserLevelSubs, bool UserLevelVips, bool UserLevelMods, List<string> Keywords, string CharAnimTriggerKeyChar, int CharAnimTriggerKeyValue, int Cooldown, int CooldownUnit);
         List<Trigger> GetTriggers();
         Trigger GetTriggerByName(string triggerName);
         void UpdateTrigger(string triggerName, Trigger triggerData);

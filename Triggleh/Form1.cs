@@ -113,6 +113,17 @@ namespace Triggleh
             get { return chk_ULSubs.Enabled; }
         }
 
+        public bool UserLevelVips
+        {
+            set { chk_ULVips.Checked = value; }
+            get { return chk_ULVips.Checked; }
+        }
+        public bool UserLevelVipsEnabled
+        {
+            set { chk_ULVips.Enabled = value; }
+            get { return chk_ULVips.Enabled; }
+        }
+
         public bool UserLevelMods
         {
             set { chk_ULMods.Checked = value; }
@@ -249,6 +260,8 @@ namespace Triggleh
         {
             UserLevelSubs = false;
             UserLevelSubsEnabled = allowed;
+            UserLevelVips = false;
+            UserLevelVipsEnabled = allowed;
             UserLevelMods = false;
             UserLevelModsEnabled = allowed;
         }
@@ -306,6 +319,7 @@ namespace Triggleh
             UserLevelEveryone = trigger.UserLevelEveryone;
             AllowSubsMods(!trigger.UserLevelEveryone);
             UserLevelSubs = trigger.UserLevelSubs;
+            UserLevelVips = trigger.UserLevelVips;
             UserLevelMods = trigger.UserLevelMods;
 
             ClearKeywords();

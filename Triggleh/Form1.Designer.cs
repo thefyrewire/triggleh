@@ -35,6 +35,7 @@
             this.btn_AddTrigger = new System.Windows.Forms.Button();
             this.tab_TriggerDetails = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.chk_ULMods = new System.Windows.Forms.CheckBox();
             this.txt_RewardName = new System.Windows.Forms.TextBox();
             this.lbl_RewardName = new System.Windows.Forms.Label();
             this.lbl_UnsavedChanges = new System.Windows.Forms.Label();
@@ -58,7 +59,7 @@
             this.btn_AddKeyword = new System.Windows.Forms.Button();
             this.chk_Bits = new System.Windows.Forms.CheckBox();
             this.cmb_Bits = new System.Windows.Forms.ComboBox();
-            this.chk_ULMods = new System.Windows.Forms.CheckBox();
+            this.chk_ULVips = new System.Windows.Forms.CheckBox();
             this.chk_ULSubs = new System.Windows.Forms.CheckBox();
             this.chk_ULEveryone = new System.Windows.Forms.CheckBox();
             this.txt_TriggerName = new System.Windows.Forms.TextBox();
@@ -143,6 +144,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.chk_ULMods);
             this.tabPage1.Controls.Add(this.txt_RewardName);
             this.tabPage1.Controls.Add(this.lbl_RewardName);
             this.tabPage1.Controls.Add(this.lbl_UnsavedChanges);
@@ -166,7 +168,7 @@
             this.tabPage1.Controls.Add(this.btn_AddKeyword);
             this.tabPage1.Controls.Add(this.chk_Bits);
             this.tabPage1.Controls.Add(this.cmb_Bits);
-            this.tabPage1.Controls.Add(this.chk_ULMods);
+            this.tabPage1.Controls.Add(this.chk_ULVips);
             this.tabPage1.Controls.Add(this.chk_ULSubs);
             this.tabPage1.Controls.Add(this.chk_ULEveryone);
             this.tabPage1.Controls.Add(this.txt_TriggerName);
@@ -182,6 +184,18 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Details";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // chk_ULMods
+            // 
+            this.chk_ULMods.AutoSize = true;
+            this.chk_ULMods.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.chk_ULMods.Location = new System.Drawing.Point(462, 118);
+            this.chk_ULMods.Name = "chk_ULMods";
+            this.chk_ULMods.Size = new System.Drawing.Size(74, 27);
+            this.chk_ULMods.TabIndex = 12;
+            this.chk_ULMods.Text = "Mods";
+            this.chk_ULMods.UseVisualStyleBackColor = true;
+            this.chk_ULMods.CheckedChanged += new System.EventHandler(this.FormControls_ChangesMade);
             // 
             // txt_RewardName
             // 
@@ -221,7 +235,7 @@
             this.btn_ResetLastTriggered.Location = new System.Drawing.Point(363, 235);
             this.btn_ResetLastTriggered.Name = "btn_ResetLastTriggered";
             this.btn_ResetLastTriggered.Size = new System.Drawing.Size(74, 23);
-            this.btn_ResetLastTriggered.TabIndex = 18;
+            this.btn_ResetLastTriggered.TabIndex = 19;
             this.btn_ResetLastTriggered.Text = "Reset";
             this.btn_ResetLastTriggered.UseVisualStyleBackColor = true;
             this.btn_ResetLastTriggered.Click += new System.EventHandler(this.Btn_ResetLastTriggered_Click);
@@ -258,7 +272,7 @@
             this.cmb_CooldownUnit.Location = new System.Drawing.Point(224, 205);
             this.cmb_CooldownUnit.Name = "cmb_CooldownUnit";
             this.cmb_CooldownUnit.Size = new System.Drawing.Size(75, 31);
-            this.cmb_CooldownUnit.TabIndex = 17;
+            this.cmb_CooldownUnit.TabIndex = 18;
             this.cmb_CooldownUnit.SelectedIndexChanged += new System.EventHandler(this.FormControls_ChangesMade);
             // 
             // lbl_Cooldown
@@ -275,7 +289,7 @@
             this.nud_Cooldown.Location = new System.Drawing.Point(143, 205);
             this.nud_Cooldown.Name = "nud_Cooldown";
             this.nud_Cooldown.Size = new System.Drawing.Size(75, 30);
-            this.nud_Cooldown.TabIndex = 16;
+            this.nud_Cooldown.TabIndex = 17;
             this.nud_Cooldown.Value = new decimal(new int[] {
             30,
             0,
@@ -299,7 +313,7 @@
             this.btn_SaveTrigger.Location = new System.Drawing.Point(538, 298);
             this.btn_SaveTrigger.Name = "btn_SaveTrigger";
             this.btn_SaveTrigger.Size = new System.Drawing.Size(107, 33);
-            this.btn_SaveTrigger.TabIndex = 20;
+            this.btn_SaveTrigger.TabIndex = 21;
             this.btn_SaveTrigger.Text = "Save";
             this.btn_SaveTrigger.UseVisualStyleBackColor = true;
             this.btn_SaveTrigger.Click += new System.EventHandler(this.Btn_SaveTrigger_Click);
@@ -310,7 +324,7 @@
             this.btn_RecordTrigger.Location = new System.Drawing.Point(143, 266);
             this.btn_RecordTrigger.Name = "btn_RecordTrigger";
             this.btn_RecordTrigger.Size = new System.Drawing.Size(101, 31);
-            this.btn_RecordTrigger.TabIndex = 19;
+            this.btn_RecordTrigger.TabIndex = 20;
             this.btn_RecordTrigger.Text = "Record";
             this.btn_RecordTrigger.UseVisualStyleBackColor = true;
             this.btn_RecordTrigger.Click += new System.EventHandler(this.Btn_RecordTrigger_Click);
@@ -390,7 +404,7 @@
             this.txt_Keywords.Location = new System.Drawing.Point(143, 160);
             this.txt_Keywords.Name = "txt_Keywords";
             this.txt_Keywords.Size = new System.Drawing.Size(207, 30);
-            this.txt_Keywords.TabIndex = 12;
+            this.txt_Keywords.TabIndex = 13;
             this.txt_Keywords.Enter += new System.EventHandler(this.Txt_Keywords_Enter);
             // 
             // btn_RemoveKeyword
@@ -399,7 +413,7 @@
             this.btn_RemoveKeyword.Location = new System.Drawing.Point(447, 160);
             this.btn_RemoveKeyword.Name = "btn_RemoveKeyword";
             this.btn_RemoveKeyword.Size = new System.Drawing.Size(85, 25);
-            this.btn_RemoveKeyword.TabIndex = 14;
+            this.btn_RemoveKeyword.TabIndex = 15;
             this.btn_RemoveKeyword.Text = "Remove";
             this.btn_RemoveKeyword.UseVisualStyleBackColor = true;
             this.btn_RemoveKeyword.Click += new System.EventHandler(this.Btn_RemoveKeyword_Click);
@@ -410,7 +424,7 @@
             this.btn_AddKeyword.Location = new System.Drawing.Point(356, 160);
             this.btn_AddKeyword.Name = "btn_AddKeyword";
             this.btn_AddKeyword.Size = new System.Drawing.Size(85, 25);
-            this.btn_AddKeyword.TabIndex = 13;
+            this.btn_AddKeyword.TabIndex = 14;
             this.btn_AddKeyword.Text = "Add";
             this.btn_AddKeyword.UseVisualStyleBackColor = true;
             this.btn_AddKeyword.Click += new System.EventHandler(this.Btn_AddKeyword_Click);
@@ -442,17 +456,17 @@
             this.cmb_Bits.TabIndex = 6;
             this.cmb_Bits.SelectedIndexChanged += new System.EventHandler(this.Cmb_Bits_SelectedIndexChanged);
             // 
-            // chk_ULMods
+            // chk_ULVips
             // 
-            this.chk_ULMods.AutoSize = true;
-            this.chk_ULMods.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.chk_ULMods.Location = new System.Drawing.Point(363, 118);
-            this.chk_ULMods.Name = "chk_ULMods";
-            this.chk_ULMods.Size = new System.Drawing.Size(74, 27);
-            this.chk_ULMods.TabIndex = 11;
-            this.chk_ULMods.Text = "Mods";
-            this.chk_ULMods.UseVisualStyleBackColor = true;
-            this.chk_ULMods.CheckedChanged += new System.EventHandler(this.FormControls_ChangesMade);
+            this.chk_ULVips.AutoSize = true;
+            this.chk_ULVips.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.chk_ULVips.Location = new System.Drawing.Point(363, 118);
+            this.chk_ULVips.Name = "chk_ULVips";
+            this.chk_ULVips.Size = new System.Drawing.Size(65, 27);
+            this.chk_ULVips.TabIndex = 11;
+            this.chk_ULVips.Text = "VIPs";
+            this.chk_ULVips.UseVisualStyleBackColor = true;
+            this.chk_ULVips.CheckedChanged += new System.EventHandler(this.FormControls_ChangesMade);
             // 
             // chk_ULSubs
             // 
@@ -496,7 +510,7 @@
             this.lst_Keywords.Location = new System.Drawing.Point(538, 160);
             this.lst_Keywords.Name = "lst_Keywords";
             this.lst_Keywords.Size = new System.Drawing.Size(107, 73);
-            this.lst_Keywords.TabIndex = 15;
+            this.lst_Keywords.TabIndex = 16;
             // 
             // lbl_Keywords
             // 
@@ -540,7 +554,7 @@
             this.btn_RemoveTrigger.Location = new System.Drawing.Point(12, 395);
             this.btn_RemoveTrigger.Name = "btn_RemoveTrigger";
             this.btn_RemoveTrigger.Size = new System.Drawing.Size(107, 43);
-            this.btn_RemoveTrigger.TabIndex = 21;
+            this.btn_RemoveTrigger.TabIndex = 22;
             this.btn_RemoveTrigger.Text = "-";
             this.btn_RemoveTrigger.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btn_RemoveTrigger.UseVisualStyleBackColor = true;
@@ -560,7 +574,7 @@
             this.btn_Refresh.Location = new System.Drawing.Point(238, 395);
             this.btn_Refresh.Name = "btn_Refresh";
             this.btn_Refresh.Size = new System.Drawing.Size(82, 43);
-            this.btn_Refresh.TabIndex = 22;
+            this.btn_Refresh.TabIndex = 23;
             this.btn_Refresh.Text = "Refresh";
             this.btn_Refresh.UseVisualStyleBackColor = true;
             this.btn_Refresh.Click += new System.EventHandler(this.Btn_Refresh_Click);
@@ -570,7 +584,7 @@
             this.btn_Settings.Location = new System.Drawing.Point(835, 395);
             this.btn_Settings.Name = "btn_Settings";
             this.btn_Settings.Size = new System.Drawing.Size(82, 43);
-            this.btn_Settings.TabIndex = 23;
+            this.btn_Settings.TabIndex = 24;
             this.btn_Settings.Text = "Settings";
             this.btn_Settings.UseVisualStyleBackColor = true;
             this.btn_Settings.Click += new System.EventHandler(this.Btn_Settings_Click);
@@ -685,7 +699,7 @@
         private System.Windows.Forms.Button btn_AddKeyword;
         private System.Windows.Forms.CheckBox chk_Bits;
         private System.Windows.Forms.ComboBox cmb_Bits;
-        private System.Windows.Forms.CheckBox chk_ULMods;
+        private System.Windows.Forms.CheckBox chk_ULVips;
         private System.Windows.Forms.CheckBox chk_ULSubs;
         private System.Windows.Forms.CheckBox chk_ULEveryone;
         private System.Windows.Forms.TextBox txt_TriggerName;
@@ -719,6 +733,7 @@
         private System.Windows.Forms.ToolStripSeparator tss_1;
         private System.Windows.Forms.TextBox txt_RewardName;
         private System.Windows.Forms.Label lbl_RewardName;
+        private System.Windows.Forms.CheckBox chk_ULMods;
     }
 }
 

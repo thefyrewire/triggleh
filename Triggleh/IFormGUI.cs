@@ -26,6 +26,8 @@ namespace Triggleh
         bool UserLevelEveryone { get; set; }
         bool UserLevelSubs { get; set; }
         bool UserLevelSubsEnabled { get; set; }
+        bool UserLevelVips { get; set; }
+        bool UserLevelVipsEnabled { get; set; }
         bool UserLevelMods { get; set; }
         bool UserLevelModsEnabled { get; set; }
         int AddKeyword(string keyword);

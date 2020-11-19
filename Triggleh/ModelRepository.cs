@@ -32,6 +32,7 @@ namespace Triggleh
                     BitsAmount2 = trigger.BitsAmount2,
                     UserLevelEveryone = trigger.UserLevelEveryone,
                     UserLevelSubs = trigger.UserLevelSubs,
+                    UserLevelVips = trigger.UserLevelVips,
                     UserLevelMods = trigger.UserLevelMods,
                     Keywords = trigger.Keywords,
                     CharAnimTriggerKeyChar = trigger.CharAnimTriggerKeyChar,
@@ -75,6 +76,7 @@ namespace Triggleh
                 triggerToUpdate.BitsAmount2 = triggerData.BitsAmount2;
                 triggerToUpdate.UserLevelEveryone = triggerData.UserLevelEveryone;
                 triggerToUpdate.UserLevelSubs = triggerData.UserLevelSubs;
+                triggerToUpdate.UserLevelVips = triggerData.UserLevelVips;
                 triggerToUpdate.UserLevelMods = triggerData.UserLevelMods;
                 triggerToUpdate.Keywords = triggerData.Keywords;
                 triggerToUpdate.CharAnimTriggerKeyChar = triggerData.CharAnimTriggerKeyChar;
@@ -101,6 +103,7 @@ namespace Triggleh
                 }
             }
             
+            trigger.UserLevelVips = trigger.UserLevelVips ? trigger.UserLevelVips : false;
             trigger.RewardName = trigger.RewardName ?? "";
             return trigger;
         }

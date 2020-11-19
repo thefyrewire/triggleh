@@ -130,7 +130,7 @@ namespace Triggleh
                     continue;
                 };
 
-                if (message.IsBroadcaster == false && (trigger.UserLevelEveryone || (trigger.UserLevelSubs && message.IsSubscriber) || (trigger.UserLevelMods && message.IsModerator)) == false)
+                if (message.IsBroadcaster == false && (trigger.UserLevelEveryone || (trigger.UserLevelSubs && message.IsSubscriber) || (trigger.UserLevelVips && message.IsVip) || (trigger.UserLevelMods && message.IsModerator)) == false)
                 {
                     Console.WriteLine("wrong userlevel");
                     continue;

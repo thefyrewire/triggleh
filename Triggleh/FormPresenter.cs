@@ -123,7 +123,7 @@ namespace Triggleh
             }
             else screen.ShowError("bits", false);
 
-            if (!screen.UserLevelEveryone && !screen.UserLevelSubs && !screen.UserLevelMods)
+            if (!screen.UserLevelEveryone && !screen.UserLevelSubs && !screen.UserLevelVips && !screen.UserLevelMods)
             {
                 screen.ShowError("userlevel", true);
                 valid = false;
@@ -165,6 +165,7 @@ namespace Triggleh
                 BitsAmount2 = screen.BitsAmount2,
                 UserLevelEveryone = screen.UserLevelEveryone,
                 UserLevelSubs = screen.UserLevelSubs,
+                UserLevelVips = screen.UserLevelVips,
                 UserLevelMods = screen.UserLevelMods,
                 Keywords = screen.GetKeywords(),
                 CharAnimTriggerKeyChar = screen.CharAnimTriggerKeyChar,
