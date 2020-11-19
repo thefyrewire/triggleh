@@ -136,7 +136,7 @@ namespace Triggleh
                     continue;
                 };
 
-                if (!PassesKeywordCheck(trigger.Keywords, message.Message)) continue;
+                if (trigger.Keywords != "[]" && !PassesKeywordCheck(trigger.Keywords, message.Message)) continue;
 
                 Console.WriteLine("matched!!");
                 SendKeystroke.Send(settings.Application, trigger.CharAnimTriggerKeyValue);
