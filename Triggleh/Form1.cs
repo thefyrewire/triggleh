@@ -553,6 +553,13 @@ namespace Triggleh
             cmb_CooldownUnit.Enabled = true;
         }
 
+        public void ShowRewardNameHelp()
+        {
+            MessageBox.Show("Enter the case-sensitive Twitch reward name here. When this reward is redeemed, the trigger will be activated.\n\n" +
+                "As rewards can be redeemed by anyone who has enough points, permission and cooldown options are disabled. Twitch offers inbuilt cooldown functionality under the reward settings.\n\n" +
+                "Keywords can still be entered, in case the reward accepts a text input.", "Reward name", MessageBoxButtons.OK, MessageBoxIcon.Question);
+        }
+
         private void Chk_Bits_CheckedChanged(object sender, EventArgs e)
         {
             presenter.Chk_Bits_CheckedChanged();
@@ -692,6 +699,11 @@ namespace Triggleh
             {
                 presenter.Btn_AddTrigger_Click();
             }
+        }
+
+        private void Btn_RewardName_Click(object sender, EventArgs e)
+        {
+            presenter.Btn_RewardName_Click();
         }
     }
 }

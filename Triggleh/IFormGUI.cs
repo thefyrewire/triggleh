@@ -75,5 +75,7 @@ namespace Triggleh
 
         void EnableAsReward();
         void DisableAsReward();
+
+        void ShowRewardNameHelp();
     }
 }

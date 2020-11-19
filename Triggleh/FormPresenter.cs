@@ -327,5 +327,10 @@ namespace Triggleh
 
             screen.ShowChangesMade(true);
         }
+
+        public void Btn_RewardName_Click()
+        {
+            screen.ShowRewardNameHelp();
+        }
     }
 }

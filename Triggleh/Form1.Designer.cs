@@ -35,6 +35,7 @@
             this.btn_AddTrigger = new System.Windows.Forms.Button();
             this.tab_TriggerDetails = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btn_RewardName = new System.Windows.Forms.Button();
             this.chk_ULMods = new System.Windows.Forms.CheckBox();
             this.txt_RewardName = new System.Windows.Forms.TextBox();
             this.lbl_RewardName = new System.Windows.Forms.Label();
@@ -144,6 +145,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.btn_RewardName);
             this.tabPage1.Controls.Add(this.chk_ULMods);
             this.tabPage1.Controls.Add(this.txt_RewardName);
             this.tabPage1.Controls.Add(this.lbl_RewardName);
@@ -177,13 +179,23 @@
             this.tabPage1.Controls.Add(this.lbl_UserLevel);
             this.tabPage1.Controls.Add(this.lbl_Bits);
             this.tabPage1.Controls.Add(this.lbl_TriggerName);
-            this.tabPage1.Location = new System.Drawing.Point(4, 32);
+            this.tabPage1.Location = new System.Drawing.Point(4, 26);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(675, 341);
+            this.tabPage1.Size = new System.Drawing.Size(675, 347);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Details";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // btn_RewardName
+            // 
+            this.btn_RewardName.Location = new System.Drawing.Point(618, 30);
+            this.btn_RewardName.Name = "btn_RewardName";
+            this.btn_RewardName.Size = new System.Drawing.Size(27, 25);
+            this.btn_RewardName.TabIndex = 22;
+            this.btn_RewardName.Text = "?";
+            this.btn_RewardName.UseVisualStyleBackColor = true;
+            this.btn_RewardName.Click += new System.EventHandler(this.Btn_RewardName_Click);
             // 
             // chk_ULMods
             // 
@@ -191,7 +203,7 @@
             this.chk_ULMods.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.chk_ULMods.Location = new System.Drawing.Point(462, 118);
             this.chk_ULMods.Name = "chk_ULMods";
-            this.chk_ULMods.Size = new System.Drawing.Size(74, 27);
+            this.chk_ULMods.Size = new System.Drawing.Size(63, 23);
             this.chk_ULMods.TabIndex = 12;
             this.chk_ULMods.Text = "Mods";
             this.chk_ULMods.UseVisualStyleBackColor = true;
@@ -205,7 +217,7 @@
             this.txt_RewardName.Location = new System.Drawing.Point(447, 30);
             this.txt_RewardName.MaxLength = 45;
             this.txt_RewardName.Name = "txt_RewardName";
-            this.txt_RewardName.Size = new System.Drawing.Size(198, 30);
+            this.txt_RewardName.Size = new System.Drawing.Size(165, 25);
             this.txt_RewardName.TabIndex = 4;
             this.txt_RewardName.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Txt_RewardName_KeyUp);
             // 
@@ -214,7 +226,7 @@
             this.lbl_RewardName.AutoSize = true;
             this.lbl_RewardName.Location = new System.Drawing.Point(375, 31);
             this.lbl_RewardName.Name = "lbl_RewardName";
-            this.lbl_RewardName.Size = new System.Drawing.Size(66, 23);
+            this.lbl_RewardName.Size = new System.Drawing.Size(54, 19);
             this.lbl_RewardName.TabIndex = 20;
             this.lbl_RewardName.Text = "Reward";
             // 
@@ -246,7 +258,7 @@
             this.lbl_LastTriggered.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lbl_LastTriggered.Location = new System.Drawing.Point(305, 217);
             this.lbl_LastTriggered.Name = "lbl_LastTriggered";
-            this.lbl_LastTriggered.Size = new System.Drawing.Size(170, 20);
+            this.lbl_LastTriggered.Size = new System.Drawing.Size(132, 15);
             this.lbl_LastTriggered.TabIndex = 0;
             this.lbl_LastTriggered.Text = "01/01/2000 00:00:00 AM";
             // 
@@ -256,7 +268,7 @@
             this.lbl_LastTriggeredAt.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lbl_LastTriggeredAt.Location = new System.Drawing.Point(305, 202);
             this.lbl_LastTriggeredAt.Name = "lbl_LastTriggeredAt";
-            this.lbl_LastTriggeredAt.Size = new System.Drawing.Size(104, 20);
+            this.lbl_LastTriggeredAt.Size = new System.Drawing.Size(82, 15);
             this.lbl_LastTriggeredAt.TabIndex = 0;
             this.lbl_LastTriggeredAt.Text = "Last triggered:";
             // 
@@ -271,7 +283,7 @@
             "Hours"});
             this.cmb_CooldownUnit.Location = new System.Drawing.Point(224, 205);
             this.cmb_CooldownUnit.Name = "cmb_CooldownUnit";
-            this.cmb_CooldownUnit.Size = new System.Drawing.Size(75, 31);
+            this.cmb_CooldownUnit.Size = new System.Drawing.Size(75, 25);
             this.cmb_CooldownUnit.TabIndex = 18;
             this.cmb_CooldownUnit.SelectedIndexChanged += new System.EventHandler(this.FormControls_ChangesMade);
             // 
@@ -280,7 +292,7 @@
             this.lbl_Cooldown.AutoSize = true;
             this.lbl_Cooldown.Location = new System.Drawing.Point(27, 207);
             this.lbl_Cooldown.Name = "lbl_Cooldown";
-            this.lbl_Cooldown.Size = new System.Drawing.Size(87, 23);
+            this.lbl_Cooldown.Size = new System.Drawing.Size(71, 19);
             this.lbl_Cooldown.TabIndex = 0;
             this.lbl_Cooldown.Text = "Cooldown";
             // 
@@ -288,7 +300,7 @@
             // 
             this.nud_Cooldown.Location = new System.Drawing.Point(143, 205);
             this.nud_Cooldown.Name = "nud_Cooldown";
-            this.nud_Cooldown.Size = new System.Drawing.Size(75, 30);
+            this.nud_Cooldown.Size = new System.Drawing.Size(75, 25);
             this.nud_Cooldown.TabIndex = 17;
             this.nud_Cooldown.Value = new decimal(new int[] {
             30,
@@ -303,7 +315,7 @@
             this.lbl_ValidationError.AutoSize = true;
             this.lbl_ValidationError.Location = new System.Drawing.Point(140, 312);
             this.lbl_ValidationError.Name = "lbl_ValidationError";
-            this.lbl_ValidationError.Size = new System.Drawing.Size(356, 23);
+            this.lbl_ValidationError.Size = new System.Drawing.Size(286, 19);
             this.lbl_ValidationError.TabIndex = 0;
             this.lbl_ValidationError.Text = "Need at least either a single bit or a keyword!";
             this.lbl_ValidationError.Visible = false;
@@ -334,7 +346,7 @@
             this.lbl_CHTriggerKey.AutoSize = true;
             this.lbl_CHTriggerKey.Location = new System.Drawing.Point(262, 272);
             this.lbl_CHTriggerKey.Name = "lbl_CHTriggerKey";
-            this.lbl_CHTriggerKey.Size = new System.Drawing.Size(52, 23);
+            this.lbl_CHTriggerKey.Size = new System.Drawing.Size(42, 19);
             this.lbl_CHTriggerKey.TabIndex = 0;
             this.lbl_CHTriggerKey.Text = "None";
             // 
@@ -351,7 +363,7 @@
             this.nud_Bits2.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.nud_Bits2.Location = new System.Drawing.Point(356, 74);
             this.nud_Bits2.Name = "nud_Bits2";
-            this.nud_Bits2.Size = new System.Drawing.Size(64, 30);
+            this.nud_Bits2.Size = new System.Drawing.Size(64, 25);
             this.nud_Bits2.TabIndex = 8;
             this.nud_Bits2.Value = new decimal(new int[] {
             100,
@@ -367,7 +379,7 @@
             this.lbl_BitsInfo2.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lbl_BitsInfo2.Location = new System.Drawing.Point(426, 76);
             this.lbl_BitsInfo2.Name = "lbl_BitsInfo2";
-            this.lbl_BitsInfo2.Size = new System.Drawing.Size(37, 23);
+            this.lbl_BitsInfo2.Size = new System.Drawing.Size(31, 19);
             this.lbl_BitsInfo2.TabIndex = 0;
             this.lbl_BitsInfo2.Text = "bits";
             // 
@@ -377,7 +389,7 @@
             this.lbl_BitsInfo1.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lbl_BitsInfo1.Location = new System.Drawing.Point(320, 76);
             this.lbl_BitsInfo1.Name = "lbl_BitsInfo1";
-            this.lbl_BitsInfo1.Size = new System.Drawing.Size(39, 23);
+            this.lbl_BitsInfo1.Size = new System.Drawing.Size(32, 19);
             this.lbl_BitsInfo1.TabIndex = 0;
             this.lbl_BitsInfo1.Text = "and";
             // 
@@ -386,7 +398,7 @@
             this.nud_Bits1.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.nud_Bits1.Location = new System.Drawing.Point(250, 73);
             this.nud_Bits1.Name = "nud_Bits1";
-            this.nud_Bits1.Size = new System.Drawing.Size(64, 30);
+            this.nud_Bits1.Size = new System.Drawing.Size(64, 25);
             this.nud_Bits1.TabIndex = 7;
             this.nud_Bits1.Value = new decimal(new int[] {
             100,
@@ -403,7 +415,7 @@
             this.txt_Keywords.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txt_Keywords.Location = new System.Drawing.Point(143, 160);
             this.txt_Keywords.Name = "txt_Keywords";
-            this.txt_Keywords.Size = new System.Drawing.Size(207, 30);
+            this.txt_Keywords.Size = new System.Drawing.Size(207, 25);
             this.txt_Keywords.TabIndex = 13;
             this.txt_Keywords.Enter += new System.EventHandler(this.Txt_Keywords_Enter);
             // 
@@ -435,7 +447,7 @@
             this.chk_Bits.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.chk_Bits.Location = new System.Drawing.Point(143, 80);
             this.chk_Bits.Name = "chk_Bits";
-            this.chk_Bits.Size = new System.Drawing.Size(18, 17);
+            this.chk_Bits.Size = new System.Drawing.Size(15, 14);
             this.chk_Bits.TabIndex = 5;
             this.chk_Bits.UseVisualStyleBackColor = true;
             this.chk_Bits.CheckedChanged += new System.EventHandler(this.Chk_Bits_CheckedChanged);
@@ -452,7 +464,7 @@
             "Between"});
             this.cmb_Bits.Location = new System.Drawing.Point(167, 73);
             this.cmb_Bits.Name = "cmb_Bits";
-            this.cmb_Bits.Size = new System.Drawing.Size(77, 31);
+            this.cmb_Bits.Size = new System.Drawing.Size(77, 25);
             this.cmb_Bits.TabIndex = 6;
             this.cmb_Bits.SelectedIndexChanged += new System.EventHandler(this.Cmb_Bits_SelectedIndexChanged);
             // 
@@ -462,7 +474,7 @@
             this.chk_ULVips.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.chk_ULVips.Location = new System.Drawing.Point(363, 118);
             this.chk_ULVips.Name = "chk_ULVips";
-            this.chk_ULVips.Size = new System.Drawing.Size(65, 27);
+            this.chk_ULVips.Size = new System.Drawing.Size(55, 23);
             this.chk_ULVips.TabIndex = 11;
             this.chk_ULVips.Text = "VIPs";
             this.chk_ULVips.UseVisualStyleBackColor = true;
@@ -474,7 +486,7 @@
             this.chk_ULSubs.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.chk_ULSubs.Location = new System.Drawing.Point(266, 118);
             this.chk_ULSubs.Name = "chk_ULSubs";
-            this.chk_ULSubs.Size = new System.Drawing.Size(68, 27);
+            this.chk_ULSubs.Size = new System.Drawing.Size(57, 23);
             this.chk_ULSubs.TabIndex = 10;
             this.chk_ULSubs.Text = "Subs";
             this.chk_ULSubs.UseVisualStyleBackColor = true;
@@ -486,7 +498,7 @@
             this.chk_ULEveryone.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.chk_ULEveryone.Location = new System.Drawing.Point(143, 118);
             this.chk_ULEveryone.Name = "chk_ULEveryone";
-            this.chk_ULEveryone.Size = new System.Drawing.Size(101, 27);
+            this.chk_ULEveryone.Size = new System.Drawing.Size(84, 23);
             this.chk_ULEveryone.TabIndex = 9;
             this.chk_ULEveryone.Text = "Everyone";
             this.chk_ULEveryone.UseVisualStyleBackColor = true;
@@ -499,17 +511,17 @@
             this.txt_TriggerName.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txt_TriggerName.Location = new System.Drawing.Point(143, 30);
             this.txt_TriggerName.Name = "txt_TriggerName";
-            this.txt_TriggerName.Size = new System.Drawing.Size(207, 30);
+            this.txt_TriggerName.Size = new System.Drawing.Size(207, 25);
             this.txt_TriggerName.TabIndex = 3;
             this.txt_TriggerName.TextChanged += new System.EventHandler(this.FormControls_ChangesMade);
             // 
             // lst_Keywords
             // 
             this.lst_Keywords.FormattingEnabled = true;
-            this.lst_Keywords.ItemHeight = 23;
+            this.lst_Keywords.ItemHeight = 17;
             this.lst_Keywords.Location = new System.Drawing.Point(538, 160);
             this.lst_Keywords.Name = "lst_Keywords";
-            this.lst_Keywords.Size = new System.Drawing.Size(107, 73);
+            this.lst_Keywords.Size = new System.Drawing.Size(107, 72);
             this.lst_Keywords.TabIndex = 16;
             // 
             // lbl_Keywords
@@ -517,7 +529,7 @@
             this.lbl_Keywords.AutoSize = true;
             this.lbl_Keywords.Location = new System.Drawing.Point(26, 163);
             this.lbl_Keywords.Name = "lbl_Keywords";
-            this.lbl_Keywords.Size = new System.Drawing.Size(82, 23);
+            this.lbl_Keywords.Size = new System.Drawing.Size(68, 19);
             this.lbl_Keywords.TabIndex = 0;
             this.lbl_Keywords.Text = "Keywords";
             // 
@@ -526,7 +538,7 @@
             this.lbl_UserLevel.AutoSize = true;
             this.lbl_UserLevel.Location = new System.Drawing.Point(26, 119);
             this.lbl_UserLevel.Name = "lbl_UserLevel";
-            this.lbl_UserLevel.Size = new System.Drawing.Size(87, 23);
+            this.lbl_UserLevel.Size = new System.Drawing.Size(72, 19);
             this.lbl_UserLevel.TabIndex = 0;
             this.lbl_UserLevel.Text = "User Level";
             // 
@@ -535,7 +547,7 @@
             this.lbl_Bits.AutoSize = true;
             this.lbl_Bits.Location = new System.Drawing.Point(26, 75);
             this.lbl_Bits.Name = "lbl_Bits";
-            this.lbl_Bits.Size = new System.Drawing.Size(37, 23);
+            this.lbl_Bits.Size = new System.Drawing.Size(31, 19);
             this.lbl_Bits.TabIndex = 0;
             this.lbl_Bits.Text = "Bits";
             // 
@@ -544,7 +556,7 @@
             this.lbl_TriggerName.AutoSize = true;
             this.lbl_TriggerName.Location = new System.Drawing.Point(26, 31);
             this.lbl_TriggerName.Name = "lbl_TriggerName";
-            this.lbl_TriggerName.Size = new System.Drawing.Size(56, 23);
+            this.lbl_TriggerName.Size = new System.Drawing.Size(45, 19);
             this.lbl_TriggerName.TabIndex = 0;
             this.lbl_TriggerName.Text = "Name";
             // 
@@ -565,7 +577,7 @@
             this.lbl_CharAnimStatus.AutoSize = true;
             this.lbl_CharAnimStatus.Location = new System.Drawing.Point(326, 405);
             this.lbl_CharAnimStatus.Name = "lbl_CharAnimStatus";
-            this.lbl_CharAnimStatus.Size = new System.Drawing.Size(215, 23);
+            this.lbl_CharAnimStatus.Size = new System.Drawing.Size(173, 19);
             this.lbl_CharAnimStatus.TabIndex = 0;
             this.lbl_CharAnimStatus.Text = "Character Animator found!";
             // 
@@ -604,7 +616,7 @@
             this.lbl_ChatStatus.AutoSize = true;
             this.lbl_ChatStatus.Location = new System.Drawing.Point(647, 405);
             this.lbl_ChatStatus.Name = "lbl_ChatStatus";
-            this.lbl_ChatStatus.Size = new System.Drawing.Size(131, 23);
+            this.lbl_ChatStatus.Size = new System.Drawing.Size(105, 19);
             this.lbl_ChatStatus.TabIndex = 0;
             this.lbl_ChatStatus.Text = "Chat connected";
             // 
@@ -625,25 +637,25 @@
             this.tss_1,
             this.tsmi_Exit});
             this.cms_Triggleh.Name = "cms_Triggleh";
-            this.cms_Triggleh.Size = new System.Drawing.Size(227, 58);
+            this.cms_Triggleh.Size = new System.Drawing.Size(193, 54);
             // 
             // tsmi_CazzTrigControlPanel
             // 
             this.tsmi_CazzTrigControlPanel.Enabled = false;
             this.tsmi_CazzTrigControlPanel.Name = "tsmi_CazzTrigControlPanel";
-            this.tsmi_CazzTrigControlPanel.Size = new System.Drawing.Size(226, 24);
+            this.tsmi_CazzTrigControlPanel.Size = new System.Drawing.Size(192, 22);
             this.tsmi_CazzTrigControlPanel.Text = "CazzTrig Control Panel";
             // 
             // tss_1
             // 
             this.tss_1.Name = "tss_1";
-            this.tss_1.Size = new System.Drawing.Size(223, 6);
+            this.tss_1.Size = new System.Drawing.Size(189, 6);
             // 
             // tsmi_Exit
             // 
             this.tsmi_Exit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tsmi_Exit.Name = "tsmi_Exit";
-            this.tsmi_Exit.Size = new System.Drawing.Size(226, 24);
+            this.tsmi_Exit.Size = new System.Drawing.Size(192, 22);
             this.tsmi_Exit.Text = "Exit";
             this.tsmi_Exit.Click += new System.EventHandler(this.Tsmi_Exit_Click);
             // 
@@ -734,6 +746,7 @@
         private System.Windows.Forms.TextBox txt_RewardName;
         private System.Windows.Forms.Label lbl_RewardName;
         private System.Windows.Forms.CheckBox chk_ULMods;
+        private System.Windows.Forms.Button btn_RewardName;
     }
 }
 
