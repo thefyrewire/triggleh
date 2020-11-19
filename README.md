@@ -36,6 +36,7 @@ Restrict the trigger to a certain user rank:
 
 * Everyone
 * Subscriber
+* VIP
 * Moderator
 
 ### Keywords
@@ -84,6 +85,6 @@ This is the keystroke that is sent to Character Animator if a message from chat 
 * [Twitter](https://twitter.com/ScribsActually)
 * [Twitch](https://twitch.tv/scribs)
 
-#### Grif_N_More
+#### GrifNMore
 * [Twitter](https://twitter.com/GrifNMore)
 * [Twitch](https://twitch.tv/GrifNMore)
