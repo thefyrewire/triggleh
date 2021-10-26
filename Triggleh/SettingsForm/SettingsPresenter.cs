@@ -36,6 +36,7 @@ namespace Triggleh
             {
                 screen.Username = "";
                 screen.UserID = "";
+                screen.ProfilePicture = "https://static-cdn.jtvnw.net/jtv_user_pictures/twitch-profile_image-8a8c5be2e3b64a9a-300x300.png";
                 screen.GlobalCooldown = 0;
                 screen.GlobalCooldownUnit = (int) CooldownUnits.Seconds;
                 screen.LoggingEnabled = true;
@@ -45,6 +46,7 @@ namespace Triggleh
             {
                 screen.Username = settings.Username;
                 screen.UserID = settings.UserID;
+                screen.ProfilePicture = settings.ProfilePicture;
                 screen.GlobalCooldown = settings.GlobalCooldown;
                 screen.GlobalCooldownUnit = settings.GlobalCooldownUnit;
                 screen.LoggingEnabled = settings.LoggingEnabled;
@@ -71,35 +73,19 @@ namespace Triggleh
             MatchCollection matches = regex.Matches(screen.Username.Trim());
             if (matches.Count > 0) return null;
 
-            string token = GetToken();
-
             HttpClient client = new HttpClient();
             HttpRequestMessage request = new HttpRequestMessage()
             {
                 RequestUri = new Uri("https://api.twitch.tv/helix/users?login=" + screen.Username),
                 Method = HttpMethod.Get
             };
-            request.Headers.Add("Client-ID", "gp762nuuoqcoxypju8c569th9wz7q5");
-            request.Headers.Add("Authorization", "Bearer " + token);
+            request.Headers.Add("Client-ID", screen.ClientID);
+            request.Headers.Add("Authorization", "Bearer " + screen.AccessToken);
 
             HttpResponseMessage response = client.SendAsync(request).Result;
             JObject parsed = JObject.Parse(response.Content.ReadAsStringAsync().Result);
 
             return (parsed["data"].Count<JToken>() > 0) ? (JObject) parsed["data"][0] : null;
-        }
-
-        private string GetToken()
-        {
-            HttpClient client = new HttpClient();
-            HttpRequestMessage request = new HttpRequestMessage()
-            {
-                RequestUri = new Uri("https://twitchtokengenerator.com/api/refresh/tdu1bo1vyaesiaghnxk5ezns6p6ttzdegno3h0ci3z3mq1yexq"),
-                Method = HttpMethod.Get
-            };
-            HttpResponseMessage response = client.SendAsync(request).Result;
-            JObject parsed = JObject.Parse(response.Content.ReadAsStringAsync().Result);
-
-            return (string) parsed["token"];
         }
 
         private void RefreshApplications()
@@ -118,29 +104,37 @@ namespace Triggleh
 
         public void Btn_SaveSettings_Click()
         {
-            JObject validate = ValidateSettings();
-            // validate.Wait();
-            if (validate != null || screen.Username.Trim().Length == 0)
+            if (screen.DidAttemptLogin)
             {
-                screen.ShowError(false);
-                screen.Username = (validate != null) ? validate["display_name"].ToString() : "";
-
-                Setting settings = new Setting
+                JObject validate = ValidateSettings();
+                if (validate == null)
                 {
-                    Application = screen.Application,
-                    Username = screen.Username,
-                    UserID = screen.UserID,
-                    ProfilePicture = (validate != null) ? validate["profile_image_url"].ToString() : "https://static-cdn.jtvnw.net/jtv_user_pictures/twitch-profile_image-8a8c5be2e3b64a9a-300x300.png",
-                    GlobalCooldown = screen.GlobalCooldown,
-                    GlobalCooldownUnit = screen.GlobalCooldownUnit,
-                    LoggingEnabled = screen.LoggingEnabled
-                };
-
-                repository.SaveSettings(settings);
-
-                screen.CloseForm();
+                    screen.ShowError(true);
+                    return;
+                }
+                else
+                {
+                    screen.ShowError(false);
+                    screen.Username = validate["display_name"].ToString();
+                    screen.UserID = validate["id"].ToString();
+                    screen.ProfilePicture = validate["profile_image_url"].ToString();
+                }
             }
-            else screen.ShowError(true);
+
+            Setting settings = new Setting
+            {
+                Application = screen.Application,
+                Username = screen.Username,
+                UserID = screen.UserID,
+                ProfilePicture = screen.ProfilePicture,
+                GlobalCooldown = screen.GlobalCooldown,
+                GlobalCooldownUnit = screen.GlobalCooldownUnit,
+                LoggingEnabled = screen.LoggingEnabled
+            };
+
+            repository.SaveSettings(settings);
+
+            screen.CloseForm();
         }
 
         public void Btn_RefreshList_Click()

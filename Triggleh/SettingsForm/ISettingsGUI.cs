@@ -15,6 +15,10 @@ namespace Triggleh
         string Application { get; }
         string Username { get; set; }
         string UserID { get; set; }
+        string ProfilePicture { get; set; }
+        string AccessToken { get; set; }
+        string ClientID { get; set; }
+        bool DidAttemptLogin { get; set; }
         int GlobalCooldown { get; set; }
         int GlobalCooldownUnit { get; set; }
         bool LoggingEnabled { get; set; }

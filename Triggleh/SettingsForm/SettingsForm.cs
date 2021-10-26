@@ -17,6 +17,11 @@ namespace Triggleh
         public bool refreshView = false;
         public bool connectToChat = false;
 
+        public string profilePicture = "https://static-cdn.jtvnw.net/jtv_user_pictures/twitch-profile_image-8a8c5be2e3b64a9a-300x300.png";
+        public string accessToken = "";
+        public string clientId = "";
+        public bool didAttemptLogin = false;
+
         private string userID;
 
         public SettingsForm()
@@ -53,8 +58,26 @@ namespace Triggleh
 
         public string ProfilePicture
         {
-            get { return txt_Username.Text; }
-            set { txt_Username.Text = value; }
+            get { return profilePicture; }
+            set { profilePicture = value; }
+        }
+
+        public string AccessToken
+        {
+            get { return accessToken; }
+            set { accessToken = value; }
+        }
+
+        public string ClientID
+        {
+            get { return clientId; }
+            set { clientId = value; }
+        }
+
+        public bool DidAttemptLogin
+        {
+            get { return didAttemptLogin; }
+            set { didAttemptLogin = value; }
         }
 
         public int GlobalCooldown
@@ -181,7 +204,10 @@ namespace Triggleh
             {
                 Username = loginForm.username;
                 UserID = loginForm.user_id;
+                AccessToken = loginForm.access_token;
+                ClientID = loginForm.client_id;
                 connectToChat = true;
+                DidAttemptLogin = true;
             }
         }
     }

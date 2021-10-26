@@ -21,6 +21,8 @@ namespace Triggleh
         // static HttpListener httpListener = new HttpListener();
         public string username;
         public string user_id;
+        public string access_token;
+        public string client_id;
 
         public LoginForm()
         {
@@ -63,6 +65,8 @@ namespace Triggleh
             NameValueCollection parameters = HttpUtility.ParseQueryString(e.Uri.Query);
             username = parameters.Get("user_name");
             user_id = parameters.Get("user_id");
+            access_token = parameters.Get("access_token");
+            client_id = parameters.Get("client_id");
         }
     }
 }
