@@ -19,8 +19,12 @@ namespace Triggleh
             }
             else
             {
-                Console.WriteLine($"{charAnimProcesses[0].ProcessName} - {charAnimProcesses[0].MainWindowTitle}");
-                SendMessage(charAnimProcesses[0].MainWindowHandle, 0x0104, key, null);
+                foreach (Process process in charAnimProcesses)
+                {
+                    Console.WriteLine($"{process.ProcessName} - {process.MainWindowTitle}");
+                    SendMessage(process.MainWindowHandle, 0x0100, key, null);
+                    SendMessage(process.MainWindowHandle, 0x0101, key, null);
+                }
             }
         }
 
